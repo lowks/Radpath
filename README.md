@@ -21,7 +21,7 @@ After that, run `mix deps.get` from your shell to fetch and compile radpath.
 To list down files in a path:
 
 ```
-    iex(2)> Radpath.files("/home/lowks/Documents")
+   Radpath.files("/home/lowks/Documents")
 
 ```
 
@@ -35,6 +35,6 @@ or if you wanted to filter out pdfs:
 To list down only directories:
 
 ```
-    iex(4)> Radpath.dirs("/home/lowks")                  
+    Radpath.dirs("/home/lowks")                  
 
 ```
