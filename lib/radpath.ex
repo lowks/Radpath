@@ -14,7 +14,7 @@ defmodule Radpath do
   def files(path, ext \\ "None") do
     raw_files = full_path(path) |> Enum.filter(&File.regular?(&1))
     if ext != "None" do
-      raw_files |> Enum.filter(fn(x) -> Path.extname(x) == "." <> ext end)
+      raw_files |> Enum.filter&(Path.extname(&1) == "." <> ext)
     else
       raw_files
     end
