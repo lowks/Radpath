@@ -38,3 +38,10 @@ To list down only directories:
 Radpath.dirs("/home/lowks")                  
 
 ```
+
+To create symlink
+
+```
+Radpath.symlink(source, destination)
+
+```
