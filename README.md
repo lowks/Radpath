@@ -9,7 +9,7 @@ To use Radpath, as usual add a depedency in your mix project
 ``` elixir
     
     def deps do
-        [ { :radpath, github: "lowks/radpath"}]
+        [ { :Radpath, github: "lowks/Radpath"}]
     end
 
 ```
