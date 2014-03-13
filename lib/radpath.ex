@@ -19,6 +19,9 @@ defmodule Radpath do
     end
   end
 
+  @doc """
+  To create symlink: Radpath.symlink(source, destination). Source must exist.
+  """
   def symlink(source, destination) do
      if File.exists?(source) do
        F.make_symlink(source, destination)
