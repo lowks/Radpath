@@ -1,4 +1,5 @@
 defmodule Radpath do
+  alias :file, as: F
   @doc """
   Returns all of the directories in the given path
   """
@@ -16,6 +17,12 @@ defmodule Radpath do
     else
       raw_files
     end
+  end
+
+  def symlink(source, destination) do
+     if File.exists?(source) do
+       F.make_symlink(source, destination)
+     end
   end
 
   defp full_path(path) do
