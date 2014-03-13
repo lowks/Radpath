@@ -4,7 +4,7 @@ defmodule Radpath do
   Returns all of the directories in the given path
   """
   def dirs(path) do
-    full_path(path) |> Enum.filter(fn(x) -> File.dir?(x) end)      
+    full_path(path) |> Enum.filter(&File.dir?(&1))      
   end
 
   @doc """
@@ -12,7 +12,7 @@ defmodule Radpath do
   given will filter by that extname.
   """
   def files(path, ext \\ "None") do
-    raw_files = full_path(path) |> Enum.filter(fn(x) -> File.regular?(x) end)
+    raw_files = full_path(path) |> Enum.filter(&File.regular?(&1))
     if ext != "None" do
       raw_files |> Enum.filter(fn(x) -> Path.extname(x) == "." <> ext end)
     else
