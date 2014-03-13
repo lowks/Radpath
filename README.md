@@ -39,7 +39,7 @@ Radpath.dirs("/home/lowks")
 
 ```
 
-To create symlink
+To create symlink:
 
 ```
 Radpath.symlink(source, destination)
