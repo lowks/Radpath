@@ -15,6 +15,14 @@ end
 
 After that, run `mix deps.get` from your shell to fetch and compile radpath.
 
+## Running Tests
+
+As usual, just run
+
+```
+mix test
+```
+
 ## Docs
 
 To list down files in a path:
