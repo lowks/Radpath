@@ -23,16 +23,17 @@ end
 
 defmodule RadpathTestReal do
   use ExUnit.Case
+  import PathHelpers
 
   import Radpath
   test :test_listing_of_files do
-    files = Radpath.files(".", "exs") |> Enum.map(&Path.basename(&1))
-    assert files == ["mix.exs"]
+    files = Radpath.files(fixture_path, "txt") |> Enum.map(&Path.basename(&1))
+    assert files == ["file1.txt", "file2.txt"]
   end
   
   test :test_listing_of_dirs do
-    dirs = Radpath.dirs("lib") |> Enum.map(&Path.basename(&1))
-    assert dirs == []
+    dirs = Radpath.dirs(fixture_path) |> Enum.map(&Path.basename(&1))
+    assert dirs == ["testdir3", "testdir2", "testdir1"]
   end
 end
 
