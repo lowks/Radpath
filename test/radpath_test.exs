@@ -40,5 +40,31 @@ defmodule RadpathTestReal do
     files = Radpath.files(fixture_path, "log") |> Enum.map(&Path.basename(&1))
     assert files == ["file3.log"]
   end
+
+  test :test_symlink_of_existing_src_dir do
+    src = Path.join(fixture_path, "testdir3")
+    dest = Path.join(Path.expand("."), "testdir3")
+    
+    try do
+      refute File.exists?(dest)
+      Radpath.symlink(src, dest)
+      assert File.exists?(dest)
+    after
+      File.rm_rf dest
+    end
+  end
+  
+  test :test_symlink_of_non_existing_src_dir do
+    src = Path.join(fixture_path, "testdir3xx")
+    dest = Path.join(Path.expand("."), "testdir3")
+    
+    try do
+      refute File.exists?(dest)
+      Radpath.symlink(src, dest)
+      refute File.exists?(dest)
+    after
+      File.rm_rf dest
+    end
+  end
 end
 
