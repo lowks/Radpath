@@ -35,5 +35,10 @@ defmodule RadpathTestReal do
     dirs = Radpath.dirs(fixture_path) |> Enum.map(&Path.basename(&1))
     assert dirs == ["testdir3", "testdir2", "testdir1"]
   end
+
+  test :test_filtering_of_listing_files_listing do
+    files = Radpath.files(fixture_path, "log") |> Enum.map(&Path.basename(&1))
+    assert files == ["file3.log"]
+  end
 end
 
