@@ -24,6 +24,7 @@ end
 defmodule RadpathTestReal do
   use ExUnit.Case
   import PathHelpers
+  alias :file, as: F
 
   import Radpath
   test :test_listing_of_files do
@@ -48,6 +49,7 @@ defmodule RadpathTestReal do
     try do
       refute File.exists?(dest)
       Radpath.symlink(src, dest)
+      assert elem(F.read_link(dest), 0) == :ok
       assert File.exists?(dest)
     after
       File.rm_rf dest
@@ -61,6 +63,7 @@ defmodule RadpathTestReal do
     try do
       refute File.exists?(dest)
       Radpath.symlink(src, dest)
+      assert F.read_link(dest) == {:error, :enoent}
       refute File.exists?(dest)
     after
       File.rm_rf dest
