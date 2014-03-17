@@ -15,6 +15,10 @@ end
 
 After that, run `mix deps.get` from your shell to fetch and compile radpath.
 
+## Status
+
+Project is still actively being developed
+
 ## Running Tests
 
 As usual, just run
