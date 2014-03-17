@@ -1,7 +1,9 @@
 defmodule Radpath do
   alias :file, as: F
+  import Tempfile
+
   @doc """
-  Returns all of the directories in the given path
+  Returns all of the directories in the :qgiven path
   """
   def dirs(path) do
     full_path(path) |> Enum.filter(&File.dir?(&1))      
@@ -29,6 +31,22 @@ defmodule Radpath do
      end
   end
 
+  def mktempfile() do
+    Tempfile.open
+  end
+
+  def mktempfile(ext, path) do
+    tmp_path = Tempfile.get_name("", [ext: ext, path: path])
+    if File.dir?(path) do
+      case File.open(tmp_path, [:write]) do
+        {:ok, filepath} ->
+          {:ok, tmp_path }
+        error ->
+          error
+      end
+    end
+  end
+  
   defp full_path(path) do
     File.ls!(path) |> Enum.map(&Path.expand(&1, path))
   end
