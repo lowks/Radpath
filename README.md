@@ -35,28 +35,24 @@ To list down files in a path:
 
 ```
 Radpath.files("/home/lowks/Documents")
-
 ```
 
 or if you wanted to filter out pdfs:
 
 ```
 Radpath.files("/home/lowks/Documents", "pdf")
-
 ```
 
 To list down only directories:
 
 ```
 Radpath.dirs("/home/lowks")                  
-
 ```
 
 To create symlink:
 
 ```
 Radpath.symlink(source, destination)
-
 ```
 
 To create tempfile:
