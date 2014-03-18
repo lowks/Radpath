@@ -13,4 +13,4 @@ before_script:
     - "export PATH=`pwd`/elixir/bin:$PATH"
     
 script:
-    - "mix test"
+    - "MIX_ENV=test mix test"
