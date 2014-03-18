@@ -31,10 +31,16 @@ defmodule Radpath do
      end
   end
 
+  @doc """
+  To create a temp file without arguments: Radpath.mktemp
+  """
   def mktempfile() do
     Tempfile.open
   end
 
+  @doc """
+  To create a temp file with arguments: Radpath.mktemp(".log", "/home/lowks/Downloads")
+  """
   def mktempfile(ext, path) do
     tmp_path = Tempfile.get_name("", [ext: ext, path: path])
     if File.dir?(path) do
