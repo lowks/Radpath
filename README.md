@@ -1,5 +1,7 @@
 # Radpath
 
+[![Build Status](https://travis-ci.org/lowks/Radpath.png?branch=master)](https://travis-ci.org/lowks/Radpath)
+
 A library for handling paths in Elixir inspired by enhpath in Python.
 
 ## Getting Started
