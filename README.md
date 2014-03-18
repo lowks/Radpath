@@ -56,3 +56,19 @@ To create symlink:
 Radpath.symlink(source, destination)
 
 ```
+
+To create tempfile:
+
+```
+Radpath.mktempfile
+```
+
+This uses all the defaults
+
+To customize the location plus the extension: 
+
+```
+Radpath.mktempfile(".log", "/home/lowks/Documents/temp/")
+```
+
+The default is ".log"
