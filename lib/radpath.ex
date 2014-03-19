@@ -54,13 +54,16 @@ defmodule Radpath do
   end
 
   @doc """
-  To create a temp dir with arguments: Radpath.mktempdir("/home/lowks/Downloads")
+  To create a temp dir without arguments: Radpath.mktempdir
   """
   def mktempdir do
     tmp_path = Tempfile.get_name |> Path.rootname
     do_mkdir(tmp_path)
   end
-  
+
+  @doc """
+  To create a temp dir with arguments: Radpath.mktempdir("/home/lowks/Downloads")
+  """
   def mktempdir(path) when is_bitstring(path) do
     tmp_path = Tempfile.get_name([path: make_into_path(path)]) |> Path.rootname
     do_mkdir(tmp_path)
