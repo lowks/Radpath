@@ -71,7 +71,7 @@ defmodule Radpath do
 
   defp do_mkdir(path) do
     if !File.exists?(path) do
-      IO.puts path
+      File.rm_rf(path)
       case File.mkdir(path) do
         :ok -> path
         error -> error

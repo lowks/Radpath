@@ -26,7 +26,6 @@ defmodule RadpathTestReal do
   import PathHelpers
   alias :file, as: F
 
-  import Radpath
   test :test_listing_of_files do
     files = Radpath.files(fixture_path, "txt") |> Enum.map(&Path.basename(&1))
     ["file1.txt", "file2.txt"] |> Enum.map&(assert Enum.member?(files, &1))
@@ -68,6 +67,22 @@ defmodule RadpathTestReal do
     after
       File.rm_rf dest
     end
+  end
+
+  test :test_mktempdir_with_argument_function do
+    src = Path.join(fixture_path, "testdir3")
+    tmpdirpath = Radpath.mktempdir(src)
+    try do
+      assert File.exists?(tmpdirpath)
+    after 
+      File.rm_rf tmpdirpath
+    end
+  end
+
+  test :test_mktempdir_without_argument_function do
+    tmpdirpath1 = Radpath.mktempdir
+    assert File.exists?(tmpdirpath1)
+    File.rm_rf tmpdirpath1
   end
 end
 
