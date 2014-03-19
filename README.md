@@ -69,4 +69,4 @@ To customize the location plus the extension:
 Radpath.mktempfile(".log", "/home/lowks/Documents/temp/")
 ```
 
-The default is ".log"
+The default is ".log". Checkout the rest of the docs in the docs folder.

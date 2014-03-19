@@ -32,16 +32,16 @@ defmodule Radpath do
   end
 
   @doc """
-  To create a temp file without arguments: Radpath.mktemp
+  To create a temp file without arguments: Radpath.mktempfile
   """
   def mktempfile() do
     Tempfile.open
   end
 
   @doc """
-  To create a temp file with arguments: Radpath.mktemp(".log", "/home/lowks/Downloads")
+  To create a temp file with arguments: Radpath.mktempfile(".log", "/home/lowks/Downloads")
   """
-  def mktempfile(ext, path) do
+  def mktempfile(ext \\ ".log", path) do
     tmp_path = Tempfile.get_name("", [ext: ext, path: path])
     if File.dir?(path) do
       case File.open(tmp_path, [:write]) do
@@ -49,6 +49,19 @@ defmodule Radpath do
           {:ok, tmp_path }
         error ->
           error
+      end
+    end
+  end
+
+  @doc """
+  To create a temp dir with arguments: Radpath.mktempdir("/home/lowks/Downloads")
+  """
+  def mktempdir(path) do
+    tmp_path = Tempfile.get_name([path: path]) |> Path.rootname
+    if !File.exists?(tmp_path) do
+      case File.mkdir(tmp_path) do
+        :ok -> tmp_path
+        error -> error
       end
     end
   end
