@@ -29,12 +29,12 @@ defmodule RadpathTestReal do
   import Radpath
   test :test_listing_of_files do
     files = Radpath.files(fixture_path, "txt") |> Enum.map(&Path.basename(&1))
-    assert Enum.sort(files) == Enum.sort(["file1.txt", "file2.txt"])
+    ["file1.txt", "file2.txt"] |> Enum.map&(assert Enum.member?(files, &1))
   end
   
   test :test_listing_of_dirs do
     dirs = Radpath.dirs(fixture_path) |> Enum.map(&Path.basename(&1))
-    assert Enum.sort(dirs) == Enum.sort(["testdir3", "testdir2", "testdir1"])
+    ["testdir3", "testdir2", "testdir1"] |> Enum.map&(assert Enum.member?(dirs, &1))
   end
 
   test :test_filtering_of_listing_files_listing do
