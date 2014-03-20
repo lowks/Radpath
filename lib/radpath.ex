@@ -13,13 +13,15 @@ defmodule Radpath do
   Returns all of the files in the given path, and if ext is
   given will filter by that extname.
   """
-  def files(path, ext \\ "None") do
-    raw_files = full_path(path) |> Enum.filter(&File.regular?(&1))
-    if ext != "None" do
-      raw_files |> Enum.filter&(Path.extname(&1) == "." <> ext)
-    else
-      raw_files
-    end
+  def files(path, ext) do
+    full_path(path) |>
+      Enum.filter(&File.regular?(&1)) |>
+      Enum.filter&(Path.extname(&1) == "." <> ext)
+  end
+
+  def files(path) do
+    full_path(path) |>
+      Enum.filter(&File.regular?(&1))
   end
 
   @doc """
