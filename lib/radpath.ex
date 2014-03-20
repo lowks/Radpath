@@ -41,10 +41,23 @@ defmodule Radpath do
   end
 
   @doc """
-  To create a temp file with arguments: Radpath.mktempfile(".log", "/home/lowks/Downloads")
+  To create a temp file with arguments: Radpath.mktempfile(".log", "/home/lowks/Downloads").
+  Default value for ext is '.tmp'
   """
-  def mktempfile(ext \\ ".log", path) do
+  def mktempfile(ext, path) do
     tmp_path = Tempfile.get_name("", [ext: ext, path: path])
+    if File.dir?(path) do
+      case File.open(tmp_path, [:write]) do
+        {:ok, filepath} ->
+          {:ok, tmp_path }
+        error ->
+          error
+      end
+    end
+  end
+
+  def mktempfile(path) do
+    tmp_path = Tempfile.get_name("", [ext: ".tmp", path: path])
     if File.dir?(path) do
       case File.open(tmp_path, [:write]) do
         {:ok, filepath} ->
