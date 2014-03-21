@@ -1,7 +1,6 @@
 defmodule Radpath do
   alias :file, as: F
   alias :zip, as: Z
-  import Tempfile
 
   @doc """
   Returns all of the directories in the :qgiven path
@@ -69,7 +68,7 @@ defmodule Radpath do
     tmp_path = Tempfile.get_name("", [ext: ext, path: path])
     if File.dir?(path) do
       case File.open(tmp_path, [:write]) do
-        {:ok, filepath} ->
+        {:ok, tmp_path} ->
           {:ok, tmp_path }
         error ->
           error
@@ -81,7 +80,7 @@ defmodule Radpath do
     tmp_path = Tempfile.get_name("", [ext: ".tmp", path: path])
     if File.dir?(path) do
       case File.open(tmp_path, [:write]) do
-        {:ok, filepath} ->
+        {:ok, tmp_path} ->
           {:ok, tmp_path }
         error ->
           error
@@ -126,9 +125,5 @@ defmodule Radpath do
 
   defp make_into_path(path_str) do
     Path.absname(path_str) <> "/"
-  end
-  
-  defp full_path(path) do
-    File.ls!(path) |> Enum.map(&Path.expand(&1, path))
   end
 end
