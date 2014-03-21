@@ -72,3 +72,5 @@ Radpath.mktempfile(".log", "/home/lowks/Documents/temp/")
 ```
 
 The default is ".log". Checkout the rest of the docs in the docs folder.
+
+You can also run `mix docs` to generate a nice docs folder
