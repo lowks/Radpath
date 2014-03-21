@@ -6,7 +6,7 @@ defmodule Radpath do
   Returns all of the directories in the :qgiven path
   """
   def dirs(path) do
-    full_path(path) |> Enum.filter(&File.dir?(&1))      
+    Finder.new() |> Finder.only_directories() |> Finder.find(Path.expand(path)) |> Enum.to_list
   end
 
   @doc """
@@ -28,13 +28,11 @@ defmodule Radpath do
   """
   
   def files(path, ext) do
-    Path.wildcard(Path.absname(path) <> "/*." <> ext) |>
-           Enum.filter(&File.regular?(&1))
+    Finder.new() |> Finder.with_file_endings([ext]) |> Finder.find(Path.expand(path)) |> Enum.to_list
   end
 
   def files(path) do
-    full_path(path) |>
-      Enum.filter(&File.regular?(&1))
+    Finder.new() |> Finder.only_files() |> Finder.find(Path.expand(path)) |> Enum.to_list
   end
 
   @doc """

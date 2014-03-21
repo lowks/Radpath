@@ -20,6 +20,7 @@ defmodule Radpath.Mixfile do
   # { :barbat, "~> 0.1", github: "elixir-lang/barbat" }
   defp deps do
     [{ :tempfile, github: "glejeune/tempfile" },
-     { :ex_doc, github: "elixir-lang/ex_doc" }]
+     { :ex_doc, github: "elixir-lang/ex_doc" },
+     { :finder, github: "h4cc/Finder" }]
   end
 end
