@@ -1,5 +1,6 @@
 defmodule Radpath do
   alias :file, as: F
+  alias :zip, as: Z
   import Tempfile
 
   @doc """
@@ -102,6 +103,15 @@ defmodule Radpath do
   def mktempdir(path) when is_bitstring(path) do
     tmp_path = Tempfile.get_name([path: make_into_path(path)]) |> Path.rootname
     do_mkdir(tmp_path)
+  end
+
+  @doc """
+  
+  To create a zip archive: Radpath.zip(archive_name, [dir1, file1, dir2])
+
+  """
+  def zip(archive_name, dirs) when is_list(dirs) do
+    Z.zip(archive_name, dirs)
   end
 
   defp do_mkdir(path) do

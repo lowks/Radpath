@@ -36,6 +36,29 @@ defmodule RadpathTestReal do
     ["testdir3", "testdir2", "testdir1"] |> Enum.map&(assert Enum.member?(dirs, &1))
   end
 
+  test :test_zipping_directory do
+    dir1 = Radpath.dirs(Path.join(fixture_path, "testdir1"))
+    dir2 = Radpath.dirs(Path.join(fixture_path, "testdir2"))
+    refute File.exists?(Path.join(fixture_path, "testdir1.zip"))
+    try do
+      Radpath.zip("testdir1.zip", [dir1, dir2])
+      assert File.exists?("testdir1.zip")
+    after
+      File.rm_rf("testdir1.zip")
+    end
+  end
+
+  test :test_zipping_directory_str do
+    dir = Radpath.dirs(Path.join(fixture_path, "testdir1"))
+    refute File.exists?(Path.join(fixture_path, "testdir1.zip"))
+    try do
+      Radpath.zip("testdir1.zip", dir)
+      assert File.exists?("testdir1.zip")
+    after
+      File.rm_rf("testdir1.zip")
+    end
+  end
+
   test :test_filtering_of_listing_files_listing do
     files = Radpath.files(fixture_path, "log") |> Enum.map(&Path.basename(&1))
     assert files == ["file3.log"]
