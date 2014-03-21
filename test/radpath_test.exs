@@ -41,6 +41,11 @@ defmodule RadpathTestReal do
     assert files == ["file3.log"]
   end
 
+  test :test_multiple_filtering_of_listing_files_listing do
+    files = Radpath.files(fixture_path, ["log", "txt"]) |> Enum.map(&Path.basename(&1))
+    ["file1.txt", "file2.txt", "file3.log"] |> Enum.map&(assert Enum.member?(files, &1))
+  end
+
   test :test_symlink_of_existing_src_dir do
     src = Path.join(fixture_path, "testdir3")
     dest = Path.join(Path.expand("."), "testdir3")

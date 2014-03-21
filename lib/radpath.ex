@@ -25,10 +25,19 @@ defmodule Radpath do
     Radpath.files("/home/lowks/Documents", "doc")
     ["/home/lowks/Documents/MyResume.doc"]
 
+  If you wanted to apply a list filter on that search:
+
+    Radpath.files("/home/lowks/Documents", ["doc", "pdf"])
+    ["/home/lowks/Documents/MyResume.doc", "/home/lowks/Documents/MyResume.pdf"]
+
   """
   
-  def files(path, ext) do
+  def files(path, ext) when is_bitstring(ext) do
     Finder.new() |> Finder.with_file_endings([ext]) |> Finder.find(Path.expand(path)) |> Enum.to_list
+  end
+
+  def files(path, ext) when is_list(ext) do
+    Finder.new() |> Finder.with_file_endings(ext) |> Finder.find(Path.expand(path)) |> Enum.to_list
   end
 
   def files(path) do
