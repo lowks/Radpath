@@ -12,11 +12,24 @@ defmodule Radpath do
   @doc """
   Returns all of the files in the given path, and if ext is
   given will filter by that extname.
+
+  ### Examples
+  
+  Listing all of the contents of the folder /home/lowks/Documents
+
+    Radpath.files("/home/lowks/Documents")
+    [a-lot-of-output]
+
+  If you wanted to apply a filter on that search:
+
+    Radpath.files("/home/lowks/Documents", "doc")
+    ["/home/lowks/Documents/MyResume.doc"]
+
   """
+  
   def files(path, ext) do
-    full_path(path) |>
-      Enum.filter(&File.regular?(&1)) |>
-      Enum.filter&(Path.extname(&1) == "." <> ext)
+    Path.wildcard(Path.absname(path) <> "/*." <> ext) |>
+           Enum.filter(&File.regular?(&1))
   end
 
   def files(path) do
@@ -95,11 +108,7 @@ defmodule Radpath do
   end
 
   defp make_into_path(path_str) do
-    if !String.ends_with?(path_str, "/") do
-      path_str <> "/"
-    else
-      path_str
-    end
+    Path.absname(path_str) <> "/"
   end
   
   defp full_path(path) do

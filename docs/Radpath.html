@@ -158,6 +158,18 @@ Default value for ext is &#39;.tmp&#39;</p>
   
   <div class="docstring"><p>Returns all of the files in the given path, and if ext is
 given will filter by that extname.</p>
+
+<h3>Examples</h3>
+
+<p>Listing all of the contents of the folder /home/lowks/Documents</p>
+
+<p>Radpath.files(&quot;/home/lowks/Documents&quot;)
+  [a-lot-of-output]</p>
+
+<p>If you wanted to apply a filter on that search:</p>
+
+<p>Radpath.files(&quot;/home/lowks/Documents&quot;, &quot;doc&quot;)
+  [&quot;/home/lowks/Documents/MyResume.doc&quot;]</p>
 </div>
   
 </div>
