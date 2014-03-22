@@ -33,7 +33,9 @@ defmodule Radpath do
 
   """
   def zip(archive_name, dirs) when is_list(dirs) do
-    Z.zip(archive_name, dirs(dirs))
+    dirs_list = Radpath.dirs(dirs) |> Enum.map&(String.to_char_list!(&1))
+    #IO.puts dirs_list
+    Z.create(String.to_char_list!(archive_name), dirs_list)
   end
 
   defp do_mkdir(path) do
