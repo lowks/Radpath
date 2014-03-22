@@ -5,8 +5,16 @@ defmodule Radpath do
   @doc """
   Returns all of the directories in the :qgiven path
   """
-  def dirs(path) when is_bitstring(path) do
+  defp dirs_list(path) when is_bitstring(path) do
     Finder.new() |> Finder.only_directories() |> Finder.find(Path.expand(path)) |> Enum.to_list
+  end
+
+  defp dirs_list(path) when is_list(path) do
+    []
+  end
+  
+  def dirs(path) when is_bitstring(path) do
+    do_dirs([path], [])
   end
 
   def dirs(path) when is_list(path) do
@@ -19,7 +27,7 @@ defmodule Radpath do
 
   defp do_dirs(paths ,result) do
     [h | t] = paths
-    result_dirs = dirs(h)
+    result_dirs = dirs_list(h)
     do_dirs(t, result ++ result_dirs)
   end
 
@@ -124,7 +132,7 @@ defmodule Radpath do
 
   """
   def zip(archive_name, dirs) when is_list(dirs) do
-    Z.zip(archive_name, dirs)
+    Z.zip(archive_name, dirs(dirs))
   end
 
   defp do_mkdir(path) do
