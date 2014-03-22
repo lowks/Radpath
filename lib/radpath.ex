@@ -5,8 +5,22 @@ defmodule Radpath do
   @doc """
   Returns all of the directories in the :qgiven path
   """
-  def dirs(path) do
+  def dirs(path) when is_bitstring(path) do
     Finder.new() |> Finder.only_directories() |> Finder.find(Path.expand(path)) |> Enum.to_list
+  end
+
+  def dirs(path) when is_list(path) do
+    do_dirs(path, [])
+  end
+
+  defp do_dirs([], result) do
+    result
+  end
+
+  defp do_dirs(paths ,result) do
+    [h | t] = paths
+    result_dirs = dirs(h)
+    do_dirs(t, result ++ result_dirs)
   end
 
   @doc """
