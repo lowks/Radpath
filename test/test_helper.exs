@@ -1,4 +1,4 @@
-ExUnit.start
+Amrita.start
 
 defmodule PathHelpers do
   def tmp_path() do
