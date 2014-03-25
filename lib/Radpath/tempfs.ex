@@ -21,8 +21,7 @@ defmodule Radpath.Tempfs do
      """
 
      def mktempfile(ext, path) when is_bitstring(path) and is_bitstring(ext) do
-         tmp_path = Tempfile.get_name("", [ext: ext, path: path])
-         do_mktempfile(tmp_path, path)
+         Tempfile.get_name("", [ext: ext, path: path]) |> do_mktempfile(path)
      end
 
     @doc """
@@ -32,8 +31,7 @@ defmodule Radpath.Tempfs do
 
     """
     def mktempfile(path) when is_bitstring(path) do
-      tmp_path = Tempfile.get_name("", [ext: ".tmp", path: path])
-      do_mktempfile(tmp_path, path)
+      Tempfile.get_name("", [ext: ".tmp", path: path]) |> do_mktempfile(path)
     end
 
     @doc """
@@ -43,8 +41,7 @@ defmodule Radpath.Tempfs do
 
     """
     def mktempdir do
-      tmp_path = Tempfile.get_name |> Path.rootname
-      do_mkdir(tmp_path)
+      Tempfile.get_name |> Path.rootname |> do_mkdir
     end
 
     @doc """
@@ -54,8 +51,7 @@ defmodule Radpath.Tempfs do
 
     """
     def mktempdir(path) when is_bitstring(path) do
-      tmp_path = Tempfile.get_name([path: make_into_path(path)]) |> Path.rootname
-      do_mkdir(tmp_path)
+      Tempfile.get_name([path: make_into_path(path)]) |> Path.rootname |> do_mkdir
     end
 
   end   
