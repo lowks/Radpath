@@ -19,17 +19,11 @@ defmodule Radpath.Tempfs do
          Radpath.mktempfile(".log", "/home/lowks/Downloads")
 
      """
-     def mktempfile(ext, path) do
+
+     def mktempfile(ext, path) when is_bitstring(path) and is_bitstring(ext) do
          tmp_path = Tempfile.get_name("", [ext: ext, path: path])
-     if File.dir?(path) do
-       case File.open(tmp_path, [:write]) do
-         {:ok, tmp_path} ->
-           {:ok, tmp_path }
-         error ->
-           error
-       end
+         do_mktempfile(tmp_path, path)
      end
-    end
 
     @doc """
     To create a temp file at a certain location:
@@ -37,16 +31,9 @@ defmodule Radpath.Tempfs do
         Radpath.mktempfile("/home/lowks/Downloads")
 
     """
-    def mktempfile(path) do
+    def mktempfile(path) when is_bitstring(path) do
       tmp_path = Tempfile.get_name("", [ext: ".tmp", path: path])
-      if File.dir?(path) do
-        case File.open(tmp_path, [:write]) do
-          {:ok, tmp_path} ->
-            {:ok, tmp_path }
-          error ->
-            error
-        end
-      end
+      do_mktempfile(tmp_path, path)
     end
 
     @doc """
@@ -57,9 +44,6 @@ defmodule Radpath.Tempfs do
     """
     def mktempdir do
       tmp_path = Tempfile.get_name |> Path.rootname
-      if File.exists?(tmp_path) do
-        File.rm_rf tmp_path
-      end
       do_mkdir(tmp_path)
     end
 
@@ -73,7 +57,7 @@ defmodule Radpath.Tempfs do
       tmp_path = Tempfile.get_name([path: make_into_path(path)]) |> Path.rootname
       do_mkdir(tmp_path)
     end
-    
-   end
+
+  end   
   end
 end
