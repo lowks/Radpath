@@ -10,28 +10,28 @@ defmodule Radpath.Tempfs do
 
      """
      def mktempfile() do
-        Tempfile.open
+       Tempfile.open
      end
 
      @doc """
      To create a temp file with arguments. Default value for extension is '.tmp':
 
-         Radpath.mktempfile(".log", "/home/lowks/Downloads")
+         Radpath.mktempfile(".log", "/home/lowks/Downloads") |> File.write("abcdef")
 
      """
 
      def mktempfile(ext, path) when is_bitstring(path) and is_bitstring(ext) do
-         Tempfile.get_name("", [ext: ext, path: path]) |> do_mktempfile(path)
+        Tempfile.get_name("", [ext: ext, path: path])
      end
 
     @doc """
     To create a temp file at a certain location:
 
-        Radpath.mktempfile("/home/lowks/Downloads")
+        Radpath.mktempfile("/home/lowks/Downloads") |> File.write("abcdef")
 
     """
     def mktempfile(path) when is_bitstring(path) do
-      Tempfile.get_name("", [ext: ".tmp", path: path]) |> do_mktempfile(path)
+      Tempfile.get_name("", [ext: ".tmp", path: path])
     end
 
     @doc """

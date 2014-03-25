@@ -52,17 +52,6 @@ defmodule Radpath do
     end
   end
 
-  defp do_mktempfile(tmp_path, path) do
-     if File.dir?(path) do
-       case File.open(tmp_path, [:write]) do
-         {:ok, tmp_path} ->
-           {:ok, tmp_path }
-         error ->
-           error
-       end
-    end
-  end
-
   defp make_into_path(path_str) do
     Path.absname(path_str) <> "/"
   end
