@@ -8,7 +8,7 @@ defmodule Radpath.Dirs do
 
   @doc """
   
-  Returns all of the directories in the :given path
+  Returns all of the directories in the given path
 
       iex(4)> Radpath.dirs("/home/lowks/src/elixir/radpath/lib")
 
@@ -29,8 +29,7 @@ defmodule Radpath.Dirs do
 
   defp do_dirs(paths ,result) do
     [h | t] = paths
-    result_dirs = dirs_list(h)
-    do_dirs(t, result ++ result_dirs)
+    do_dirs(t, result ++ dirs_list(h))
   end
   
   defp dirs_list(path) when is_bitstring(path) do
