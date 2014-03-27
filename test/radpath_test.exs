@@ -38,12 +38,12 @@ defmodule RadpathTests do
   end
 
   fact "Test zipping of directories" do
-    dir1 = Radpath.dirs(Path.join(fixture_path, "Testdir1"))
-    dir2 = Radpath.dirs(Path.join(fixture_path, "Testdir2"))
+    dir1 = Path.join(fixture_path, "Testdir1")
+    dir2 = Path.join(fixture_path, "Testdir2")
     File.exists?(Path.join(fixture_path, "Testdir1.zip")) |> false
 
     try do
-      Radpath.zip("Testdir1.zip", [dir1, dir2])
+      Radpath.zip([dir1, dir2], "Testdir1.zip")
       File.exists?("Testdir1.zip") |> true
     after
       File.rm_rf("Testdir1.zip")
@@ -51,10 +51,10 @@ defmodule RadpathTests do
   end
 
   fact "Test zipping of directories with str path arg" do
-    dir = Radpath.dirs(Path.join(fixture_path, "Testdir1"))
-    refute File.exists?(Path.join(fixture_path, "Testdir1.zip"))
+    dir = Path.join(fixture_path, "Testdir1")
+    File.exists?(Path.join(fixture_path, "Testdir1.zip")) |> false
     try do
-      Radpath.zip("Testdir1.zip", dir)
+      Radpath.zip([dir], "Testdir1.zip")
       #assert File.exists?("Testdir1.zip")
       File.exists?("Testdir1.zip") |> true
     after

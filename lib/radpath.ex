@@ -34,11 +34,11 @@ defmodule Radpath do
   
   To create a zip archive:
 
-      Radpath.zip(archive_name, [dir1, file1, dir2])
+      Radpath.zip([dir1, file1, dir2], archive_name)
 
   """
-  def zip(archive_name, dirs) when is_list(dirs) do
-    dirs_list = Radpath.dirs(dirs) |> Enum.map&(String.to_char_list!(&1))
+  def zip(dirs, archive_name) when is_list(dirs) do
+    dirs_list = dirs |> Enum.map&(String.to_char_list!(&1))
     Z.create(String.to_char_list!(archive_name), dirs_list)
   end
 
