@@ -1,12 +1,12 @@
 language: erlang
 otp_release:
-    - 17.0-rc1
+    - R16B02
 before_install:
-    - git clone git://github.com/elixir-lang/elixir
-    - cd elixir && make && cd ..
+    - wget -c https://github.com/elixir-lang/elixir/archive/v0.12.5.tar.gz
+    - cd elixir-0.12.5 && make && cd ..
 before_script:
     - export PATH=`pwd`/elixir/bin:$PATH
     - MIX_ENV=test mix do deps.get
     - MIX_ENV=test mix do deps.compile
 script:
-    - MIX_ENV=test mix amrita
+    - MIX_ENV=test mix amrita --trace
