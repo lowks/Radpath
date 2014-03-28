@@ -6,7 +6,7 @@ before_install:
     - tar -xvzf v0.12.5.tar.gz
     - cd elixir-0.12.5 && make && cd ..
 before_script:
-    - export PATH=`pwd`/elixir/bin:$PATH
+    - export PATH=`pwd`/elixir-0.12.5/bin:$PATH
     - MIX_ENV=test mix do deps.get
     - MIX_ENV=test mix do deps.compile
 script:
