@@ -3,6 +3,7 @@ otp_release:
     - R16B02
 before_install:
     - wget -c https://github.com/elixir-lang/elixir/archive/v0.12.5.tar.gz
+    - tar -xvzf v0.12.5.tar.gz
     - cd elixir-0.12.5 && make && cd ..
 before_script:
     - export PATH=`pwd`/elixir/bin:$PATH
