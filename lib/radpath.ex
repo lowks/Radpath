@@ -42,6 +42,18 @@ defmodule Radpath do
     Z.create(String.to_char_list!(archive_name), dirs_list)
   end
 
+  @doc """
+  
+  To rename a file / directory:
+
+      Radpath.rename(source, destination)
+
+  """
+  def mv(source, destination) when is_bitstring(source) and is_bitstring(source), do: rename(source, destination)
+  def rename(source, destination) when is_bitstring(source) and is_bitstring(source) do
+    F.rename(source, destination)
+  end
+
   defp do_mkdir(path) do
     if !File.exists?(path) do
       File.rm_rf(path)

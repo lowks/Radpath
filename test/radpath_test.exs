@@ -117,5 +117,19 @@ defmodule RadpathTests do
     File.exists?(tmpdirpath1) |> true
     File.rm_rf tmpdirpath1
   end
+
+  fact "Test renaming function of Radpath" do
+    source_file = "/tmp/hoho.txt"
+    dest_file = "/tmp/hehe.txt"
+    File.touch!(source_file)
+    try do
+      File.exists?(source_file) |> true
+      Radpath.rename(source_file, dest_file)
+      File.exists?(source_file) |> false
+      File.exists?(dest_file) |> true
+    after
+      File.rm_rf dest_file
+    end
+  end
 end
 
