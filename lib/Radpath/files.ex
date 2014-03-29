@@ -21,27 +21,19 @@ defmodule Radpath.Files do
       Radpath.files("/home/lowks/Documents", ["doc", "pdf"])
 
   """
-  
-  # def files(path, ext) when is_bitstring(ext) do
-  #   Finder.new() |> Finder.only_files() |> Finder.with_file_endings([ext]) |> Finder.find(Path.expand(path)) |> Enum.to_list
-  # end
 
-  # def files(path, ext) when is_list(ext) do
-  #   Finder.new() |> Finder.only_files() |> Finder.with_file_endings(ext) |> Finder.find(Path.expand(path)) |> Enum.to_list
-  # end
-
-  def files(path, ext) when (is_bitstring(ext) or is_list(ext)) do
-    case String.valid? ext do
-      true -> file_ext = [ext]
-      false -> file_ext = ext
+    def files(path, ext) when (is_bitstring(ext) or is_list(ext)) do
+      case String.valid? ext do
+        true -> file_ext = [ext]
+        false -> file_ext = ext
+      end
+      Finder.new() |> Finder.only_files() |> Finder.with_file_endings(file_ext) |> Finder.find(Path.expand(path)) |> Enum.to_list
     end
-    Finder.new() |> Finder.only_files() |> Finder.with_file_endings(file_ext) |> Finder.find(Path.expand(path)) |> Enum.to_list
-  end
 
-  def files(path) do
-    Finder.new() |> Finder.only_files() |> Finder.find(Path.expand(path)) |> Enum.to_list
-  end
+    def files(path) do
+      Finder.new() |> Finder.only_files() |> Finder.find(Path.expand(path)) |> Enum.to_list
+    end
 
-end
-end
+  end
+ end
 end
