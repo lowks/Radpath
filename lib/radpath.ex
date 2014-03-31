@@ -18,6 +18,10 @@ defmodule Radpath do
     end
   end
 
+  @moduledoc """
+  Elixir library for path operations inspired by pathlib from Python.
+  """
+
   @doc """
    To create symlink:
 
@@ -54,6 +58,23 @@ defmodule Radpath do
     F.rename(source, destination)
   end
 
+  @doc ~S"""
+  Gives you back the relative path:
+
+      iex(1)> Radpath.relative_path("/tmp/lowks/", "/tmp/lowks/iam.txt")
+      "iam.txt"
+      iex(2)> Radpath.relative_path("/tmp/lowks/", "/tmp/lowks/hoho/iam.txt")
+      "hoho/iam.txt"
+  """
+
+  def relative_path(base, file) do
+    split = Path.split(base)
+    case split == Path.split(file) || length(split) > length(Path.split(file)) do
+      true -> ""
+      false -> Path.join(:lists.nthtail(length(split), Path.split(file)))
+    end
+  end
+  
   defp do_mkdir(path) do
     if !File.exists?(path) do
       File.rm_rf(path)
@@ -67,5 +88,5 @@ defmodule Radpath do
   defp make_into_path(path_str) do
     Path.absname(path_str) <> "/"
   end
-  
+
 end
