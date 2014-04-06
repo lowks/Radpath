@@ -61,6 +61,17 @@ defmodule RadpathTests do
     end
   end
 
+  fact "Test zip: One bitstring path" do
+    dir = Path.join(fixture_path, "Testdir1")
+    File.exists?(Path.join(fixture_path, "Testdir1.zip")) |> false
+    try do
+      Radpath.zip(dir, "Testdir1.zip")
+      File.exists?("Testdir1.zip") |> true
+    after
+      File.rm_rf("Testdir1.zip")
+    end
+  end
+
   fact "Test filtering of files" do
     files = Radpath.files(fixture_path, "log") |> Enum.map(&Path.basename(&1))
     files |> ["file3.log"]

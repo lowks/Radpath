@@ -1,4 +1,4 @@
-Amrita.start
+Amrita.start(formatter: Amrita.Formatter.Documentation)
 
 defmodule PathHelpers do
   def tmp_path() do

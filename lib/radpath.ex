@@ -48,6 +48,17 @@ defmodule Radpath do
 
   @doc """
   
+  To create a zip archive:
+
+      Radpath.zip(dir1, archive_name)
+
+  """
+  def zip(dir, archive_name) when is_bitstring(dir) do
+    Z.create(String.to_char_list!(archive_name), [String.to_char_list!(dir)])
+  end
+
+  @doc """
+  
   To rename a file / directory:
 
       Radpath.rename(source, destination)
