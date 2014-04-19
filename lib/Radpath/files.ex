@@ -29,7 +29,6 @@ defmodule Radpath.Files do
       end
       Finder.new() |> Finder.only_files() |> Finder.with_file_endings(file_ext) |> Finder.find(Path.expand(path)) |> Enum.to_list
     end
-
     def files(path) do
       Finder.new() |> Finder.only_files() |> Finder.find(Path.expand(path)) |> Enum.to_list
     end

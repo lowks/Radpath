@@ -18,7 +18,6 @@ defmodule Radpath.Dirs do
   def dirs(path) when is_bitstring(path) do
     do_dirs([path], [])
   end
-
   def dirs(path) when is_list(path) do
     do_dirs(path, [])
   end
@@ -26,7 +25,6 @@ defmodule Radpath.Dirs do
   defp do_dirs([], result) do
     result
   end
-
   defp do_dirs(paths ,result) do
     [h | t] = paths
     do_dirs(t, result ++ dirs_list(h))
