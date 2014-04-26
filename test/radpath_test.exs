@@ -155,5 +155,28 @@ defmodule RadpathTests do
   fact "Test relative_path: If same path is given empty string will result" do
     Radpath.relative_path("/tmp/base/", "/tmp/base/") |> equals ""
   end
+
+  fact "Test ensure: Directory" do
+    test_dir_path = Path.join(fixture_path, "gogo/gaga")
+    File.exists?(test_dir_path) |> false
+    try do
+      Radpath.ensure(test_dir_path)
+      File.exists?(test_dir_path) |> true
+    after
+      File.rm_rf(test_dir_path)
+    end
+  end
+
+  fact "Test ensure: File" do
+    test_file_path = Path.join(fixture_path, "gogo/gaga.txt")
+    File.exists?(test_file_path) |> false
+    try do
+      Radpath.ensure(test_file_path)
+      File.exists?(test_file_path) |> true
+    after
+      File.rm_rf(test_file_path)
+    end
+  end
+
 end
 

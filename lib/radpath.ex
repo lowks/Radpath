@@ -85,6 +85,26 @@ defmodule Radpath do
       false -> Path.join(:lists.nthtail(length(split), Path.split(file)))
     end
   end
+
+  @doc """
+  Ensures that a directory/file is created. If is_file is set to true then file is created.
+  
+      iex(1)> Radpath.ensure("/tmp/gigig/gjskdfk")
+        :ok
+  
+      iex(2)> Radpath.ensure("/home/lowks/iamafile.txt", true)
+        :ok
+
+  """
+
+  def ensure(path, is_file \\ false) when is_bitstring(path) do
+    if !File.exists?(path) do
+      cond do
+        is_file == false -> File.mkdir_p(path)
+        is_file -> File.touch(path)
+      end
+    end
+  end
   
   defp do_mkdir(path) do
     if !File.exists?(path) do
