@@ -3,8 +3,8 @@ defmodule Radpath.Mixfile do
 
   def project do
     [ app: :radpath,
-      version: "0.1",
-      elixir: "~> 0.12.4",
+      version: "0.0.1",
+      elixir: "~> 0.13.0",
       description: description,
       package: package,
       deps: deps(Mix.env) ]
