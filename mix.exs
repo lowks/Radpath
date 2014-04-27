@@ -5,12 +5,29 @@ defmodule Radpath.Mixfile do
     [ app: :radpath,
       version: "0.0.1",
       elixir: "~> 0.12.4",
+      description: description,
+      package: package,
       deps: deps(Mix.env) ]
   end
 
   # Configuration for the OTP application
   def application do
     []
+  end
+
+  defp description do
+    """
+    A path library for Elixir inspired by Python path libraries
+    """
+  end
+
+  defp package do
+    [
+     files: ["lib", "mix.exs", "README.md", "LICENSE*", "test*"]
+     contributors: ["Low Kian Seong"],
+     licenses: ["MIT"],
+     links: [{ "GitHub", "https://github.com/lowks/Radpath"},]
+    ]
   end
 
   # Returns the list of dependencies in the format:
