@@ -23,7 +23,7 @@ defmodule Radpath.Mixfile do
 
   defp package do
     [
-     files: ["lib", "mix.exs", "README.md", "LICENSE*", "test*"]
+     files: ["lib", "mix.exs", "README.md", "LICENSE*", "test*"],
      contributors: ["Low Kian Seong"],
      licenses: ["MIT"],
      links: [{ "GitHub", "https://github.com/lowks/Radpath"},]
