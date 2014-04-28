@@ -36,7 +36,7 @@ defmodule Radpath.Mixfile do
   # To specify particular versions, regardless of the tag, do:
   # { :barbat, "~> 0.1", github: "elixir-lang/barbat" }
   defp deps(:prod) do
-    [{ :tempfile, github: "lowks/tempfile" },
+    [{ :tempfile, git: "https://github.com/lowks/tempfile.git" },
      { :finder, github: "h4cc/Finder" }]
   end
 
