@@ -9,5 +9,6 @@ before_script:
     - MIX_ENV=test mix do deps.get
     - MIX_ENV=test mix do deps.update --all
     - MIX_ENV=test mix do deps.compile
+    - MIX_ENV=test mix do deps.compile meck
 script:
     - MIX_ENV=test mix amrita --trace
