@@ -7,6 +7,7 @@ before_install:
 before_script:
     - export PATH=`pwd`/elixir/bin:$PATH
     - MIX_ENV=test mix do deps.get
+    - MIX_ENV=test mix do deps.update
     - MIX_ENV=test mix do deps.compile
 script:
     - MIX_ENV=test mix amrita --trace
