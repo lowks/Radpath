@@ -44,4 +44,4 @@ ci_$(STABLE_ELIXIR_VERSION): vendor/${STABLE_ELIXIR_VERSION}
 test_vendored:
 	@${VENDORED_ELIXIR} --version
 	@${RUN_VENDORED_MIX} clean
-	@MIX_ENV=test ${RUN_VENDORED_MIX} do clean, deps.get, compile, amrita
+	@MIX_ENV=test ${RUN_VENDORED_MIX} do clean, deps.get, compile, amrita --trace
