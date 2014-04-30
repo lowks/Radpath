@@ -58,28 +58,43 @@ defmodule RadpathTests do
     end
 
     fact "Test zip: One path" do
-      
+      dir = Path.join(fixture_path, "testdir2")
       Path.join(fixture_path, "Testdir2.zip") |> ! path_exists
 
       try do
-        Radpath.zip([fixture_path], "Testdir2.zip")
+        Radpath.zip([dir], "Testdir2.zip")
         "Testdir2.zip" |> path_exists
         System.cmd("zip -T Testdir2.zip") |> String.strip |> equals "test of Testdir2.zip OK"
       after
         File.rm_rf("Testdir2.zip")
       end
-  end
+    end
+
+    
+    
+  #end
   
   fact "Test zip: One bitstring path" do
-    dir = Path.join(fixture_path, "Testdir1")
-    Path.join(fixture_path, "Testdir1.zip") |> ! path_exists
+    dir = Path.join(fixture_path, "testdir1")
+    Path.join(fixture_path, "Testdir3.zip") |> ! path_exists
     try do
-      Radpath.zip(dir, "Testdir1.zip")
-      "Testdir1.zip" |> path_exists
+      Radpath.zip(dir, "Testdir3.zip")
+      "Testdir3.zip" |> path_exists
+      System.cmd("zip -T Testdir3.zip") |> String.strip |> equals "test of Testdir3.zip OK"
     after
-      File.rm_rf("Testdir1.zip")
+      File.rm_rf("Testdir3.zip")
     end
   end
+  
+  fact "Test zip: Path that does not exist" do
+      dir = "/gogo/I/don/exist/"
+      Path.join(fixture_path, "Testdir-dont-exist.zip") |> ! path_exists
+
+      try do
+        Radpath.zip([dir], "Testdir-dont-exist.zip")
+        "Testdir-dont-exist.zip" |> ! path_exists
+      end
+    end
   end
 
   facts "Test Filtering" do

@@ -42,8 +42,10 @@ defmodule Radpath do
 
   """
   def zip(dirs, archive_name) when is_list(dirs) do
-    dirs_list = dirs |> Enum.map&(String.to_char_list!(&1))
-    Z.create(String.to_char_list!(archive_name), dirs_list)
+    dirs_list = dirs |> Enum.filter(fn(x) -> File.exists?(x) end) |> Enum.map&(String.to_char_list!(&1))
+    if !Enum.empty? dirs_list do
+      Z.create(String.to_char_list!(archive_name), dirs_list)
+    end
   end
 
   @doc """
@@ -54,7 +56,9 @@ defmodule Radpath do
 
   """
   def zip(dir, archive_name) when is_bitstring(dir) do
-    Z.create(String.to_char_list!(archive_name), [String.to_char_list!(dir)])
+    if File.exists?(dir) do
+      Z.create(String.to_char_list!(archive_name), [String.to_char_list!(dir)])
+    end
   end
 
   @doc """
