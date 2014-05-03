@@ -137,6 +137,20 @@ defmodule RadpathTests do
         File.rm_rf dest
       end
     end
+
+    fact "Test Symlink: islink? Return true if path is symlink" do
+
+      test_dest = Path.join(fixture_path, "test_symlink")
+
+      try do
+        test_dest |> ! path_exists
+        Radpath.symlink(fixture_path, test_dest)
+        Radpath.islink?(test_dest) |> truthy
+      after
+        File.rm_rf test_dest
+      end
+    end
+
   end
 
   facts "Test Tempfilefs" do

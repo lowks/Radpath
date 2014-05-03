@@ -109,6 +109,23 @@ defmodule Radpath do
       end
     end
   end
+
+  @doc """
+  Returns true if path is a symbolic link and false if otherwise:
+
+       iex(1)> Radpath.islink?("test3")
+       true
+       iex(2)> Radpath.islink?("/home")
+       false
+  """
+
+  def islink?(path) when is_bitstring(path) do
+    case F.read_link(path) do
+      {:ok, _} -> true
+      {:error, _} -> false
+    end
+  end
+      
   
   defp do_mkdir(path) do
     if !File.exists?(path) do
