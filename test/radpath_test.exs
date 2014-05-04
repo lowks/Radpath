@@ -69,10 +69,6 @@ defmodule RadpathTests do
         File.rm_rf("Testdir2.zip")
       end
     end
-
-    
-    
-  #end
   
   fact "Test zip: One bitstring path" do
     dir = Path.join(fixture_path, "testdir1")
@@ -99,8 +95,7 @@ defmodule RadpathTests do
 
   facts "Test Filtering" do
     fact "Test Filtering: files" do
-      files = Radpath.files(fixture_path, "log") |> Enum.map(&Path.basename(&1))
-      files |> ["file3.log"]
+      Radpath.files(fixture_path, "log") |> Enum.map(&Path.basename(&1)) |> ["file3.log"]
     end
 
     fact "Test Filtering: Multiple filter for files function" do
