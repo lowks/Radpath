@@ -14,12 +14,6 @@ clean:
 test:
 	MIX_ENV=test mix do deps.get, clean, compile, amrita
 
-# docs:
-# 	MIX_ENV=dev mix deps.get
-# 	elixir -pa ebin deps/ex_doc/bin/ex_doc "Amrita" "${VERSION}" -u "https://github.com/josephwilk/amrita"
-# 	git checkout gh-pages && git add docs && git commit -m "adding new docs" && git push origin gh-pages
-# 	git checkout master
-
 ci: ci_${STABLE_ELIXIR_VERSION} 
 
 vendor/${STABLE_ELIXIR_VERSION}:
