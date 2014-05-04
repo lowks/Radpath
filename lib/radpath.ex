@@ -68,8 +68,9 @@ defmodule Radpath do
       Radpath.rename(source, destination)
 
   """
-  def mv(source, destination) when is_bitstring(source) and is_bitstring(source), do: rename(source, destination)
-  def rename(source, destination) when is_bitstring(source) and is_bitstring(source) do
+  def mv(source, destination) when is_bitstring(source), do: rename(source, destination)
+
+  def rename(source, destination) when is_bitstring(source) do
     F.rename(source, destination)
   end
 
@@ -129,7 +130,6 @@ defmodule Radpath do
   
   defp do_mkdir(path) do
     if !File.exists?(path) do
-      File.rm_rf(path)
       case File.mkdir(path) do
         :ok -> path
         error -> error
