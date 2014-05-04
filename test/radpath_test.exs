@@ -151,6 +151,10 @@ defmodule RadpathTests do
       end
     end
 
+    fact "Test Symlink: islink? Return false if path is symlink" do
+      Radpath.islink?(fixture_path) |> falsey
+    end
+
   end
 
   facts "Test Tempfilefs" do
