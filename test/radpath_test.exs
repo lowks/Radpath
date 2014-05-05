@@ -32,18 +32,6 @@ defmodule RadpathTests do
     File.exists?(path) |> truthy
   end
 
-  facts "Test Listing" do
-    fact "Test listing: Files" do
-      files = Radpath.files(fixture_path, "txt") |> Enum.map(&Path.basename(&1))
-      Enum.each(["file1.txt", "file2.txt"], fn(x) -> files |> contains x end)
-    end
-  
-    fact "Test listing: Directories" do
-      dirs = Radpath.dirs(fixture_path) |> Enum.map(&Path.basename(&1))
-      Enum.each(["testdir3", "testdir2", "testdir1"], fn(x) -> dirs |> contains x end)
-    end
-  end
-
   facts "Test zipping" do
     fact "Test zip: List of directories" do
 
@@ -94,6 +82,21 @@ defmodule RadpathTests do
   end
 
   facts "Test Filtering" do
+
+    fact "Test Filtering: Files" do
+      files = Radpath.files(fixture_path, "txt") |> Enum.map(&Path.basename(&1))
+      Enum.each(["file1.txt", "file2.txt"], fn(x) -> files |> contains x end)
+    end
+
+    fact "Test Filtering: Files returns empty list if path does not exist" do
+      Radpath.files("/this/path/does/not/exist") |> equals []
+    end
+  
+    fact "Test Filtering: Directories" do
+      dirs = Radpath.dirs(fixture_path) |> Enum.map(&Path.basename(&1))
+      Enum.each(["testdir3", "testdir2", "testdir1"], fn(x) -> dirs |> contains x end)
+    end
+    
     fact "Test Filtering: files" do
       Radpath.files(fixture_path, "log") |> Enum.map(&Path.basename(&1)) |> ["file3.log"]
     end
@@ -133,7 +136,7 @@ defmodule RadpathTests do
       end
     end
 
-    fact "Test Symlink: islink? Return true if path is symlink" do
+    fact "Test symlink: islink? Return true if path is symlink" do
 
       test_dest = Path.join(fixture_path, "test_symlink")
 
@@ -146,7 +149,7 @@ defmodule RadpathTests do
       end
     end
 
-    fact "Test Symlink: islink? Return false if path is symlink" do
+    fact "Test symlink: islink? Return false if path is symlink" do
       Radpath.islink?(fixture_path) |> falsey
     end
 
@@ -178,8 +181,8 @@ defmodule RadpathTests do
     end
   end
 
-  facts "Test Rename" do
-    fact "Test Rename: Normal Usage" do
+  facts "Test rename" do
+    fact "Test rename: Normal Usage" do
       source_file = "/tmp/hoho.txt"
       dest_file = "/tmp/hehe.txt"
       File.touch!(source_file)
@@ -193,7 +196,7 @@ defmodule RadpathTests do
       end
     end
 
-    fact "Test Rename: Source file does not exist" do
+    fact "Test rename: Source file does not exist" do
       source_file = "/tmp/hoho.txt"
       dest_file = "/tmp/hehe.txt"
       source_file |> ! path_exists

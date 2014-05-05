@@ -20,17 +20,28 @@ defmodule Radpath.Files do
 
       Radpath.files("/home/lowks/Documents", ["doc", "pdf"])
 
+  Paths that do not exists will return an empty list:
+
+      iex(2)> Radpath.files("/heck/i/do/not/exist")
+      []
+
   """
 
     def files(path, ext) when (is_bitstring(ext) or is_list(ext)) do
-      case String.valid? ext do
-        true -> file_ext = [ext]
-        false -> file_ext = ext
+      file_ext = case String.valid? ext do
+        true -> [ext]
+        false -> ext
       end
-      Finder.new() |> Finder.only_files() |> Finder.with_file_endings(file_ext) |> Finder.find(Path.expand(path)) |> Enum.to_list
+      case File.exists? path do
+        true -> Finder.new() |> Finder.only_files() |> Finder.with_file_endings(file_ext) |> Finder.find(Path.expand(path)) |> Enum.to_list
+        false -> []
+      end
     end
     def files(path) do
-      Finder.new() |> Finder.only_files() |> Finder.find(Path.expand(path)) |> Enum.to_list
+      case File.exists? path do
+        true -> Finder.new() |> Finder.only_files() |> Finder.find(Path.expand(path)) |> Enum.to_list
+        false -> []
+      end
     end
 
   end
