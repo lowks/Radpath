@@ -7,13 +7,9 @@ build:
 
       # Gets the dependencies
       - script:
-          name: mix deps.get
+          name: Installing zip
           code: |
-            cd $WERCKER_SOURCE_DIR
-            mix deps.get
-            git clone https://github.com/elixir-lang/elixir
-            cd elixir && make
-            export PATH=`pwd`/elixir/bin:$PATH
+            sudo apt-get install zip
 
       # Build the project
       #- script:
