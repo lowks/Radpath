@@ -19,6 +19,8 @@ build:
       - script:
           name: mix compile
           code: |
+            MIX_ENV=test mix deps.update amrita
+            MIX_ENV=test mix compile amrita            
             MIX_ENV=test mix compile
 
       # Test the project
