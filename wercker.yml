@@ -16,15 +16,15 @@ build:
             export PATH=`pwd`/elixir/bin:$PATH
 
       # Build the project
-      - script:
-          name: mix compile
-          code: |
-            MIX_ENV=test mix deps.update amrita
-            MIX_ENV=test mix compile amrita            
-            MIX_ENV=test mix compile
+      #- script:
+       #   name: mix compile
+        #  code: |
+         #   MIX_ENV=test mix deps.update amrita
+          #  MIX_ENV=test mix compile amrita            
+           # MIX_ENV=test mix compile
 
       # Test the project
       - script:
-          name: mix amrita
+          name: Test
           code: |
-            MIX_ENV=test mix amrita --trace
+            MIX_ENV=test make ci
