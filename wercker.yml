@@ -19,10 +19,10 @@ build:
       - script:
           name: mix compile
           code: |
-            mix compile
+            MIX_ENV=test mix compile
 
       # Test the project
       - script:
           name: mix amrita
           code: |
-            mix amrita --trace
+            MIX_ENV=test mix amrita --trace
