@@ -44,7 +44,7 @@ defmodule Radpath.Mixfile do
     [{ :tempfile, github: "glejeune/tempfile" },
      { :ex_doc, github: "elixir-lang/ex_doc" },
      { :finder, github: "h4cc/Finder" },
-     { :amrita, "~>0.2", github: "josephwilk/amrita"}]
+     { :amrita, github: "josephwilk/amrita"}]
   end
 
   defp deps(_) do
