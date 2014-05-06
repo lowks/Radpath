@@ -11,6 +11,9 @@ build:
           code: |
             cd $WERCKER_SOURCE_DIR
             mix deps.get
+            git clone https://github.com/elixir-lang/elixir
+            cd elixir && make
+            export PATH=`pwd`/elixir/bin:$PATH
 
       # Build the project
       - script:
