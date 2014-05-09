@@ -4,6 +4,8 @@
 
 [![Build Status](https://drone.io/github.com/lowks/Radpath/status.png)](https://drone.io/github.com/lowks/Radpath/latest)
 
+[![wercker status](https://app.wercker.com/status/8a98607487fbd4ad61904acbb840e31a/m/ "wercker status")](https://app.wercker.com/project/bykey/8a98607487fbd4ad61904acbb840e31a)
+
 A library for handling paths in Elixir inspired by enhpath in Python.
 
 ## Getting Started
