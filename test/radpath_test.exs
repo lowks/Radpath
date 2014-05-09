@@ -175,8 +175,7 @@ defmodule RadpathTests do
     fact "Test mktempdir: Nonexistant parent path, error returned" do
       tmpdirpath = Radpath.mktempdir("/gogo/gaga/gigi")
       try do
-        tmpdirpath |> ! path_exists
-        elem(tmpdirpath, 0) == :error
+        tmpdirpath |> equals {:error, :enoent}
       end
     end
   end
