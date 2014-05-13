@@ -26,7 +26,6 @@ defmodule RadpathTests do
   
   import PathHelpers
   alias :file, as: F
-  alias :zip, as: Z
 
   defchecker path_exists(path) do
     File.exists?(path) |> truthy
@@ -39,7 +38,7 @@ defmodule RadpathTests do
       try do
         Radpath.zip([fixture_path], "Testdir1.zip")
         "Testdir1.zip" |> path_exists
-        System.cmd("zip -T Testdir1.zip") |> String.strip |> equals "test of Testdir1.zip OK"
+        System.cmd("zip -T Testdir1.zip") |> String.strip |> "test of Testdir1.zip OK"
       after
         File.rm_rf("Testdir1.zip")
       end
@@ -52,7 +51,7 @@ defmodule RadpathTests do
       try do
         Radpath.zip([dir], "Testdir2.zip")
         "Testdir2.zip" |> path_exists
-        System.cmd("zip -T Testdir2.zip") |> String.strip |> equals "test of Testdir2.zip OK"
+        System.cmd("zip -T Testdir2.zip") |> String.strip |> "test of Testdir2.zip OK"
       after
         File.rm_rf("Testdir2.zip")
       end
@@ -64,7 +63,7 @@ defmodule RadpathTests do
     try do
       Radpath.zip(dir, "Testdir3.zip")
       "Testdir3.zip" |> path_exists
-      System.cmd("zip -T Testdir3.zip") |> String.strip |> equals "test of Testdir3.zip OK"
+      System.cmd("zip -T Testdir3.zip") |> String.strip |> "test of Testdir3.zip OK"
     after
       File.rm_rf("Testdir3.zip")
     end
@@ -89,7 +88,7 @@ defmodule RadpathTests do
     end
 
     fact "Test Filtering: Files returns empty list if path does not exist" do
-      Radpath.files("/this/path/does/not/exist") |> equals []
+      Radpath.files("/this/path/does/not/exist") |> []
     end
   
     fact "Test Filtering: Directories" do
@@ -115,7 +114,7 @@ defmodule RadpathTests do
       try do
         dest |> ! path_exists
         Radpath.symlink(src, dest)
-        elem(F.read_link(dest), 0) |> equals :ok
+        elem(F.read_link(dest), 0) |> :ok
         dest |> path_exists
       after
         File.rm_rf dest
@@ -129,7 +128,7 @@ defmodule RadpathTests do
       try do
         dest |> ! path_exists
         Radpath.symlink(src, dest)
-        F.read_link(dest) |> equals {:error, :enoent}
+        F.read_link(dest) |> {:error, :enoent}
         dest |> ! path_exists
       after
         File.rm_rf dest
@@ -175,7 +174,7 @@ defmodule RadpathTests do
     fact "Test mktempdir: Nonexistant parent path, error returned" do
       tmpdirpath = Radpath.mktempdir("/gogo/gaga/gigi")
       try do
-        tmpdirpath |> equals {:error, :enoent}
+        tmpdirpath |> {:error, :enoent}
       end
     end
   end
@@ -206,11 +205,11 @@ defmodule RadpathTests do
 
   facts "Test relative paths" do
     fact "Test relative_path: Normal Usage" do
-      Radpath.relative_path("/tmp/base", "/tmp/base/hoho.txt") |> equals "hoho.txt"
+      Radpath.relative_path("/tmp/base", "/tmp/base/hoho.txt") |> "hoho.txt"
     end
 
     fact "Test relative_path: If same path is given empty string will result" do
-      Radpath.relative_path("/tmp/base/", "/tmp/base/") |> equals ""
+      Radpath.relative_path("/tmp/base/", "/tmp/base/") |> ""
     end
   end
 
