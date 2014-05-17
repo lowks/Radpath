@@ -25,6 +25,7 @@ defmodule Radpath.Mixfile do
     [
      files: ["lib", "mix.exs", "README.md", "LICENSE*", "test*"],
      contributors: ["Low Kian Seong"],
+     deps: deps,
      licenses: ["MIT"],
      links: [{ "GitHub", "https://github.com/lowks/Radpath"},]
     ]
@@ -37,14 +38,16 @@ defmodule Radpath.Mixfile do
   # { :barbat, "~> 0.1", github: "elixir-lang/barbat" }
   defp deps(:prod) do
     [{ :tempfile, github: "glejeune/tempfile" },
-     { :finder, github: "h4cc/Finder" }]
+     { :finder, github: "h4cc/Finder" },
+     { :erlware_commons, github: "erlware/erlware_commons" },]
   end
 
   defp deps(:test) do
     [{ :tempfile, github: "glejeune/tempfile" },
      { :ex_doc, github: "elixir-lang/ex_doc" },
      { :finder, github: "h4cc/Finder" },
-     { :amrita, github: "josephwilk/amrita"}]
+     { :amrita, github: "josephwilk/amrita"},
+     { :erlware_commons, github: "erlware/erlware_commons" },]
   end
 
   defp deps(_) do
