@@ -3,8 +3,8 @@ defmodule Radpath.Mixfile do
 
   def project do
     [ app: :radpath,
-      version: "0.0.1",
-      elixir: "~> 0.13.0",
+      version: "0.0.2",
+      elixir: "~> 0.13.1",
       description: description,
       package: package,
       deps: deps(Mix.env) ]
@@ -25,7 +25,7 @@ defmodule Radpath.Mixfile do
     [
      files: ["lib", "mix.exs", "README.md", "LICENSE*", "test*"],
      contributors: ["Low Kian Seong"],
-     deps: deps,
+     deps: deps(:prod),
      licenses: ["MIT"],
      links: [{ "GitHub", "https://github.com/lowks/Radpath"},]
     ]
