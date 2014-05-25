@@ -72,12 +72,14 @@ defmodule RadpathTests do
     end
   end
 
-  fact "Test unzip: One bitstring path" do
-    dir = Path.join(fixture_path, "testdir1")
-    Path.join(fixture_path, "Testdir3.zip") |> ! path_exists
-    Radpath.zip(dir, "Testdir3.zip")
-    Path.join(fixture_path, "Testdir3.zip") |> path_exists
-    #Radpath.unzip(Path.join("Testdir3.zip"))
+  future_fact "Test unzip: One bitstring path" do
+    try do
+      Path.join(fixture_path, "dome.csv") |> ! path_exists
+      Radpath.unzip(Path.join(fixture_path, "dome.zip"))
+      Path.join(fixture_path, "dome.csv") |> path_exists
+    after
+      File.rm_rf(Path.join(fixture_path, "dome.csv"))
+    end
   end
   
   fact "Test zip: Path that does not exist" do
