@@ -1,6 +1,7 @@
 defmodule Radpath do
   alias :file, as: F
   alias :zip, as: Z
+  alias :ec_file, as: E
   use Application.Behaviour
   use Radpath.Dirs
   use Radpath.Files
@@ -42,9 +43,9 @@ defmodule Radpath do
 
   """
   def zip(dirs, archive_name) when is_list(dirs) do
-    dirs_list = dirs |> Enum.filter(fn(x) -> File.exists?(x) end) |> Enum.map&(String.to_char_list!(&1))
+    dirs_list = dirs |> Enum.filter(fn(x) -> File.exists?(x) end) |> Enum.map&(List.from_char_data!(&1))
     if !Enum.empty? dirs_list do
-      Z.create(String.to_char_list!(archive_name), dirs_list)
+      Z.create(List.from_char_data!(archive_name), dirs_list)
     end
   end
 
@@ -57,7 +58,7 @@ defmodule Radpath do
   """
   def zip(dir, archive_name) when is_bitstring(dir) do
     if File.exists?(dir) do
-      Z.create(String.to_char_list!(archive_name), [String.to_char_list!(dir)])
+      Z.create(List.from_char_data!(archive_name), [List.from_char_data!(dir)])
     end
   end
 
@@ -126,8 +127,29 @@ defmodule Radpath do
       {:error, _} -> false
     end
   end
+
+  def md5sum(path) when is_bitstring(path) do
+    case File.exists?(path) do
+      true ->
+        case File.dir?(path) do
+          true -> :error
+          false -> File.read!(path) |> :ec_file.md5sum |> to_string
+        end
+      false -> :error
+    end
+  end
+
+  def sha1sum(path) when is_bitstring(path) do
+    case File.exists?(path) do
+      true ->
+        case File.dir?(path) do
+          true -> :error
+          false -> File.read!(path) |> :ec_file.sha1sum |> to_string
+        end
+      false -> :error
+    end
+  end
       
-  
   defp do_mkdir(path) do
     if !File.exists?(path) do
       case File.mkdir(path) do

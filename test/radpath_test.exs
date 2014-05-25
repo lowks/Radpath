@@ -39,6 +39,7 @@ defmodule RadpathTests do
         Radpath.zip([fixture_path], "Testdir1.zip")
         "Testdir1.zip" |> path_exists
         System.cmd("zip -T Testdir1.zip") |> String.strip |> "test of Testdir1.zip OK"
+        System.cmd("zipinfo -1 Testdir1.zip") |> contains "testdir1"
       after
         File.rm_rf("Testdir1.zip")
       end
@@ -52,6 +53,7 @@ defmodule RadpathTests do
         Radpath.zip([dir], "Testdir2.zip")
         "Testdir2.zip" |> path_exists
         System.cmd("zip -T Testdir2.zip") |> String.strip |> "test of Testdir2.zip OK"
+        System.cmd("zipinfo -1 Testdir2.zip") |> contains "testdir2"
       after
         File.rm_rf("Testdir2.zip")
       end
@@ -64,9 +66,18 @@ defmodule RadpathTests do
       Radpath.zip(dir, "Testdir3.zip")
       "Testdir3.zip" |> path_exists
       System.cmd("zip -T Testdir3.zip") |> String.strip |> "test of Testdir3.zip OK"
+      System.cmd("zipinfo -1 Testdir3.zip") |> contains "testdir1"
     after
       File.rm_rf("Testdir3.zip")
     end
+  end
+
+  fact "Test unzip: One bitstring path" do
+    dir = Path.join(fixture_path, "testdir1")
+    Path.join(fixture_path, "Testdir3.zip") |> ! path_exists
+    Radpath.zip(dir, "Testdir3.zip")
+    Path.join(fixture_path, "Testdir3.zip") |> path_exists
+    #Radpath.unzip(Path.join("Testdir3.zip"))
   end
   
   fact "Test zip: Path that does not exist" do
@@ -237,5 +248,20 @@ defmodule RadpathTests do
     end
   end
 
+  facts "Other functions:" do
+    fact "Test md5sum: md5sum function" do
+      [h | t]= String.split(to_string(:os.cmd('md5sum mix.exs')))
+      assert h == Radpath.md5sum("mix.exs")
+    end
+    fact "Test sha1sum: sha1sum function" do
+      [h | t]= String.split(to_string(:os.cmd('sha1sum mix.exs')))
+      assert h == Radpath.sha1sum("mix.exs")
+    end
+    fact "Test sha1sum: sha1sum on directory" do
+      Radpath.sha1sum("/tmp") |> :error
+    end
+    fact "Test md5sum: md5sum on directory" do
+      Radpath.md5sum("/tmp") |> :error
+    end
+  end
 end
-
