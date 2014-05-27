@@ -62,6 +62,14 @@ defmodule Radpath do
     end
   end
 
+  def unzip(zip_file, unzip_dir \\ File.cwd!) when is_bitstring(zip_file) do
+    if File.exists?(zip_file) do
+      {:ok,ziphandler} = Z.openzip_open List.from_char_data!(zip_file), [cwd: unzip_dir]
+      Z.openzip_get(ziphandler)
+      Z.openzip_close(ziphandler)
+    end
+  end
+
   @doc """
   
   To rename a file / directory:
