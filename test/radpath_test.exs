@@ -92,6 +92,10 @@ defmodule RadpathTests do
     end
   end
   
+  fact "Test unzip: Non existent zip file will result in nil" do
+    Radpath.unzip("gogo/gaga/none.zip") |> nil
+  end
+  
   fact "Test zip: Path that does not exist" do
       dir = "/gogo/I/don/exist/"
       Path.join(fixture_path, "Testdir-dont-exist.zip") |> ! path_exists
