@@ -44,7 +44,7 @@ defmodule Radpath.Mixfile do
 
   defp deps(:test) do
     [{ :tempfile, github: "glejeune/tempfile" },
-     { :ex_doc, github: "suranyami/ex_doc" },
+     { :ex_doc, github: "suranyami/ex_doc", override: true },
      { :finder, github: "h4cc/Finder" },
      { :amrita, github: "josephwilk/amrita"},
      { :erlware_commons, github: "erlware/erlware_commons" },]
