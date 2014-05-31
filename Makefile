@@ -29,13 +29,13 @@ vendor/master:
 
 ci_master: vendor/master
 	@${VENDORED_ELIXIR} --version
-	@MIX_ENV=test ${RUN_VENDORED_MIX} do clean, deps.get, compile, amrita
+	@MIX_ENV=test ${RUN_VENDORED_MIX} do clean --all, deps.get, compile, amrita
 
 ci_$(STABLE_ELIXIR_VERSION): vendor/${STABLE_ELIXIR_VERSION}
 	@${VENDORED_ELIXIR} --version
-	@MIX_ENV=test ${RUN_VENDORED_MIX} do clean, deps.get, compile, amrita
+	@MIX_ENV=test ${RUN_VENDORED_MIX} do clean --all, deps.get, compile, amrita
 
 test_vendored:
 	@${VENDORED_ELIXIR} --version
 	@${RUN_VENDORED_MIX} clean
-	@MIX_ENV=test ${RUN_VENDORED_MIX} do clean, deps.get, compile, amrita --trace
+	@MIX_ENV=test ${RUN_VENDORED_MIX} do clean --all, deps.get, compile, amrita --trace
