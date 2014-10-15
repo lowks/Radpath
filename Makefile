@@ -2,7 +2,7 @@ VENDORED_ELIXIR=${PWD}/vendor/elixir/bin/elixir
 VENDORED_MIX=${PWD}/vendor/elixir/bin/mix
 RUN_VENDORED_MIX=${VENDORED_ELIXIR} ${VENDORED_MIX}
 #VERSION := $(strip $(shell cat VERSION))
-STABLE_ELIXIR_VERSION = 0.13.2
+STABLE_ELIXIR_VERSION = 1.0.0
 
 .PHONY: all test
 
@@ -32,8 +32,9 @@ ci_master: vendor/master
 	@MIX_ENV=test ${RUN_VENDORED_MIX} do clean --all, deps.get, compile, amrita
 
 ci_$(STABLE_ELIXIR_VERSION): vendor/${STABLE_ELIXIR_VERSION}
+	${RUN_VENDORED_MIX} local.hex --force
 	@${VENDORED_ELIXIR} --version
-	@MIX_ENV=test ${RUN_VENDORED_MIX} do clean --all, deps.get, compile, amrita
+	@MIX_ENV=test ${RUN_VENDORED_MIX} do clean, deps.get, compile, amrita
 
 test_vendored:
 	@${VENDORED_ELIXIR} --version

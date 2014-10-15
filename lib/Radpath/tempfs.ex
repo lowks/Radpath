@@ -38,6 +38,7 @@ defmodule Radpath.Tempfs do
 
     """
     def mktempdir do
+      IO.puts "hello world"
       Tempfile.get_name |> Path.rootname |> do_mkdir
     end
     @doc """

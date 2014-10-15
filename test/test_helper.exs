@@ -1,5 +1,5 @@
-Amrita.start(formatter: Amrita.Formatter.Documentation)
-
+#Amrita.start(formatters: [Amrita.Formatter.Documentation])
+ExUnit.start()
 defmodule PathHelpers do
   
   def tmp_path() do
@@ -11,3 +11,4 @@ defmodule PathHelpers do
   end
 
 end
+Amrita.start

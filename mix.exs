@@ -1,10 +1,11 @@
+ Code.ensure_loaded?(Hex) and Hex.start                                                                                              
 defmodule Radpath.Mixfile do
   use Mix.Project
 
   def project do
     [ app: :radpath,
       version: "0.0.2",
-      elixir: "~> 0.13.1",
+      elixir: "~> 1.0.0",
       description: description,
       package: package,
       deps: deps(Mix.env) ]
@@ -37,16 +38,19 @@ defmodule Radpath.Mixfile do
   # To specify particular versions, regardless of the tag, do:
   # { :barbat, "~> 0.1", github: "elixir-lang/barbat" }
   defp deps(:prod) do
-    [{ :tempfile, github: "glejeune/tempfile" },
+    [{ :tempfile, github: "lowks/tempfile" },
      { :finder, github: "h4cc/Finder" },
+     { :amrita, "~>0.4", github: "josephwilk/amrita"},
      { :erlware_commons, github: "erlware/erlware_commons" },]
   end
 
   defp deps(:test) do
-    [{ :tempfile, github: "glejeune/tempfile" },
-     { :ex_doc, github: "suranyami/ex_doc", override: true },
+    [{ :tempfile, github: "lowks/tempfile" },
+     {:ex_doc, github: "elixir-lang/ex_doc"},
+#     { :ex_doc, github: "suranyami/ex_doc", override: true },
      { :finder, github: "h4cc/Finder" },
-     { :amrita, github: "josephwilk/amrita"},
+     #{ :amrita, github: "josephwilk/amrita"},
+     {:amrita, "~>0.4", github: "josephwilk/amrita"},
      { :erlware_commons, github: "erlware/erlware_commons" },]
   end
 
