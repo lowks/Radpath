@@ -38,7 +38,9 @@ defmodule Radpath.Tempfs do
 
     """
     def mktempdir do
-      Tempfile.get_name |> Path.rootname |> do_mkdir
+      temp_name = Tempfile.get_name
+      temp_name |> Path.rootname |> do_mkdir
+      temp_name
     end
     @doc """
     To create a temp dir at a specific location:
