@@ -1,7 +1,6 @@
 defmodule Radpath do
   alias :file, as: F
   alias :zip, as: Z
-  #alias :ec_file, as: E
   use Application
   use Radpath.Dirs
   use Radpath.Files
@@ -43,10 +42,8 @@ defmodule Radpath do
 
   """
   def zip(dirs, archive_name) when is_list(dirs) do
-    #dirs_list = dirs |> Enum.filter(fn(x) -> File.exists?(x) end) |> Enum.map&(List.from_char_data!(&1))
     dirs_list = dirs |> Enum.filter(fn(x) -> File.exists?(x) end) |> Enum.map&(String.to_char_list(&1))
     if !Enum.empty? dirs_list do
-      #Z.create(List.from_char_data!(archive_name), dirs_list)
       Z.create(String.to_char_list(archive_name), dirs_list)
     end
   end
@@ -60,16 +57,13 @@ defmodule Radpath do
   """
   def zip(dir, archive_name) when is_bitstring(dir) do
     if File.exists?(dir) do
-      #Z.create(List.from_char_data!(archive_name), [List.from_char_data!(dir)])
       Z.create(String.to_char_list(archive_name), [String.to_char_list(dir)])
     end
   end
 
   def unzip(zip_file, unzip_dir \\ File.cwd!) when is_bitstring(zip_file) do
     if File.exists?(zip_file) do
-      #{:ok,ziphandler} = Z.openzip_open List.from_char_data!(zip_file), [cwd: unzip_dir]
       {:ok,ziphandler} = Z.openzip_open String.to_char_list(zip_file), [cwd: unzip_dir]
-
       Z.openzip_get(ziphandler)
       Z.openzip_close(ziphandler)
     end
