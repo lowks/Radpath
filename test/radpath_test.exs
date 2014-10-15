@@ -71,11 +71,11 @@ defmodule RadpathTests.RadpathFacts do
 
   fact "Test unzip: One bitstring path in tmp" do
     try do
-      Path.join(fixture_path, "dome.csv") |> ! path_exists
-      Radpath.unzip(Path.join(fixture_path, "dome.zip"), fixture_path)
-      Path.join(fixture_path, "dome.csv") |> path_exists()
+      Path.join(fixture_path, "dome.csv") |> ! path_exists()
+      Radpath.unzip(Path.join(fixture_path, "dome.zip"), "/tmp")
+      Path.join("/tmp", "dome.csv") |> path_exists()
     after
-      File.rm_rf(Path.join(fixture_path, "dome.csv"))
+      File.rm_rf("/tmp/dome.csv")
     end
   end
   
@@ -179,7 +179,7 @@ defmodule RadpathTests.RadpathFacts do
         File.exists?(path) |> truthy
     end 
 
-    future_fact "Test Tempfilefs: Without Argument" do
+    fact "Test Tempfilefs: Without Argument" do
         tmpdirpath1 = Radpath.mktempdir
         Radpath.mktempdir |> File.exists?
         File.rm_rf tmpdirpath1
