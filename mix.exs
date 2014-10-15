@@ -1,4 +1,4 @@
- Code.ensure_loaded?(Hex) and Hex.start                                                                                              
+Code.ensure_loaded?(Hex) and Hex.start                                                                                              
 defmodule Radpath.Mixfile do
   use Mix.Project
 
@@ -47,9 +47,7 @@ defmodule Radpath.Mixfile do
   defp deps(:test) do
     [{ :tempfile, github: "lowks/tempfile" },
      {:ex_doc, github: "elixir-lang/ex_doc"},
-#     { :ex_doc, github: "suranyami/ex_doc", override: true },
      { :finder, github: "h4cc/Finder" },
-     #{ :amrita, github: "josephwilk/amrita"},
      {:amrita, "~>0.4", github: "josephwilk/amrita"},
      { :erlware_commons, github: "erlware/erlware_commons" },]
   end

@@ -1,7 +1,8 @@
 Code.require_file "../test_helper.exs", __ENV__.file
-#ExUnit.start()
+ExUnit.start()
 
-defmodule RadpathTests do
+defmodule RadpathTests.RadpathFacts do
+
   use Amrita.Sweet       
 
   import PathHelpers
@@ -171,21 +172,19 @@ defmodule RadpathTests do
     end
 
   end
-
+  
   facts "Test Tempfilefs" do
-    
-    future_fact "Test" do
-      fail do
-        tmpdirpath1 = Radpath.mktempdir
-        Radpath.mktempdir |> File.exists?
-        File.rm_rf tmpdirpath1
-      end
-    end
     
     defchecker path_exists(path) do
         File.exists?(path) |> truthy
-    end
+    end 
 
+    future_fact "Test Tempfilefs: Without Argument" do
+        tmpdirpath1 = Radpath.mktempdir
+        Radpath.mktempdir |> File.exists?
+        File.rm_rf tmpdirpath1
+    end
+ 
     fact "Test mktempdir: With argument" do
       src = Path.join(fixture_path, "testdir3")
       try do
@@ -195,6 +194,7 @@ defmodule RadpathTests do
       end
     end
 
+    
     
 
     fact "Test mktempdir: Nonexistant parent path, error returned" do

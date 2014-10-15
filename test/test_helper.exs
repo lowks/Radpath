@@ -1,7 +1,4 @@
-#Amrita.start(formatters: [Amrita.Formatter.Documentation])
-ExUnit.start()
 defmodule PathHelpers do
-  
   def tmp_path() do
     Path.expand("test_temp", __DIR__)
   end
@@ -9,6 +6,6 @@ defmodule PathHelpers do
   def fixture_path() do
     Path.expand("fixtures", __DIR__)
   end
-
 end
-Amrita.start
+ExUnit.start()
+Amrita.start(formatters: [Amrita.Formatter.Documentation])
