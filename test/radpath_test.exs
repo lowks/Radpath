@@ -8,10 +8,6 @@ defmodule RadpathTests do
 
   alias :file, as: F
 
-  # defchecker path_exists(path) do
-  #   File.exists?(path) |> truthy
-  # end
-
   facts "Test zipping" do
 
     defchecker path_exists(path) do
