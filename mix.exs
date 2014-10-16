@@ -28,7 +28,9 @@ defmodule Radpath.Mixfile do
      contributors: ["Low Kian Seong"],
      deps: deps(:prod),
      licenses: ["MIT"],
-     links: [{ "GitHub", "https://github.com/lowks/Radpath"},]
+     links: %{
+         "GitHub" => "https://github.com/lowks/Radpath"
+     }
     ]
   end
 
