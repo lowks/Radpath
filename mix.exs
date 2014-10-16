@@ -29,7 +29,8 @@ defmodule Radpath.Mixfile do
      deps: deps(:prod),
      licenses: ["MIT"],
      links: %{
-         "GitHub" => "https://github.com/lowks/Radpath"
+         "GitHub" => "https://github.com/lowks/Radpath",
+         "Docs" => "http://hexdocs.pm/radpath/0.0.3/"
      }
     ]
   end
