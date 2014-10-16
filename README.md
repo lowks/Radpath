@@ -27,10 +27,10 @@ Project is still actively being developed
 
 ## Running Tests
 
-As usual, just run
+There is a special Makefile for running tests
 
 ```
-mix test
+make ci
 ```
 
 ## Docs
