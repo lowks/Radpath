@@ -1,5 +1,4 @@
 Code.require_file "../test_helper.exs", __ENV__.file
-ExUnit.start()
 
 defmodule RadpathTests.RadpathFacts do
 
@@ -16,8 +15,8 @@ defmodule RadpathTests.RadpathFacts do
     end
 
     fact "Test zip: List of directories" do
-      Path.join(fixture_path, "Testdir1.zip") |> ! path_exists()
       try do
+        Path.join(fixture_path, "Testdir1.zip") |> ! path_exists()
         Radpath.zip([fixture_path], "Testdir1.zip")
         "Testdir1.zip" |> path_exists()
         System.cmd("zip",["-T","Testdir1.zip"]) |> {"test of Testdir1.zip OK\n", 0}
@@ -31,9 +30,9 @@ defmodule RadpathTests.RadpathFacts do
     fact "Test zip: One path" do
 
       dir = Path.join(fixture_path, "testdir2")
-      Path.join(fixture_path, "Testdir2.zip") |> ! path_exists()
 
       try do
+        Path.join(fixture_path, "Testdir2.zip") |> ! path_exists()
         Radpath.zip([dir], "Testdir2.zip")
         "Testdir2.zip" |> path_exists()
         {result_str, code} = System.cmd("zip",["-T","Testdir2.zip"]) 
@@ -47,8 +46,8 @@ defmodule RadpathTests.RadpathFacts do
 
   fact "Test zip: One bitstring path" do
     dir = Path.join(fixture_path, "testdir1")
-    Path.join(fixture_path, "Testdir3.zip") |> ! path_exists()
     try do
+      Path.join(fixture_path, "Testdir3.zip") |> ! path_exists()
       Radpath.zip(dir, "Testdir3.zip")
       "Testdir3.zip" |> path_exists()
       System.cmd("zip",["-T","Testdir3.zip"]) |> {"test of Testdir3.zip OK\n", 0}
@@ -85,9 +84,8 @@ defmodule RadpathTests.RadpathFacts do
   
   fact "Test zip: Path that does not exist" do
       dir = "/gogo/I/don/exist/"
-      Path.join(fixture_path, "Testdir-dont-exist.zip") |> ! path_exists()
-
       try do
+        Path.join(fixture_path, "Testdir-dont-exist.zip") |> ! path_exists()
         Radpath.zip([dir], "Testdir-dont-exist.zip")
         "Testdir-dont-exist.zip" |> ! path_exists()
       end
@@ -122,10 +120,6 @@ defmodule RadpathTests.RadpathFacts do
 
   facts "Test symlink" do
 
-    defchecker path_exists(path) do
-        File.exists?(path) |> truthy
-    end
-
     fact "Test symlink: Normal Usage" do
       src = Path.join(fixture_path, "testdir3")
       dest = Path.join(Path.expand("."), "testdir3")
@@ -134,6 +128,7 @@ defmodule RadpathTests.RadpathFacts do
         dest |> ! path_exists()
         Radpath.symlink(src, dest)
         elem(F.read_link(dest), 0) |> :ok
+        Radpath.islink?(dest) |> truthy
         dest |> path_exists()
       after
         File.rm_rf dest
@@ -141,6 +136,7 @@ defmodule RadpathTests.RadpathFacts do
     end
   
     fact "Test symlink: For non existent src file" do
+ 
       src = Path.join(fixture_path, "testdir3xx")
       dest = Path.join(Path.expand("."), "testdir3")
       
@@ -167,35 +163,37 @@ defmodule RadpathTests.RadpathFacts do
       end
     end
 
-    fact "Test symlink: islink? Return false if path is symlink" do
+    fact "Test symlink: islink? Return false if path is not symlink" do
       Radpath.islink?(fixture_path) |> falsey
+    end
+
+    fact "Test symlink: islink? Return false if path does not exist" do
+      Radpath.islink?("/I/wiLL/neveR/exist") |> falsey
     end
 
   end
   
   facts "Test Tempfilefs" do
-    
-    defchecker path_exists(path) do
-        File.exists?(path) |> truthy
-    end 
 
     fact "Test Tempfilefs: Without Argument" do
         tmpdirpath1 = Radpath.mktempdir
-        Radpath.mktempdir |> File.exists?
-        File.rm_rf tmpdirpath1
+        try do
+          Radpath.mktempdir |> File.exists?
+        after
+          File.rm_rf tmpdirpath1
+        end
     end
  
     fact "Test mktempdir: With argument" do
       src = Path.join(fixture_path, "testdir3")
+      tmpdirpath = Radpath.mktempdir(src)
+
       try do
-        tmpdirpath = Radpath.mktempdir(src)
         File.exists?(tmpdirpath) |> truthy
-        File.rmdir(tmpdirpath)
+      after
+        File.rm_rf tmpdirpath
       end
     end
-
-    
-    
 
     fact "Test mktempdir: Nonexistant parent path, error returned" do
       tmpdirpath = Radpath.mktempdir("/gogo/gaga/gigi")
@@ -206,10 +204,6 @@ defmodule RadpathTests.RadpathFacts do
   end
 
   facts "Test rename" do
-
-    defchecker path_exists(path) do
-        File.exists?(path) |> truthy
-    end
 
     fact "Test rename: Normal Usage" do
       source_file = "/tmp/hoho.txt"
@@ -245,10 +239,6 @@ defmodule RadpathTests.RadpathFacts do
   end
 
   facts "Test ensure" do
-
-    defchecker path_exists(path) do
-        File.exists?(path) |> truthy
-    end
     
     fact "Test ensure: Ensure Directory is created" do
       test_dir_path = Path.join(fixture_path, "gogo/gaga")
