@@ -6,11 +6,11 @@
 
 [![wercker status](https://app.wercker.com/status/8a98607487fbd4ad61904acbb840e31a/m/ "wercker status")](https://app.wercker.com/project/bykey/8a98607487fbd4ad61904acbb840e31a)
 
-A library for handling paths in Elixir inspired by enhpath in Python.
+A library for handling paths in Elixir inspired by Python's pathlib.
 
 ## Getting Started
 
-To use Radpath, as usual add a depedency in your mix project
+To use Radpath, as usual add a dependency in your mix:
 
 ``` elixir
     
@@ -27,7 +27,7 @@ Project is still actively being developed
 
 ## Running Tests
 
-There is a special Makefile for running tests
+There is a special Makefile for running tests, just run:
 
 ```
 make ci
@@ -41,13 +41,13 @@ To list down files in a path:
 Radpath.files("/home/lowks/Documents")
 ```
 
-or if you wanted to filter out pdfs:
+or if you wanted to filter out certain files with pdf extensions:
 
 ```
 Radpath.files("/home/lowks/Documents", "pdf")
 ```
 
-To list down only directories:
+Listing down only directories:
 
 ```
 Radpath.dirs("/home/lowks")                  
