@@ -43,7 +43,6 @@ defmodule Radpath.Mixfile do
   defp deps(:prod) do
     [{ :tempfile, github: "lowks/tempfile" },
      { :finder, github: "h4cc/Finder" },
-     { :amrita, "~>0.4", github: "josephwilk/amrita"},
      { :erlware_commons, github: "erlware/erlware_commons" },]
   end
 
