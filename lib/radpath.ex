@@ -135,6 +135,15 @@ defmodule Radpath do
     end
   end
 
+  @doc """
+  Returns the md5sum of a file. Only works for files. Folders passed will return :error:
+
+      iex(2)> Radpath.md5sum("mix.exs")
+      "e7794b67112458774fe9f23d1b9c4913"
+      iex(3)> Radpath.md5sum("test")   
+      :error
+  """
+
   def md5sum(path) when is_bitstring(path) do
     case File.exists?(path) do
       true ->
@@ -145,6 +154,15 @@ defmodule Radpath do
       false -> :error
     end
   end
+
+  @doc """
+  Returns the sha1sum of a file. Only works for files. Folders passed will return :error:
+
+      iex(1)> Radpath.sha1sum("mix.exs")
+      "48edfd81ee32efc0f9aea7dbebd0798fb2adf226"
+      iex(2)> Radpath.sha1sum("test")   
+      :error
+  """
 
   def sha1sum(path) when is_bitstring(path) do
     case File.exists?(path) do
