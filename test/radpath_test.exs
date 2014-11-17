@@ -88,8 +88,10 @@ defmodule RadpathTests.RadpathFacts do
         Path.join(fixture_path, "Testdir-dont-exist.zip") |> ! path_exists()
         Radpath.zip([dir], "Testdir-dont-exist.zip")
         "Testdir-dont-exist.zip" |> ! path_exists()
+      rescue
+        e in RuntimeError -> e
       end
-    end
+    end                         
   end
 
   facts "Test Filtering" do
@@ -199,6 +201,8 @@ defmodule RadpathTests.RadpathFacts do
       tmpdirpath = Radpath.mktempdir("/gogo/gaga/gigi")
       try do
         tmpdirpath |> {:error, :enoent}
+      rescue
+        e in RuntimeError -> e
       end
     end
   end
