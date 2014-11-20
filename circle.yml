@@ -1,20 +1,10 @@
 dependencies:
   pre:
-    - bash ./install-otp_src_17.0.sh
-    - bash ./install-elixir.sh
-    - curl -O https://raw.githubusercontent.com/wiki/rebar/rebar/rebar
-    - chmod a+x rebar
-    - mv rebar ~/bin 
+    - apt-get install erlang, rebar
   cache_directories:
     - otp_src_17.0
     - elixir
 test:
-  pre:
-    - ln -s ~/Radpath/otp_src_17.0/bin/erl ~/bin/erl
-    - ln -s ~/Radpath/elixir/bin/elixir ~/bin/elixir
-    - ln -s ~/Radpath/elixir/bin/elixirc ~/bin/elixirc
-    - ln -s ~/Radpath/elixir/bin/mix ~/bin/mix
-    - ln -s ~/Radpath/elixir/bin/iex ~/bin/iex
   override:
     - erl -version
     - elixir -v
