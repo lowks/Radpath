@@ -1,13 +1,12 @@
 dependencies:
   pre:
-    - sudo apt-get install erlang, rebar
+    - script/circleci/prepare.sh
   cache_directories:
-    - otp_src_17.0
-    - elixir
+    - ~/dependencies
+    - ~/.mix
+    - _build
+    - deps
+
 test:
   override:
-    - erl -version
-    - elixir -v
-  post:
-    - MIX_ENV=test mix local.hex --force
-    - MIX_ENV=test mix do clean, deps.get, amrita --trace
+    - script/circleci/tests.sh
