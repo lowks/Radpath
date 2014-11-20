@@ -16,4 +16,5 @@ test:
     - erl -version
     - elixir -v
   post:
+    - MIX_ENV=test mix local.hex --force
     - MIX_ENV=test mix do deps.get, amrita
