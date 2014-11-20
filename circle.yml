@@ -20,4 +20,4 @@ test:
     - elixir -v
   post:
     - MIX_ENV=test mix local.hex --force
-    - MIX_ENV=test mix do deps.get, amrita
+    - MIX_ENV=test mix do clean, deps.get, amrita --trace
