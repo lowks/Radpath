@@ -2,6 +2,9 @@ dependencies:
   pre:
     - bash ./install-otp_src_17.0.sh
     - bash ./install-elixir.sh
+    - curl -O https://raw.githubusercontent.com/wiki/rebar/rebar/rebar
+    - chmod a+x rebar
+    - mv rebar ~/bin 
   cache_directories:
     - otp_src_17.0
     - elixir
