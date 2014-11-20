@@ -9,4 +9,4 @@ dependencies:
 
 test:
   override:
-    - script/circleci/tests.sh
+    - script/circleci/test.sh
