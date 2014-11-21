@@ -6,7 +6,7 @@
 
 [![wercker status](https://app.wercker.com/status/8a98607487fbd4ad61904acbb840e31a/m/ "wercker status")](https://app.wercker.com/project/bykey/8a98607487fbd4ad61904acbb840e31a)
 
-[![Circle CI](https://circleci.com/gh/lowks/Radpath.png?style=badge)](https://circleci.com/gh/lowks/Radpath)
+[![Circle CI](https://circleci.com/gh/lowks/Radpath/tree/master.png?style=badge)](https://circleci.com/gh/lowks/Radpath/tree/master)
 
 A library for handling paths in Elixir inspired by Python's pathlib.
 
