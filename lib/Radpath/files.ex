@@ -32,20 +32,23 @@ defmodule Radpath.Files do
         true -> [ext]
         false -> ext
       end
-      case File.exists? path do
+      expanded_path = Path.expand(path)
+      case File.exists? expanded_path do
         true -> Finder.new() |>
                 Finder.only_files() |>
                 Finder.with_file_endings(file_ext) |>
-                Finder.find(Path.expand(path)) |>
+                Finder.find(expanded_path) |>
                 Enum.to_list
         false -> []
       end
     end
     def files(path) do
-      case File.exists? path do
+      expanded_path = Path.expand(path)
+      IO.puts expanded_path
+      case File.exists? expanded_path do
         true -> Finder.new() |>
                 Finder.only_files() |>
-                Finder.find(Path.expand(path)) |>
+                Finder.find(expanded_path) |>
                 Enum.to_list
         false -> []
       end

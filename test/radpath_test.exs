@@ -114,6 +114,10 @@ defmodule RadpathTests.RadpathFacts do
       Radpath.files(fixture_path, "log") |> Enum.map(&Path.basename(&1)) |> ["file3.log"]
     end
 
+    fact "Test Filtering: files. Expanded path works too." do
+      Radpath.files("test/fixtures", "log") |> Enum.map(&Path.basename(&1)) |> ["file3.log"]
+    end
+
     fact "Test Filtering: Multiple filter for files function" do
       files = Radpath.files(fixture_path, ["log", "txt"]) |> Enum.map(&Path.basename(&1))
       ["file1.txt", "file2.txt", "file3.log"] |> for_all (&Enum.member?(files, &1))

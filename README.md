@@ -21,11 +21,11 @@ def deps do
 end
 ```
 
-After that, run `mix deps.get` from your shell to fetch and compile radpath.
+After that, run `mix deps.get` from your shell to fetch and compile Radpath.
 
 ## Status
 
-Project is still actively being developed
+Project is still actively being developed whenever I can find the time.
 
 ## Running Tests
 
