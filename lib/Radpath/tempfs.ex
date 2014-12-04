@@ -49,7 +49,9 @@ defmodule Radpath.Tempfs do
 
     """
     def mktempdir(path) when is_bitstring(path) do
-      Tempfile.get_name([path: make_into_path(path)]) |> Path.rootname |> do_mkdir
+      Tempfile.get_name([path: make_into_path(path)]) |> 
+	  Path.rootname |> 
+	  do_mkdir
     end
 
   end   

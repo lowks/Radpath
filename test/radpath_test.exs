@@ -273,11 +273,11 @@ defmodule RadpathTests.RadpathFacts do
 
   facts "Other functions:" do
     fact "Test md5sum: md5sum function" do
-      [h | t]= String.split(to_string(:os.cmd('md5sum mix.exs')))
+      [h | _]= String.split(to_string(:os.cmd('md5sum mix.exs')))
       assert h == Radpath.md5sum("mix.exs")
     end
     fact "Test sha1sum: sha1sum function" do
-      [h | t]= String.split(to_string(:os.cmd('sha1sum mix.exs')))
+      [h | _]= String.split(to_string(:os.cmd('sha1sum mix.exs')))
       assert h == Radpath.sha1sum("mix.exs")
     end
     fact "Test sha1sum: sha1sum on directory" do

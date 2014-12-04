@@ -44,7 +44,6 @@ defmodule Radpath.Files do
     end
     def files(path) do
       expanded_path = Path.expand(path)
-      IO.puts expanded_path
       case File.exists? expanded_path do
         true -> Finder.new() |>
                 Finder.only_files() |>
