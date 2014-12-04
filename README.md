@@ -35,6 +35,14 @@ There is a special Makefile for running tests, just run:
 make ci
 ```
 
+which runs the tests against the stable release of Elixir defined in Makefile by setting 'STABLE_ELIXIR_VERSION' and
+
+```
+make
+```
+
+runs the tests against your system Elixir
+
 ## Docs
 
 To list down files in a path:
