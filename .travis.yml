@@ -1,6 +1,12 @@
 language: erlang
 otp_release: 
   - 17.0
+  - 17.1
+before_install:
+  - wget http://s3.hex.pm/builds/elixir/v1.0.2.zip
+  - unzip -d elixir v1.0.2.zip
+before_script:
+  - export PATH=`pwd`/elixir/bin:$PATH
 install:
   - git clone git://github.com/rebar/rebar.git
   - cd rebar && ./bootstrap
@@ -9,3 +15,6 @@ install:
   - sudo apt-get -y install erlang
 script:
     "make ci"
+after_script:
+  - mix deps.get --only docs
+  - MIX_ENV=docs mix inch.report
