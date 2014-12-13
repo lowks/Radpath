@@ -13,6 +13,9 @@ install:
   - export PATH=$PATH:`pwd` && cd ..
 #  - sudo apt-get update
 #  - sudo apt-get -y install erlang
+cache:
+   directories:
+     - vendor
 script:
     "make ci"
 after_script:
