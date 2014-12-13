@@ -7,13 +7,13 @@ before_install:
   - unzip -d elixir v1.0.2.zip
 before_script:
   - export PATH=`pwd`/elixir/bin:$PATH
+cache:
+   directories:
+     - $HOME/vendor/elixir
 install:
   - git clone git://github.com/rebar/rebar.git
   - cd rebar && ./bootstrap
   - export PATH=$PATH:`pwd` && cd ..
-cache:
-   directories:
-     - $HOME/vendor/elixir
 script:
     "make ci"
 after_script:
