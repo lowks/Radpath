@@ -10,5 +10,6 @@ install:
 script:
     "make ci"
 after_script:
+  - export PATH=$PATH:`pwd` && cd ..
   - MIX_ENV=docs mix deps.get
   - MIX_ENV=docs mix inch.report
