@@ -44,7 +44,7 @@ defmodule Radpath.Mixfile do
     [{:tempfile, github: "lowks/tempfile"},
      {:finder, github: "h4cc/Finder" },
      {:erlware_commons, github: "erlware/erlware_commons" },
-     {:inch_ex, "~> 0.2.0"}] 
+     {:inch_ex, only: :docs}] 
   end
 
   defp deps(:test) do
@@ -53,7 +53,7 @@ defmodule Radpath.Mixfile do
      {:finder, github: "h4cc/Finder"},
      {:amrita, "~>0.4", github: "josephwilk/amrita"},
      {:erlware_commons, github: "erlware/erlware_commons"},
-     {:inch_ex, "~> 0.2.0"}] 
+     {:inch_ex, only: :docs}] 
   end
 
   defp deps(_) do
