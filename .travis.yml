@@ -11,8 +11,6 @@ install:
   - git clone git://github.com/rebar/rebar.git
   - cd rebar && ./bootstrap
   - export PATH=$PATH:`pwd` && cd ..
-#  - sudo apt-get update
-#  - sudo apt-get -y install erlang
 cache:
    directories:
      - vendor
