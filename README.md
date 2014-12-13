@@ -21,29 +21,27 @@ def deps do
 end
 ```
 
-After that, run `mix deps.get` from your shell to fetch and compile Radpath.
+`mix deps.get` fetches dependencies and compiles Radpath.
 
 ## Status
 
-Project is still actively being developed whenever I can find the time.
+Actively being developed whenever I can find the time.
 
 ## Running Tests
 
-There is a special Makefile for running tests, just run:
+Running tests against a stable release of Elixir defined by 'STABLE_ELIXIR_VERSION' in the Makefile:
 
 ```
 make ci
 ```
 
-which runs the tests against the stable release of Elixir defined in Makefile by setting 'STABLE_ELIXIR_VERSION' and
+Running tests against your system's Elixir:
 
 ```
 make
 ```
 
-runs the tests against your system Elixir
-
-## Docs
+## Docs (Lite)
 
 To list down files in a path:
 
@@ -85,6 +83,6 @@ Radpath.mktempfile(".log", "/home/lowks/Documents/temp/")
 
 The default is ".log". Checkout the rest of the docs in the docs folder.
 
-You can also run `mix docs` to generate a nice docs folder
+Run `mix docs` to generate a nice docs in a local folder or you can read them online: [Radpath hexdocs](http://hexdocs.pm/radpath/ "Hexdocs link for Radpath")
 
-Or check out [test examples](./test/radpath_test.exs) for usage.
+Check out [test examples](./test/radpath_test.exs) for usage.
