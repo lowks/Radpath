@@ -13,7 +13,7 @@ install:
   - export PATH=$PATH:`pwd` && cd ..
 cache:
    directories:
-     - vendor
+     - $HOME/vendor/elixir
 script:
     "make ci"
 after_script:
