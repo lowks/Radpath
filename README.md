@@ -8,6 +8,8 @@
 
 [![Circle CI](https://circleci.com/gh/lowks/Radpath/tree/master.png?style=badge)](https://circleci.com/gh/lowks/Radpath/tree/master)
 
+[![Inline docs](http://inch-ci.org/github/lowks/Radpath.svg?branch=master)](http://inch-ci.org/github/lowks/Radpath)
+
 A library for handling paths in Elixir inspired by Python's pathlib.
 
 ## Getting Started
