@@ -9,3 +9,5 @@ dependencies:
 test:
   override:
     - script/circleci/test.sh
+  post:
+    - script/circleci/post.sh
