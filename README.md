@@ -39,7 +39,7 @@ Running tests against your system's Elixir:
 make
 ```
 
-## Docs (Lite)
+## Docs (Lite Version)
 
 To list down files in a path:
 
