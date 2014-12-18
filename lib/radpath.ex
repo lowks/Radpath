@@ -146,6 +146,13 @@ defmodule Radpath do
   @doc ~S"""
   Gives you back the relative path:
 
+  ## Arguments
+
+  - `file` Bitstring 
+  - `base` Bitstring 
+
+  ## Usage   
+
       iex(1)> Radpath.relative_path("/tmp/lowks/", "/tmp/lowks/iam.txt")
       "iam.txt"
       iex(2)> Radpath.relative_path("/tmp/lowks/", "/tmp/lowks/hoho/iam.txt")

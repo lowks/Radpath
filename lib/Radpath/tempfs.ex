@@ -3,7 +3,6 @@ defmodule Radpath.Tempfs do
      quote do
 
      @doc """
-       
      To create a temp file and write to it without arguments:
 
          Radpath.mktempfile |> File.write("test123")
@@ -15,6 +14,13 @@ defmodule Radpath.Tempfs do
      @doc """
      To create a temp file with arguments (ext and path) and write to it. Default value for extension is '.tmp':
 
+     ## Arguments
+ 
+     - `path` path where to create tempfile in bitstring
+     - `ext` extension of newly created tempfile in bitstring
+
+     ## Usage
+
          Radpath.mktempfile(".log", "/home/lowks/Downloads") |> File.write("abcdef")
 
      """
@@ -23,6 +29,11 @@ defmodule Radpath.Tempfs do
      end
     @doc """
     To create a temp file at a certain location without extension and write to it:
+    ## Arguments
+ 
+     - `path` path where to create tempfile in bitstring
+
+    ## Usage
 
         Radpath.mktempfile("/home/lowks/Downloads") |> File.write("abcdef")
 
@@ -44,6 +55,12 @@ defmodule Radpath.Tempfs do
     end
     @doc """
     To create a temp dir at a specific location:
+
+    ## Arguments
+
+    - `path` location to create tempdir in bitstring
+
+    ## Usage
 
         Radpath.mktempdir("/home/lowks/Downloads")
 

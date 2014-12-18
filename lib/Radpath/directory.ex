@@ -7,8 +7,14 @@ defmodule Radpath.Dirs do
     # end
 
   @doc """
-  
   Returns all of the directories in the given path
+
+  ## Arguments
+
+  - `path` path to show list of directories in bitstring 
+  
+  ## Usage
+
 
       iex(4)> Radpath.dirs("/home/lowks/src/elixir/radpath/lib")
 

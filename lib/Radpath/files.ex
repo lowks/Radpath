@@ -6,7 +6,12 @@ defmodule Radpath.Files do
   Returns all of the files in the given path, and if ext is
   given will filter by that extname.
 
-  ### Examples
+  ## Arguments
+
+  - `path` Path of file to filter in bitstring
+  - `ext` Extensions to show in filter in bitstring
+
+  ### Usage
   
   Listing all of the contents of the folder /home/lowks/Documents
 
@@ -46,7 +51,11 @@ defmodule Radpath.Files do
     @doc """
 Radpath.files(path) will list down all files in the path without filtering
 
-### Examples
+## Arguments
+
+- `path` location to list down all files in bitstring
+
+## Usage
 
 Listing down all files in the "ci" folder without filtering: 
 
