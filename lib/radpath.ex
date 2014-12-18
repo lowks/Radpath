@@ -23,7 +23,14 @@ defmodule Radpath do
   """
 
   @doc """
-   To create symlink:
+  To create symlink:
+
+  ## Arguments
+  
+  - `source`
+  - `destination`
+
+  ## Usage
 
       Radpath.symlink(source, destination). Source must exist.
 
@@ -37,6 +44,13 @@ defmodule Radpath do
   @doc """
   
   To create a zip archive:
+
+  ## Arguments
+
+  - `list of directories`: List containing all the directories to be zipped
+  - `archive_name`: String which is the name of the archive to be created
+
+  # Usage
 
       Radpath.zip([dir1, file1, dir2], archive_name)
 
@@ -52,6 +66,13 @@ defmodule Radpath do
   
   To create a zip archive:
 
+  ## Arguments
+
+  - `dir`: List containing all the directories to be zipped
+  - `archive_name`: String which is the name of the archive to be created
+
+  # Usage
+
       Radpath.zip(dir1, archive_name)
 
   """
@@ -64,8 +85,13 @@ defmodule Radpath do
   @doc """
  
   zip_file is the zip archive. Will only unzip if zip_file exists
-  
-  unzip_dir output directory of where to unzip. 
+
+  ## Arguments
+
+  - `zip_file` string value of file that is to be uncompressed.  
+  - `unzip_dir` string value of output directory of where to unzip. 
+
+  ## Usage
   
   To create a zip archive:
 
@@ -73,7 +99,6 @@ defmodule Radpath do
 
 
   """
-
 
   def unzip(zip_file, unzip_dir \\ File.cwd!) when is_bitstring(zip_file) do
     if File.exists?(zip_file) do
@@ -85,7 +110,14 @@ defmodule Radpath do
 
   @doc """
   
-  To rename a file / directory:
+  To mv a file / directory:
+
+  ## Arguments
+
+  - `source`
+  - `destination`
+
+  ## Usage
 
       Radpath.rename(source, destination)
 
@@ -95,6 +127,13 @@ defmodule Radpath do
   @doc """
   
   To rename a file / directory:
+
+  ## Arguments
+
+  * `source` - Original name of directory / file
+  * `destination` - New name of directory / file
+
+  ## Usage
 
       Radpath.rename(source, destination)
 
@@ -122,9 +161,16 @@ defmodule Radpath do
   end
 
   @doc """
-   To get parent_path:
 
-      Radpath.parent_path(path).
+  To get parent_path of a given path. The path supplied should be a bit string:
+
+  ## Arguments
+
+   * `path` - The path which you want parent_path returned.
+
+  ## Usage
+
+       Radpath.parent_path(path).
 
   """
   def parent_path(path) when is_bitstring(path) do
@@ -135,11 +181,18 @@ defmodule Radpath do
 
   @doc """
   Ensures that a directory/file is created. If is_file is set to true then file is created.
+
+  ## Arguments
+
+  * `path` - Path that is to be created
+  * `is_file` - Boolean, indicating if path is a file. By default false which means a directory.
   
-      iex(1)> Radpath.ensure("/tmp/gigig/gjskdfk")
+  ## Usage
+
+      iex(1)> Radpath.ensure(path)
         :ok
   
-      iex(2)> Radpath.ensure("/home/lowks/iamafile.txt", true)
+      iex(2)> Radpath.ensure(path, true)
         :ok
 
   """
@@ -156,6 +209,13 @@ defmodule Radpath do
   @doc """
   Returns true if path is a symbolic link and false if otherwise:
 
+  ## Arguments
+
+  - `path` Path to be checked in bitstring
+
+  ## Usage
+
+
        iex(1)> Radpath.islink?("test3")
        true
        iex(2)> Radpath.islink?("/home")
@@ -171,6 +231,12 @@ defmodule Radpath do
 
   @doc """
   Returns the md5sum of a file. Only works for files. Folders passed will return :error:
+
+  ## Arguments
+
+  - `path` where md5sum to be generated in bitstring
+
+  ## Usage
 
       iex(2)> Radpath.md5sum("mix.exs")
       "e7794b67112458774fe9f23d1b9c4913"
@@ -191,6 +257,13 @@ defmodule Radpath do
 
   @doc """
   Returns the sha1sum of a file. Only works for files. Folders passed will return :error:
+
+  ## Arguments
+
+  - `path` where sha1sum to be generated in bitstring
+
+
+  ## Usage
 
       iex(1)> Radpath.sha1sum("mix.exs")
       "48edfd81ee32efc0f9aea7dbebd0798fb2adf226"
