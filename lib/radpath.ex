@@ -122,9 +122,9 @@ defmodule Radpath do
   end
 
   @doc """
-   To create symlink:
+   To get parent_path:
 
-      Radpath.symlink(source, destination). Source must exist.
+      Radpath.parent_path(path).
 
   """
   def parent_path(path) when is_bitstring(path) do
