@@ -271,7 +271,7 @@ defmodule RadpathTests.RadpathFacts do
     end
   end
 
-  facts "Other functions:" do
+  facts "Test Other functions:" do
     fact "Test md5sum: md5sum function" do
       [h | _]= String.split(to_string(:os.cmd('md5sum mix.exs')))
       assert h == Radpath.md5sum("mix.exs")
@@ -285,6 +285,9 @@ defmodule RadpathTests.RadpathFacts do
     end
     fact "Test md5sum: md5sum on directory" do
       Radpath.md5sum("/tmp") |> :error
+    end
+    fact "Test ParentPath: Return parent path of string" do
+      Radpath.parent_path("/I/am/long/dir") |> "/I/am/long/"
     end
   end
 end

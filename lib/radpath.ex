@@ -100,6 +100,18 @@ defmodule Radpath do
   end
 
   @doc """
+   To create symlink:
+
+      Radpath.symlink(source, destination). Source must exist.
+
+  """
+  def parent_path(path) when is_bitstring(path) do
+    Path.absname(path) |>
+      String.split(Path.basename(path)) |>
+      List.first
+  end
+
+  @doc """
   Ensures that a directory/file is created. If is_file is set to true then file is created.
   
       iex(1)> Radpath.ensure("/tmp/gigig/gjskdfk")
