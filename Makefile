@@ -17,12 +17,12 @@ test:
 ci: ci_${STABLE_ELIXIR_VERSION} 
 
 vendor/${STABLE_ELIXIR_VERSION}:
-	@rm -rf vendor/*
+	#@rm -rf vendor/*
 	@mkdir -p vendor/elixir
 	@wget --no-clobber -q https://github.com/elixir-lang/elixir/releases/download/v${STABLE_ELIXIR_VERSION}/precompiled.zip && unzip -qq precompiled.zip -d vendor/elixir
 
 vendor/master:
-	@rm -rf vendor/*
+	#@rm -rf vendor/*
 	@mkdir -p vendor/elixir
 	git clone --quiet https://github.com/elixir-lang/elixir.git vendor/elixir
 	make --quiet -C vendor/elixir > /dev/null 2>&1

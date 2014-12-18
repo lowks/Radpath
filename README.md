@@ -1,14 +1,12 @@
 # Radpath
 
 [![Build Status](https://travis-ci.org/lowks/Radpath.png?branch=master)](https://travis-ci.org/lowks/Radpath)
-
 [![Build Status](https://drone.io/github.com/lowks/Radpath/status.png)](https://drone.io/github.com/lowks/Radpath/latest)
-
 [![wercker status](https://app.wercker.com/status/8a98607487fbd4ad61904acbb840e31a/m/ "wercker status")](https://app.wercker.com/project/bykey/8a98607487fbd4ad61904acbb840e31a)
-
 [![Circle CI](https://circleci.com/gh/lowks/Radpath/tree/master.png?style=badge)](https://circleci.com/gh/lowks/Radpath/tree/master)
+[![Inline docs](http://inch-ci.org/github/lowks/Radpath.svg?branch=master)](http://inch-ci.org/github/lowks/Radpath)
 
-A library for handling paths in Elixir inspired by Python's pathlib.
+A library for paths in Elixir inspired by Python's pathlib.
 
 ## Getting Started
 
@@ -21,21 +19,27 @@ def deps do
 end
 ```
 
-After that, run `mix deps.get` from your shell to fetch and compile Radpath.
+`mix deps.get` fetches dependencies and compiles Radpath.
 
 ## Status
 
-Project is still actively being developed whenever I can find the time.
+Actively being developed whenever I can find the time.
 
 ## Running Tests
 
-There is a special Makefile for running tests, just run:
+Running tests against a stable release of Elixir defined by 'STABLE_ELIXIR_VERSION' in the Makefile:
 
 ```
 make ci
 ```
 
-## Docs
+Running tests against your system's Elixir:
+
+```
+make
+```
+
+## Docs (Lite Version)
 
 To list down files in a path:
 
@@ -77,6 +81,6 @@ Radpath.mktempfile(".log", "/home/lowks/Documents/temp/")
 
 The default is ".log". Checkout the rest of the docs in the docs folder.
 
-You can also run `mix docs` to generate a nice docs folder
+Run `mix docs` to generate a nice docs in a local folder or you can read them online: [Radpath hexdocs](http://hexdocs.pm/radpath/ "Hexdocs link for Radpath")
 
-Or check out [test examples](./test/radpath_test.exs) for usage.
+Check out [test examples](./test/radpath_test.exs) for usage.

@@ -42,6 +42,19 @@ defmodule Radpath.Files do
         false -> []
       end
     end
+
+    @doc """
+Radpath.files(path) will list down all files in the path without filtering
+
+### Examples
+
+Listing down all files in the "ci" folder without filtering: 
+
+     Radpath.files("ci")
+     ["/Users/lowks/Projects/src/elixir/Radpath/ci/script/circleci/prepare.sh"]
+
+"""
+
     def files(path) do
       expanded_path = Path.expand(path)
       case File.exists? expanded_path do

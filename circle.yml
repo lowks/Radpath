@@ -6,7 +6,8 @@ dependencies:
     - ~/.mix
     - _build
     - deps
-
 test:
   override:
     - script/circleci/test.sh
+  post:
+    - script/circleci/post.sh

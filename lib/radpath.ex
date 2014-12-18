@@ -61,6 +61,20 @@ defmodule Radpath do
     end
   end
 
+  @doc """
+ 
+  zip_file is the zip archive. Will only unzip if zip_file exists
+  
+  unzip_dir output directory of where to unzip. 
+  
+  To create a zip archive:
+
+      Radpath.unzip(zip_file, unzip_dir)
+
+
+  """
+
+
   def unzip(zip_file, unzip_dir \\ File.cwd!) when is_bitstring(zip_file) do
     if File.exists?(zip_file) do
       {:ok,ziphandler} = Z.openzip_open String.to_char_list(zip_file), [cwd: unzip_dir]
@@ -77,6 +91,14 @@ defmodule Radpath do
 
   """
   def mv(source, destination) when is_bitstring(source), do: rename(source, destination)
+
+  @doc """
+  
+  To rename a file / directory:
+
+      Radpath.rename(source, destination)
+
+  """
 
   def rename(source, destination) when is_bitstring(source) do
     F.rename(source, destination)
