@@ -27,8 +27,8 @@ defmodule Radpath do
 
   ## Arguments
   
-  - `source`
-  - `destination`
+  - `source` of file or directory in bitstring
+  - `destination` of file or directory in bitstring
 
   ## Usage
 
@@ -114,8 +114,8 @@ defmodule Radpath do
 
   ## Arguments
 
-  - `source`
-  - `destination`
+  - `source` file or directory in bitstring
+  - `destination` file or directory in bitstring
 
   ## Usage
 
@@ -192,7 +192,7 @@ defmodule Radpath do
   ## Arguments
 
   * `path` - Path that is to be created
-  * `is_file` - Boolean, indicating if path is a file. By default false which means a directory.
+  * `is_file` - Boolean, indicating if path is a file, if true then ensure will create file. Default false (directory).
   
   ## Usage
 
@@ -241,7 +241,7 @@ defmodule Radpath do
 
   ## Arguments
 
-  - `path` where md5sum to be generated in bitstring
+  - `path` Path to file to generate md5sum in bitstring
 
   ## Usage
 
@@ -267,7 +267,7 @@ defmodule Radpath do
 
   ## Arguments
 
-  - `path` where sha1sum to be generated in bitstring
+  - `path` Path to file to generate sha1sum in bitstring
 
 
   ## Usage
