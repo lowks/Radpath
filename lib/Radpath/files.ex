@@ -17,15 +17,15 @@ defmodule Radpath.Files do
 
      Radpath.files("/home/lowks/Documents")
 
-  If you wanted to apply a filter on that search:
+  Appling a filter 'doc' on that search:
 
       Radpath.files("/home/lowks/Documents", "doc")
 
-  If you wanted to apply a list filter on that search:
+  Appling a list filter of 'doc' and 'pdf' on that search:
 
       Radpath.files("/home/lowks/Documents", ["doc", "pdf"])
 
-  Paths that do not exists will return an empty list:
+  Paths that do not exists returns an empty list:
 
       iex(2)> Radpath.files("/heck/i/do/not/exist")
       []
