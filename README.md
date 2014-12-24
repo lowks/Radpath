@@ -21,11 +21,11 @@ def deps do
 end
 ```
 
-`mix deps.get` fetches dependencies and compiles Radpath.
+then `mix deps.get` fetches dependencies and compiles Radpath.
 
 ## Status
 
-Actively being developed whenever I can find the time.
+Developed whenever I can find the time.
 
 ## Running Tests
 
