@@ -22,24 +22,37 @@ defmodule Radpath.Dirs do
       
   """
 
-    def dirs(path) when (is_bitstring(path) or is_list(path)) do
+    def dirs(path, regex_dir \\ "") when (is_bitstring(path) or is_list(path)) do
       file_path = case String.valid? path do
         true -> [path]
         false -> path
       end
-      do_dirs(file_path, [])
+      do_dirs(file_path, [], regex_dir)
     end
-    defp do_dirs([], result) do
+    defp do_dirs([], result, regex_dir) do
       result
     end
-    defp do_dirs(paths ,result) do
+    defp do_dirs(paths ,result, regex_dir) do
       [h | t] = paths
-      do_dirs(t, result ++ dirs_list(h))
+      do_dirs(t, result ++ dirs_list(h, regex_dir), regex_dir)
     end
   
-    defp dirs_list(path) when is_bitstring(path) do
-      Finder.new() |> Finder.only_directories() |> Finder.find(Path.expand(path)) |> Enum.to_list
+    defp dirs_list(path, regex_dir) when is_bitstring(path) do
+      if regex_dir |> String.length == 0 do
+        Finder.new()
+        |> Finder.only_directories()
+        |> Finder.find(Path.expand(path))
+        |> Enum.to_list
+        |> Enum.sort
+      else
+        Finder.new()
+        |> Finder.with_directory_regex(Regex.compile!(regex_dir))
+        |> Finder.only_directories()
+        |> Finder.find(Path.expand(path))
+        |> Enum.to_list
+        |> Enum.sort
+      end
     end
   end
   end
-end
+end                             
