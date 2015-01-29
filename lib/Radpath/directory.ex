@@ -11,14 +11,15 @@ defmodule Radpath.Dirs do
 
   ## Arguments
 
-  - `path` path to show list of directories in bitstring 
+  - `path` path to show list of directories in bitstring.
+  - `regex_dir` String regex of directory pattern to show in final output.
   
   ## Usage
 
 
-      iex(4)> Radpath.dirs("/home/lowks/src/elixir/radpath/lib")
+      iex(4)> Radpath.dirs("/home/lowks/src/elixir/radpath/lib", regex_dir)
 
-      iex(3)> Radpath.dirs(["/home/lowks/src/elixir/radpath/lib", "/home/lowks/src/elixir/radpath/_build"])
+      iex(3)> Radpath.dirs(["/home/lowks/src/elixir/radpath/lib", "/home/lowks/src/elixir/radpath/_build"], regex_dir)
       
   """
 
