@@ -4,7 +4,7 @@ defmodule Radpath.Mixfile do
 
   def project do
     [ app: :radpath,
-      version: "0.0.3",
+      version: "0.0.4",
       elixir: "~> 1.0.0",
       description: description,
       package: package,
@@ -32,7 +32,7 @@ defmodule Radpath.Mixfile do
      licenses: ["MIT"],
      links: %{
          "GitHub" => "https://github.com/lowks/Radpath",
-         "Docs" => "http://hexdocs.pm/radpath/0.0.3/"
+         "Docs" => "http://hexdocs.pm/radpath/0.0.4/"
      }
     ]
   end
