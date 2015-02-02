@@ -216,7 +216,7 @@ defmodule RadpathTests.RadpathFacts do
     end
   end
 
-  facts "Test rename" do
+  facts "Test rename and mv" do
 
     fact "Test rename: Normal Usage" do
       source_file = "/tmp/hoho.txt"
@@ -232,13 +232,46 @@ defmodule RadpathTests.RadpathFacts do
       end
     end
 
+    fact "Test mv: Normal Usage" do
+      source_file = "/tmp/hoho.txt"
+      dest_file = "/tmp/hehe.txt"
+      File.touch!(source_file)
+      try do
+        source_file |> path_exists()
+        Radpath.mv(source_file, dest_file)
+        source_file |> ! path_exists()
+        dest_file |> path_exists()
+      after
+        File.rm_rf dest_file
+      end
+    end
+
     fact "Test rename: Source file does not exist" do
       source_file = "/tmp/hoho.txt"
       dest_file = "/tmp/hehe.txt"
-      source_file |> ! path_exists()
-      Radpath.rename(source_file, dest_file)
-      dest_file |> ! path_exists()
+      try do
+      	source_file |> ! path_exists()
+      	Radpath.rename(source_file, dest_file)
+      	dest_file |> ! path_exists()
+      after
+      	File.rm_rf source_file
+      	File.rm_rf dest_file
+      end
     end
+
+    fact "Test mv: Source file does not exist" do
+      source_file = "/tmp/hoho.txt"
+      dest_file = "/tmp/hehe.txt"
+      try do
+      	source_file |> ! path_exists()
+      	Radpath.mv(source_file, dest_file)
+      	dest_file |> ! path_exists()
+      after
+      	File.rm_rf source_file
+      	File.rm_rf dest_file
+      end
+    end
+
   end
 
   facts "Test relative paths" do

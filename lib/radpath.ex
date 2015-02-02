@@ -122,7 +122,6 @@ defmodule Radpath do
       Radpath.rename(source, destination)
 
   """
-  def mv(source, destination) when is_bitstring(source), do: rename(source, destination)
 
   @doc """
   
@@ -137,11 +136,17 @@ defmodule Radpath do
 
       Radpath.rename(source, destination)
 
+  or 
+
+      Radpath.mv(source, destination)
+
   """
 
   def rename(source, destination) when is_bitstring(source) do
     F.rename(source, destination)
   end
+
+  defdelegate mv(source,destination), to: __MODULE__, as: :rename
 
   @doc """
   Gives you back the relative path:
