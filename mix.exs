@@ -8,7 +8,9 @@ defmodule Radpath.Mixfile do
       elixir: "~> 1.0.0",
       description: description,
       package: package,
-      deps: deps(Mix.env) ]
+      deps: deps(Mix.env),
+      test_coverage: [tool: ExCoveralls]
+     ]
   end
 
   # Configuration for the OTP application
@@ -55,6 +57,15 @@ defmodule Radpath.Mixfile do
      {:erlware_commons, github: "erlware/erlware_commons"},
      {:inch_ex, only: :docs}] 
   end
+
+  defp deps(:dev) do
+    [{:tempfile, github: "lowks/tempfile"},
+     {:ex_doc, github: "elixir-lang/ex_doc"},
+     {:finder, github: "h4cc/Finder"},
+     {:amrita, "~>0.4", github: "josephwilk/amrita"},
+     {:erlware_commons, github: "erlware/erlware_commons"},
+     {:excoveralls, "~> 0.3"}]
+   end
 
   defp deps(_) do
    deps(:prod)
