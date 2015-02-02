@@ -23,7 +23,7 @@ defmodule Radpath.Dirs do
       
   """
 
-    def dirs(path, regex_dir \\ "") when (is_bitstring(path) or is_list(path)) do
+    def dirs(path, regex_dir \\ ".+") when (is_bitstring(path) or is_list(path)) do
       file_path = case String.valid? path do
         true -> [path]
         false -> path
@@ -39,21 +39,14 @@ defmodule Radpath.Dirs do
     end
   
     defp dirs_list(path, regex_dir) when is_bitstring(path) do
-      if regex_dir |> String.length == 0 do
-        Finder.new()
-        |> Finder.only_directories()
-        |> Finder.find(Path.expand(path))
-        |> Enum.to_list
-        |> Enum.sort
-      else
         Finder.new()
         |> Finder.with_directory_regex(Regex.compile!(regex_dir))
         |> Finder.only_directories()
         |> Finder.find(Path.expand(path))
         |> Enum.to_list
         |> Enum.sort
-      end
     end
-  end
+
+   end
   end
 end                             

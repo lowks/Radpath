@@ -143,7 +143,7 @@ defmodule Radpath do
     F.rename(source, destination)
   end
 
-  @doc ~S"""
+  @doc """
   Gives you back the relative path:
 
   ## Arguments
@@ -173,7 +173,7 @@ defmodule Radpath do
 
   ## Arguments
 
-   * `path` - The path which you want parent_path returned.
+   - `path` - The path which you want parent_path returned.
 
   ## Usage
 
@@ -181,9 +181,9 @@ defmodule Radpath do
 
   """
   def parent_path(path) when is_bitstring(path) do
-    Path.absname(path) |>
-      String.split(Path.basename(path)) |>
-      List.first
+    Path.absname(path)
+    |> String.split(Path.basename(path))
+    |> List.first
   end
 
   @doc """
@@ -191,8 +191,9 @@ defmodule Radpath do
 
   ## Arguments
 
-  * `path` - Path that is to be created
-  * `is_file` - Boolean, indicating if path is a file, if true then ensure will create file. Default false (directory).
+  - `path` - Path that is to be created
+
+  - `is_file` - Boolean, indicating if path is a file, if true then ensure will create file. Default false (directory).
   
   ## Usage
 
@@ -256,7 +257,9 @@ defmodule Radpath do
       true ->
         case File.dir?(path) do
           true -> :error
-          false -> File.read!(path) |> :ec_file.md5sum |> to_string
+          false -> File.read!(path)
+                   |> :ec_file.md5sum
+                   |> to_string
         end
       false -> :error
     end
@@ -283,7 +286,9 @@ defmodule Radpath do
       true ->
         case File.dir?(path) do
           true -> :error
-          false -> File.read!(path) |> :ec_file.sha1sum |> to_string
+          false -> File.read!(path)
+                   |> :ec_file.sha1sum
+                   |> to_string
         end
       false -> :error
     end
