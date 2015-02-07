@@ -50,7 +50,7 @@ defmodule Radpath do
   - `list of directories`: List containing all the directories to be zipped
   - `archive_name`: String which is the name of the archive to be created
 
-  # Usage
+  ## Usage
 
       Radpath.zip([dir1, file1, dir2], archive_name)
 

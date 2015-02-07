@@ -16,7 +16,6 @@ defmodule Radpath.Dirs do
   
   ## Usage
 
-
       iex(4)> Radpath.dirs("/home/lowks/src/elixir/radpath/lib", regex_dir)
 
       iex(3)> Radpath.dirs(["/home/lowks/src/elixir/radpath/lib", "/home/lowks/src/elixir/radpath/_build"], regex_dir)
