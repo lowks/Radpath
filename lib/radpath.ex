@@ -35,6 +35,8 @@ defmodule Radpath do
       Radpath.symlink(source, destination). Source must exist.
 
   """
+
+  @spec symlink(bitstring, bitstring) :: none
   def symlink(source, destination) do
     if File.exists?(source) do
       F.make_symlink(source, destination)
@@ -55,6 +57,8 @@ defmodule Radpath do
       Radpath.zip([dir1, file1, dir2], archive_name)
 
   """
+
+  @spec parent_path(list) :: none
   def zip(dirs, archive_name) when is_list(dirs) do
     dirs_list = dirs |> Enum.filter(fn(x) -> File.exists?(x) end) |> Enum.map&(String.to_char_list(&1))
     if !Enum.empty? dirs_list do
@@ -76,6 +80,7 @@ defmodule Radpath do
       Radpath.zip(dir1, archive_name)
 
   """
+  @spec zip(bitstring, bitstring) :: none
   def zip(dir, archive_name) when is_bitstring(dir) do
     if File.exists?(dir) do
       Z.create(String.to_char_list(archive_name), [String.to_char_list(dir)])
@@ -100,6 +105,7 @@ defmodule Radpath do
 
   """
 
+  @spec unzip(bitstring, bitstring) :: none
   def unzip(zip_file, unzip_dir \\ File.cwd!) when is_bitstring(zip_file) do
     if File.exists?(zip_file) do
       {:ok,ziphandler} = Z.openzip_open String.to_char_list(zip_file), [cwd: unzip_dir]
@@ -142,6 +148,7 @@ defmodule Radpath do
 
   """
 
+  @spec rename(bitstring, bitstring) :: none
   def rename(source, destination) when is_bitstring(source) do
     F.rename(source, destination)
   end
@@ -163,7 +170,7 @@ defmodule Radpath do
       iex(2)> Radpath.relative_path("/tmp/lowks/", "/tmp/lowks/hoho/iam.txt")
       "hoho/iam.txt"
   """
-
+  @spec relative_path(bitstring, bitstring) :: none
   def relative_path(base, file) do
     split = Path.split(base)
     case split == Path.split(file) || length(split) > length(Path.split(file)) do
@@ -185,6 +192,7 @@ defmodule Radpath do
        Radpath.parent_path(path).
 
   """
+  @spec parent_path(bitstring) :: bitstring
   def parent_path(path) when is_bitstring(path) do
     Path.absname(path)
     |> String.split(Path.basename(path))
@@ -210,6 +218,7 @@ defmodule Radpath do
 
   """
 
+  @spec ensure(bitstring, bitstring) :: none
   def ensure(path, is_file \\ false) when is_bitstring(path) do
     if !File.exists?(path) do
       cond do
@@ -235,6 +244,7 @@ defmodule Radpath do
        false
   """
 
+  @spec islink?(bitstring) :: boolean
   def islink?(path) when is_bitstring(path) do
     case F.read_link(path) do
       {:ok, _} -> true
@@ -257,6 +267,7 @@ defmodule Radpath do
       :error
   """
 
+  @spec md5sum(bitstring) :: bitstring
   def md5sum(path) when is_bitstring(path) do
     case File.exists?(path) do
       true ->
@@ -286,6 +297,7 @@ defmodule Radpath do
       :error
   """
 
+  @spec sha1sum(bitstring) :: bitstring
   def sha1sum(path) when is_bitstring(path) do
     case File.exists?(path) do
       true ->

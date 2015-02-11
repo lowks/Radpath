@@ -8,6 +8,8 @@ defmodule Radpath.Tempfs do
          Radpath.mktempfile |> File.write("test123")
 
      """
+     
+     @spec mktempfile() :: none
      def mktempfile() do
        Tempfile.get_name
      end
@@ -24,6 +26,8 @@ defmodule Radpath.Tempfs do
          Radpath.mktempfile(".log", "/home/lowks/Downloads") |> File.write("abcdef")
 
      """
+
+     @spec mktempfile(bitstring, bitstring) :: bitstring
      def mktempfile(ext, path) when is_bitstring(path) and is_bitstring(ext) do
         Tempfile.get_name("", [ext: ext, path: path])
      end
@@ -38,6 +42,8 @@ defmodule Radpath.Tempfs do
         Radpath.mktempfile("/home/lowks/Downloads") |> File.write("abcdef")
 
     """
+
+    @spec mktempfile(bitstring) :: bitstring
     def mktempfile(path) when is_bitstring(path) do
       Tempfile.get_name("", [ext: ".tmp", path: path])
     end
@@ -48,6 +54,8 @@ defmodule Radpath.Tempfs do
         Radpath.mktempdir
 
     """
+
+    @spec mktempdir :: none
     def mktempdir do
       temp_name = Tempfile.get_name
       temp_name |> Path.rootname |> do_mkdir
@@ -65,6 +73,8 @@ defmodule Radpath.Tempfs do
         Radpath.mktempdir("/home/lowks/Downloads")
 
     """
+
+    @spec mktempdir(bitstring) :: none
     def mktempdir(path) when is_bitstring(path) do
       Tempfile.get_name([path: make_into_path(path)]) |> 
 	  Path.rootname |> 
