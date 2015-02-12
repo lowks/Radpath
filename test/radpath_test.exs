@@ -139,6 +139,16 @@ defmodule RadpathTests.RadpathFacts do
       files = Radpath.files(fixture_path, ["log", "txt"]) |> Enum.map(&Path.basename(&1))
       ["file1.txt", "file2.txt", "file3.log"] |> for_all (&Enum.member?(files, &1))
     end
+
+    fact "Test Filtering: Multiple filter for files function if extension is list of char list" do
+      files = Radpath.files(fixture_path, ['log', 'txt']) |> Enum.map(&Path.basename(&1))
+      ["file1.txt", "file2.txt", "file3.log"] |> for_all (&Enum.member?(files, &1))
+    end
+
+    fact "Test Filtering: Multiple filter for files function if extension and paths is list of char list" do
+      files = Radpath.files(['lib'], ['log', 'txt']) |> Enum.map(&Path.basename(&1))
+      ["file1.txt", "file2.txt", "file3.log"] |> for_all (&Enum.member?(files, &1))
+    end
   end
 
   facts "Test symlink" do

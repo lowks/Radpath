@@ -39,7 +39,7 @@ defmodule Radpath.Files do
   """
 
     @spec files(bitstring, bitstring) :: list
-    def files(path, ext) when is_bitstring(path) and (is_bitstring(ext) or is_list(ext)) do
+    def files(path, ext) when is_bitstring(path) and is_bitstring(ext) do
       file_ext = case String.valid? ext do
         true -> [ext]
         false -> ext
@@ -82,13 +82,28 @@ Listing down all files in the "ci" folder without filtering:
       end
     end
 
+    def files(path, file_ext) when is_bitstring(path) and is_list(file_ext) do
+      file_ext = normalize_path(file_ext)
+      path
+      |> normalize_path
+      |> do_ext_files([], file_ext)
+    end
+
     def files(path) when is_list(path) do
       path
       |> normalize_path
       |> do_files([])
     end
 
+    def files([path], file_ext) when is_list(path) and is_list(file_ext) do
+      file_ext = normalize_path(file_ext)
+      path
+      |> normalize_path
+      |> do_ext_files([], file_ext)
+    end
+
     def files(path, file_ext) when is_list(path) and is_list(file_ext) do
+      file_ext = normalize_path(file_ext)
       path
       |> normalize_path
       |> do_ext_files([], file_ext)
