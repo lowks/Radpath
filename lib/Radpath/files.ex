@@ -30,6 +30,8 @@ defmodule Radpath.Files do
       Radpath.files(["/home/lowks/Documents", "/tmp"], ["doc"])
   or 
       Radpath.files(["/home/lowks/Documents", "/tmp"])
+  or
+      Radpath.files(['/home/lowks/Documents', '/tmp'], ['doc', 'pdf'])
 
   Paths that do not exists returns an empty list:
 
