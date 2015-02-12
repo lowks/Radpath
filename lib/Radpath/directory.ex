@@ -23,10 +23,9 @@ defmodule Radpath.Dirs do
   """
     @spec dirs(bitstring, bitstring) :: list
     def dirs(path, regex_dir \\ ".+") when (is_bitstring(path) or is_list(path)) do
-      case String.valid? path do
-        true -> do_dirs([path], [], regex_dir)
-        false -> do_dirs(path, [], regex_dir)
-      end
+      path
+       |> normalize_path
+       |> do_dirs([], regex_dir)
     end
     defp do_dirs([], result, regex_dir) do
       result
@@ -44,7 +43,6 @@ defmodule Radpath.Dirs do
         |> Enum.to_list
         |> Enum.sort
     end
-
    end
   end
 end

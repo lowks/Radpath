@@ -110,6 +110,11 @@ defmodule RadpathTests.RadpathFacts do
       Enum.each(["testdir3", "testdir2", "testdir1"], fn(x) -> dirs |> contains x end)
     end
 
+    fact "Test Filtering: List of Directories" do
+      dirs = Radpath.dirs(["test", "lib"]) |> Enum.map(&Path.basename(&1))
+      Enum.each(["testdir3", "testdir2", "testdir1", "Radpath"], fn(x) -> dirs |> contains x end)
+    end
+
     fact "Test Filtering: Regex Directories" do
       dirs = Radpath.dirs("test", "fixtures") |> Enum.map(&Path.basename(&1))
       Enum.each(["fixtures"], fn(x) -> dirs |> contains x end)
@@ -117,6 +122,10 @@ defmodule RadpathTests.RadpathFacts do
     
     fact "Test Filtering: files" do
       Radpath.files(fixture_path, "log") |> Enum.map(&Path.basename(&1)) |> ["file3.log"]
+    end
+
+    fact "Test Filtering: files with lists" do
+      Radpath.files(["test", "lib"], ["zip", "log"]) |> Enum.map(&Path.basename(&1)) |> ["dome.zip", "file3.log"]
     end
 
     fact "Test Filtering: files. Expanded path works too." do
