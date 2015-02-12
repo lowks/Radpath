@@ -125,7 +125,10 @@ defmodule RadpathTests.RadpathFacts do
     end
 
     fact "Test Filtering: files with lists" do
-      Radpath.files(["test", "lib"], ["zip", "log"]) |> Enum.map(&Path.basename(&1)) |> ["dome.zip", "file3.log"]
+      Radpath.files(["test", "lib"], ["zip", "log"]) 
+      |> Enum.map(&Path.basename(&1)) 
+      |> Enum.sort 
+      |> ["dome.zip", "file3.log"]
     end
 
     fact "Test Filtering: files. Expanded path works too." do
