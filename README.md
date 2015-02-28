@@ -7,7 +7,7 @@
 [![Inline docs](http://inch-ci.org/github/lowks/Radpath.svg?branch=master&style=flat)](http://inch-ci.org/github/lowks/Radpath)
 [![Build Status](https://snap-ci.com/lowks/Radpath/branch/master/build_image)](https://snap-ci.com/lowks/Radpath/branch/master)
 
-A library for paths in Elixir inspired by Python's pathlib.
+A library for dealing with paths in Elixir largely inspired by Python's pathlib.
 
 
 ## Getting Started
