@@ -9,6 +9,7 @@ defmodule Radpath.Mixfile do
       description: description,
       package: package,
       deps: deps(Mix.env),
+      deps_path: System.get_env("MY_DEPS_PATH") || "deps"
       test_coverage: [tool: ExCoveralls]
      ]
   end
