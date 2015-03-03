@@ -12,7 +12,7 @@ A library for dealing with paths in Elixir largely inspired by Python's pathlib.
 
 ## Getting Started
 
-To use Radpath, as usual add a dependency in your mix:
+To use Radpath, add a dependency in your mix:
 
 ``` elixir
     
