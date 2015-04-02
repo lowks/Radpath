@@ -14,7 +14,7 @@ A library for dealing with paths in Elixir largely inspired by Python's pathlib.
 
 To use Radpath, add a dependency in your mix:
 
-``` elixir
+``` 
     
 def deps do
   [ { :Radpath, github: "lowks/Radpath"}]
