@@ -294,6 +294,12 @@ defmodule RadpathTests.RadpathFacts do
       end
     end
 
+    fact "Test mv: Destination folder does not exist" do
+      source_file = "mix.exs"
+      dest_file = "/tmp/xxxyyyzzz/mix.exs"
+      Radpath.mv(source_file, dest_file) |> {:error, :enoent}
+    end
+
   end
 
   facts "Test relative paths" do
