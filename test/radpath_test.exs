@@ -352,6 +352,9 @@ defmodule RadpathTests.RadpathFacts do
     fact "Test md5sum: md5sum on directory" do
       Radpath.md5sum("/tmp") |> :error
     end
+    fact "Test md5sum: md5sum on non existent directory" do
+      Radpath.md5sum("xxx") |> :error
+    end
     fact "Test ParentPath: Return parent path of string" do
       Radpath.parent_path("/I/am/long/dir") |> "/I/am/long/"
     end
