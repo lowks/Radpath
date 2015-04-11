@@ -99,6 +99,7 @@ defmodule RadpathTests.RadpathFacts do
     fact "Test Filtering: Files" do
       files = Radpath.files(fixture_path, "txt") |> Enum.map(&Path.basename(&1))
 			length(files) |> 5
+      Enum.each(["file3.dud"], fn(x) -> files |> ! contains x end)
       Enum.each(["file1.txt", "file2.txt"], fn(x) -> files |> contains x end)
     end
 
