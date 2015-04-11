@@ -105,7 +105,7 @@ defmodule RadpathTests.RadpathFacts do
       files = Radpath.files(fixture_path, "txt") |> Enum.map(&Path.basename(&1))
       Enum.map(files, fn(x) -> String.ends_with? x, ".dud" end) |> 
 				[false, false, false, false, false] 
-      Enum.each(["file1.txt", "file2.txt"], fn(x) -> files |> contains x end)
+      Enum.each(@file_list -- ["file3.log"], fn(x) -> files |> contains x end)
     end
 
     fact "Test Filtering: Files returns empty list if path does not exist" do
