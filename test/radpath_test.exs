@@ -99,6 +99,7 @@ defmodule RadpathTests.RadpathFacts do
 		@dud_files ["testfile1.dud, file3.dud"]
 		@test_files ["testdir3", "testdir2", "testdir1"]
 		@file_list ["file1.txt", "file2.txt", "file3.log"]
+		@file_ext ["txt", "log"]
 
     fact "Test Filtering: Files" do
       files = Radpath.files(fixture_path, "txt") |> Enum.map(&Path.basename(&1))
@@ -136,10 +137,12 @@ Enum.map(dirs, fn(x) -> String.ends_with? x, ".dud" end) |> [false, false, false
     end
 
     fact "Test Filtering: files with lists" do
-      Radpath.files(["test", "lib"], ["zip", "log"]) 
+      Radpath.files(["test", "lib"], @file_ext) 
       |> Enum.map(&Path.basename(&1)) 
       |> Enum.sort 
-      |> ["dome.zip", "file3.log"]
+      |> ["file1.txt", "file2.txt", "file3.log", 
+					"testfile1.txt", "testfile2.txt", 
+					"testfile3.txt"]
     end
 
     fact "Test Filtering: files. Expanded path works too." do
@@ -147,19 +150,19 @@ Enum.map(dirs, fn(x) -> String.ends_with? x, ".dud" end) |> [false, false, false
     end
 
     fact "Test Filtering: Multiple filter for files function" do
-      files = Radpath.files(fixture_path, ["log", "txt"]) |> Enum.map(&Path.basename(&1))
+      files = Radpath.files(fixture_path, @file_ext) |> Enum.map(&Path.basename(&1))
 			length(files) |> 6
       @file_list |> for_all (&Enum.member?(files, &1))
     end
 
     fact "Test Filtering: Multiple filter for files function if extension is list of char list" do
-      files = Radpath.files(fixture_path, ['log', 'txt']) |> Enum.map(&Path.basename(&1))
+      files = Radpath.files(fixture_path, @file_ext) |> Enum.map(&Path.basename(&1))
 			length(files) |> 6
       @file_list |> for_all (&Enum.member?(files, &1))
     end
 
     fact "Test Filtering: Multiple filter for files function if extension and paths is list of char list" do
-      files = Radpath.files(['lib'], ['log', 'txt']) |> Enum.map(&Path.basename(&1))
+      files = Radpath.files(['lib'], @file_ext) |> Enum.map(&Path.basename(&1))
       @file_list |> for_all (&Enum.member?(files, &1))
     end
   end
