@@ -103,8 +103,7 @@ defmodule RadpathTests.RadpathFacts do
 
     fact "Test Filtering: Files" do
       files = Radpath.files(fixture_path, "txt") |> Enum.map(&Path.basename(&1))
-      Enum.map(files, fn(x) -> String.ends_with? x, ".dud" end) |> 
-				[false, false, false, false, false] 
+			Enum.map(@dud_files, fn(x) -> files |> ! contains x end)
       Enum.each(@file_list -- ["file3.log"], fn(x) -> files |> contains x end)
     end
 
@@ -114,9 +113,7 @@ defmodule RadpathTests.RadpathFacts do
   
     fact "Test Filtering: Directories" do
       dirs = Radpath.dirs(fixture_path) |> Enum.map(&Path.basename(&1))
-			Enum.map(dirs, fn(x) -> String.ends_with? x, ".dud" end) |> 
-				[false, false, false, false] 
-			Enum.each(@dud_files, fn(x) -> dirs |> ! contains x end)
+			Enum.map(@dud_files, fn(x) -> dirs |> ! contains x end)
       Enum.each(@test_files, fn(x) -> dirs |> contains x end)
     end
 
