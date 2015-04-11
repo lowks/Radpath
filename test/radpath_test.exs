@@ -141,11 +141,13 @@ defmodule RadpathTests.RadpathFacts do
 
     fact "Test Filtering: Multiple filter for files function" do
       files = Radpath.files(fixture_path, ["log", "txt"]) |> Enum.map(&Path.basename(&1))
+			length(files) |> 6
       ["file1.txt", "file2.txt", "file3.log"] |> for_all (&Enum.member?(files, &1))
     end
 
     fact "Test Filtering: Multiple filter for files function if extension is list of char list" do
       files = Radpath.files(fixture_path, ['log', 'txt']) |> Enum.map(&Path.basename(&1))
+			length(files) |> 6
       ["file1.txt", "file2.txt", "file3.log"] |> for_all (&Enum.member?(files, &1))
     end
 
