@@ -123,7 +123,9 @@ defmodule RadpathTests.RadpathFacts do
     end
     
     fact "Test Filtering: files" do
-      Radpath.files(fixture_path, "log") |> Enum.map(&Path.basename(&1)) |> ["file3.log"]
+			files = Radpath.files(fixture_path, "log") 
+			length(files) |> 1
+      files |> Enum.map(&Path.basename(&1)) |> ["file3.log"]
     end
 
     fact "Test Filtering: files with lists" do
