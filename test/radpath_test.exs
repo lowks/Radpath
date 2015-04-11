@@ -96,6 +96,10 @@ defmodule RadpathTests.RadpathFacts do
 
   facts "Test Filtering" do
 
+		@dud_files ["testfile1.dud, file3.dud"]
+		@test_files ["testdir3", "testdir2", "testdir1"]
+		@file_list ["file1.txt", "file2.txt", "file3.log"]
+
     fact "Test Filtering: Files" do
       files = Radpath.files(fixture_path, "txt") |> Enum.map(&Path.basename(&1))
 			length(files) |> 5
@@ -111,13 +115,13 @@ defmodule RadpathTests.RadpathFacts do
       dirs = Radpath.dirs(fixture_path) |> Enum.map(&Path.basename(&1))
 			length(dirs) |> 4 
 Enum.map(dirs, fn(x) -> String.ends_with? x, ".dud" end) |> [false, false, false, false] 
-			Enum.each(["testfile1.dud, file3.dud"], fn(x) -> dirs |> ! contains x end)
-      Enum.each(["testdir3", "testdir2", "testdir1"], fn(x) -> dirs |> contains x end)
+			Enum.each(@dud_files, fn(x) -> dirs |> ! contains x end)
+      Enum.each(@test_files, fn(x) -> dirs |> contains x end)
     end
 
     fact "Test Filtering: List of Directories" do
       dirs = Radpath.dirs(["test", "lib"]) |> Enum.map(&Path.basename(&1))
-      Enum.each(["testdir3", "testdir2", "testdir1", "Radpath"], fn(x) -> dirs |> contains x end)
+      Enum.each(@test_files ++ ["Radpath"], fn(x) -> dirs |> contains x end)
     end
 
     fact "Test Filtering: Regex Directories" do
@@ -145,18 +149,18 @@ Enum.map(dirs, fn(x) -> String.ends_with? x, ".dud" end) |> [false, false, false
     fact "Test Filtering: Multiple filter for files function" do
       files = Radpath.files(fixture_path, ["log", "txt"]) |> Enum.map(&Path.basename(&1))
 			length(files) |> 6
-      ["file1.txt", "file2.txt", "file3.log"] |> for_all (&Enum.member?(files, &1))
+      @file_list |> for_all (&Enum.member?(files, &1))
     end
 
     fact "Test Filtering: Multiple filter for files function if extension is list of char list" do
       files = Radpath.files(fixture_path, ['log', 'txt']) |> Enum.map(&Path.basename(&1))
 			length(files) |> 6
-      ["file1.txt", "file2.txt", "file3.log"] |> for_all (&Enum.member?(files, &1))
+      @file_list |> for_all (&Enum.member?(files, &1))
     end
 
     fact "Test Filtering: Multiple filter for files function if extension and paths is list of char list" do
       files = Radpath.files(['lib'], ['log', 'txt']) |> Enum.map(&Path.basename(&1))
-      ["file1.txt", "file2.txt", "file3.log"] |> for_all (&Enum.member?(files, &1))
+      @file_list |> for_all (&Enum.member?(files, &1))
     end
   end
 
