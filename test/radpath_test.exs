@@ -100,6 +100,8 @@ defmodule RadpathTests.RadpathFacts do
 		@test_files ["testdir3", "testdir2", "testdir1"]
 		@file_list ["file1.txt", "file2.txt", "file3.log"]
 		@file_ext ["txt", "log"]
+    @long_file_list @file_list ++ ["testfile1.txt", "testfile2.txt", 
+																	 "testfile3.txt"]
 
     fact "Test Filtering: Files" do
       files = Radpath.files(fixture_path, "txt") |> Enum.map(&Path.basename(&1))
@@ -137,9 +139,7 @@ defmodule RadpathTests.RadpathFacts do
       Radpath.files(["test", "lib"], @file_ext) 
       |> Enum.map(&Path.basename(&1)) 
       |> Enum.sort 
-      |> ["file1.txt", "file2.txt", "file3.log", 
-					"testfile1.txt", "testfile2.txt", 
-					"testfile3.txt"]
+			|> equals @long_file_list
     end
 
     fact "Test Filtering: files. Expanded path works too." do
@@ -149,14 +149,14 @@ defmodule RadpathTests.RadpathFacts do
     fact "Test Filtering: Multiple filter for files function" do
       files = Radpath.files(fixture_path, @file_ext) |> 
 				Enum.map(&Path.basename(&1))
-			length(files) |> 6
+			files |> Enum.sort |> equals @long_file_list
       @file_list |> for_all (&Enum.member?(files, &1))
     end
 
     fact "Test Filtering: Multiple filter for files function if extension is list of char list" do
       files = Radpath.files(fixture_path, @file_ext) |> 
 				Enum.map(&Path.basename(&1))
-			length(files) |> 6
+			files |> Enum.sort |> equals @long_file_list
       @file_list |> for_all (&Enum.member?(files, &1))
     end
 
