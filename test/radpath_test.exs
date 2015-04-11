@@ -108,8 +108,7 @@ defmodule RadpathTests.RadpathFacts do
     end
   
     fact "Test Filtering: Directories" do
-      dirs = Radpath.dirs(fixture_path) |> 
-				     Enum.map(&Path.basename(&1))
+      dirs = Radpath.dirs(fixture_path) |> Enum.map(&Path.basename(&1))
 			length(dirs) |> 4 
 			Enum.each(["testfile1.dud, file3.dud"], fn(x) -> dirs |> ! contains x end)
       Enum.each(["testdir3", "testdir2", "testdir1"], fn(x) -> dirs |> contains x end)
