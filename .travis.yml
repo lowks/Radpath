@@ -4,11 +4,7 @@ elixir:
   - 1.0.4
 otp_release: 
   - 17.4
-before_install:
-  - wget http://s3.hex.pm/builds/elixir/v1.0.4.zip
-  - unzip -d elixir v1.0.4.zip
-before_script:
-  - export PATH=`pwd`/elixir/bin:$PATH
+sudo: false # according to ecto and plug project will go faster by using containers
 cache:
    directories:
      - deps
