@@ -84,10 +84,10 @@ defmodule RadpathTests.RadpathFacts do
   end
   
   fact "Test zip: Path that does not exist" do
-      dir = "/gogo/I/don/exist/"
       try do
-        Path.join(fixture_path, "Testdir-dont-exist.zip") |> ! path_exists()
-        Radpath.zip([dir], "Testdir-dont-exist.zip") |> nil
+        Path.join(fixture_path, "Testdir-dont-exist.zip") |> 
+					! path_exists()
+        Radpath.zip(["/gogo/I/don/exist"], "Testdir-dont-exist.zip") |> nil
 			after
         "Testdir-dont-exist.zip" |> ! path_exists()
       rescue
