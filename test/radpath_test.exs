@@ -127,8 +127,8 @@ defmodule RadpathTests.RadpathFacts do
     end
 
     fact "Test Filtering: Regex Directories" do
-      dirs = Radpath.dirs("test", "fixtures") |> Enum.map(&Path.basename(&1))
-      Enum.all?(["fixtures"], fn(x) -> dirs |> contains x end)
+			Radpath.dirs("test", "fixtures") |> 
+			Enum.map(&Path.basename(&1)) |> ["fixtures"]
     end
     
     fact "Test Filtering: files" do
