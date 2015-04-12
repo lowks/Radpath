@@ -145,7 +145,9 @@ defmodule RadpathTests.RadpathFacts do
     end
 
     fact "Test Filtering: files. Expanded path works too." do
-      Radpath.files("test/fixtures", "log") |> Enum.map(&Path.basename(&1)) |> ["file3.log"]
+      Radpath.files("test/fixtures", "log") |> 
+				Enum.map(&Path.basename(&1)) |> 
+				["file3.log"]
     end
 
     fact "Test Filtering: Multiple filter for files function" do
@@ -178,10 +180,10 @@ defmodule RadpathTests.RadpathFacts do
       try do
         @dest |> ! path_exists()
         Radpath.symlink(@src, @dest)
-        elem(F.read_link(@dest), 0) |> :ok
-        Radpath.islink?(@dest) |> truthy
-        @dest |> path_exists()
       after
+				elem(F.read_link(@dest), 0) |> :ok
+        Radpath.islink?(@dest) |> truthy
+				@dest |> path_exists()
         File.rm_rf @dest
       end
     end
