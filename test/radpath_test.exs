@@ -122,8 +122,10 @@ defmodule RadpathTests.RadpathFacts do
     end
 
     fact "Test Filtering: List of Directories" do
-      dirs = Radpath.dirs(["test", "lib"]) |> Enum.map(&Path.basename(&1))
-			Enum.all?(@test_files ++ ["Radpath"], fn(x) -> dirs |> contains x end)
+			expected = @test_files ++ ["fixtures", "gogo"] |> Enum.sort
+      Radpath.dirs(["test", "lib"]) |> 
+				Enum.map(&Path.basename(&1)) |> 
+				equals expected ++ ["Radpath"]
     end
 
     fact "Test Filtering: Regex Directories" do
