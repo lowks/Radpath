@@ -87,7 +87,7 @@ defmodule RadpathTests.RadpathFacts do
       dir = "/gogo/I/don/exist/"
       try do
         Path.join(fixture_path, "Testdir-dont-exist.zip") |> ! path_exists()
-        Radpath.zip([dir], "Testdir-dont-exist.zip")
+        Radpath.zip([dir], "Testdir-dont-exist.zip") |> nil
         "Testdir-dont-exist.zip" |> ! path_exists()
       rescue
         e in RuntimeError -> e
