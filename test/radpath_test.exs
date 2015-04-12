@@ -73,8 +73,8 @@ defmodule RadpathTests.RadpathFacts do
     try do
       Path.join(fixture_path, "dome.csv") |> ! path_exists()
       Radpath.unzip(Path.join(fixture_path, "dome.zip"), "/tmp")
-      Path.join("/tmp", "dome.csv") |> path_exists()
     after
+			Path.join("/tmp", "dome.csv") |> path_exists()
       File.rm_rf("/tmp/dome.csv")
     end
   end
