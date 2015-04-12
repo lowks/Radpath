@@ -122,7 +122,7 @@ defmodule RadpathTests.RadpathFacts do
     end
 
     fact "Test Filtering: List of Directories" do
-			expected = @test_files ++ ["fixtures", "gogo"] |> Enum.sort
+			expected = @test_files ++ ["fixtures"] |> Enum.sort
       Radpath.dirs(["test", "lib"]) |> 
 				Enum.map(&Path.basename(&1)) |> 
 				equals expected ++ ["Radpath"]
@@ -337,7 +337,7 @@ defmodule RadpathTests.RadpathFacts do
         Radpath.ensure(test_dir_path)
         test_dir_path |> path_exists()
       after
-        File.rm_rf(test_dir_path)
+				test_dir_path |> Path.dirname |> File.rm_rf
       end
     end
 
@@ -348,7 +348,7 @@ defmodule RadpathTests.RadpathFacts do
         Radpath.ensure(test_file_path)
         test_file_path |> path_exists()
       after
-        File.rm_rf(test_file_path)
+				test_file_path |> Path.dirname |> File.rm_rf
       end
     end
   end
