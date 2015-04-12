@@ -50,7 +50,8 @@ defmodule RadpathTests.RadpathFacts do
       Path.join(fixture_path, "Testdir3.zip") |> ! path_exists()
       Radpath.zip(dir, "Testdir3.zip")
       "Testdir3.zip" |> path_exists()
-      System.cmd("zip",["-T","Testdir3.zip"]) |> {"test of Testdir3.zip OK\n", 0}
+      System.cmd("zip",["-T","Testdir3.zip"]) |> 
+				{"test of Testdir3.zip OK\n", 0}
       {result_str, code} = System.cmd("zipinfo",["-1","Testdir3.zip"]) 
       result_str |> contains "testdir1"
     after
@@ -169,33 +170,32 @@ defmodule RadpathTests.RadpathFacts do
 
   facts "Test symlink" do
 
+		@src Path.join(fixture_path, "testdir3")
+    @dest Path.join(Path.expand("."), "testdir3")
+
     fact "Test symlink: Normal Usage" do
-      src = Path.join(fixture_path, "testdir3")
-      dest = Path.join(Path.expand("."), "testdir3")
-    
       try do
-        dest |> ! path_exists()
-        Radpath.symlink(src, dest)
-        elem(F.read_link(dest), 0) |> :ok
-        Radpath.islink?(dest) |> truthy
-        dest |> path_exists()
+        @dest |> ! path_exists()
+        Radpath.symlink(@src, @dest)
+        elem(F.read_link(@dest), 0) |> :ok
+        Radpath.islink?(@dest) |> truthy
+        @dest |> path_exists()
       after
-        File.rm_rf dest
+        File.rm_rf @dest
       end
     end
   
     fact "Test symlink: For non existent src file" do
  
       src = Path.join(fixture_path, "testdir3xx")
-      dest = Path.join(Path.expand("."), "testdir3")
       
       try do
-        dest |> ! path_exists
-        Radpath.symlink(src, dest)
-        F.read_link(dest) |> {:error, :enoent}
-        dest |> ! path_exists
+        @dest |> ! path_exists
+        Radpath.symlink(src, @dest)
+        F.read_link(@dest) |> {:error, :enoent}
+        @dest |> ! path_exists
       after
-        File.rm_rf dest
+        File.rm_rf @dest
       end
     end
 
