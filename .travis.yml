@@ -14,7 +14,7 @@ install:
   - cd rebar && ./bootstrap
   - export PATH=$PATH:`pwd` && cd ..
 script:
-  - MIX_ENV=test mix deps.get
+  - yes | MIX_ENV=test mix deps.get
   - MIX_ENV=test mix amrita --trace
 after_script:
   - mix deps.get --only docs
