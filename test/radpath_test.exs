@@ -266,49 +266,43 @@ defmodule RadpathTests.RadpathFacts do
 		@dest_file "/tmp/hehe.txt"
 
     fact "Test rename: Normal Usage" do
-      File.touch!(@source_file)
+			File.write(@source_file, "test rename")
       try do
         @source_file |> path_exists()
         Radpath.rename(@source_file, @dest_file)
         @source_file |> ! path_exists()
         @dest_file |> path_exists()
+				{_, content} = File.read(@dest_file)
+				content |> "test rename"
       after
         File.rm_rf @dest_file
       end
     end
 
     fact "Test mv: Normal Usage" do
-      File.touch!(@source_file)
+			File.write(@source_file, "test mv")
       try do
         @source_file |> path_exists()
         Radpath.mv(@source_file, @dest_file)
         @source_file |> ! path_exists()
         @dest_file |> path_exists()
+				{_, content} = File.read(@dest_file)
+				content |> "test mv"
       after
         File.rm_rf @dest_file
       end
     end
 
     fact "Test rename: Source file does not exist" do
-      try do
       	@source_file |> ! path_exists()
       	Radpath.rename(@source_file, @dest_file)
       	@dest_file |> ! path_exists()
-      after
-      	File.rm_rf @source_file
-      	File.rm_rf @dest_file
-      end
     end
 
     fact "Test mv: Source file does not exist" do
-      try do
       	@source_file |> ! path_exists()
       	Radpath.mv(@source_file, @dest_file)
       	@dest_file |> ! path_exists()
-      after
-      	File.rm_rf @source_file
-      	File.rm_rf @dest_file
-      end
     end
 
     fact "Test mv: Destination folder does not exist" do
