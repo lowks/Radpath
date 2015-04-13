@@ -183,10 +183,8 @@ defmodule RadpathTests.RadpathFacts do
         @dest |> ! path_exists()
         Radpath.symlink(@src, @dest)
 				{result, link} = F.read_link(@dest)
-				result |> :ok
-				Path.basename(link) |> "testdir3"
+				{result, Path.basename(link)} |> {:ok, "testdir3"}
         Radpath.islink?(@dest) |> truthy
-				@dest |> path_exists()
       after
         File.rm_rf @dest
       end
@@ -214,6 +212,8 @@ defmodule RadpathTests.RadpathFacts do
         test_dest |> ! path_exists
         Radpath.symlink(fixture_path, test_dest)
         Radpath.islink?(test_dest) |> truthy
+				{result, link} = F.read_link(test_dest)
+				{result, Path.basename(to_string(link))} |> {:ok, "fixtures"}
       after
         File.rm_rf test_dest
       end
