@@ -269,11 +269,11 @@ defmodule RadpathTests.RadpathFacts do
 			File.write(@source_file, "test rename")
       try do
         @source_file |> path_exists()
+				md5sum_source = Radpath.md5sum(@source_file)
         Radpath.rename(@source_file, @dest_file)
         @source_file |> ! path_exists()
         @dest_file |> path_exists()
-				{_, content} = File.read(@dest_file)
-				content |> "test rename"
+				Radpath.md5sum(@dest_file) |> md5sum_source
       after
         File.rm_rf @dest_file
       end
@@ -283,11 +283,11 @@ defmodule RadpathTests.RadpathFacts do
 			File.write(@source_file, "test mv")
       try do
         @source_file |> path_exists()
+				md5sum_source = Radpath.md5sum(@source_file)
         Radpath.mv(@source_file, @dest_file)
         @source_file |> ! path_exists()
         @dest_file |> path_exists()
-				{_, content} = File.read(@dest_file)
-				content |> "test mv"
+				Radpath.md5sum(@dest_file) |> md5sum_source
       after
         File.rm_rf @dest_file
       end
