@@ -334,7 +334,7 @@ defmodule RadpathTests.RadpathFacts do
         Radpath.ensure(test_dir_path)
         test_dir_path |> path_exists()
       after
-				test_dir_path |> Radpath.parent_path |> File.rm_rf
+				test_dir_path |> Radpath.parent_path |> Radpath.erusne |> truthy
       end
     end
 
@@ -345,7 +345,7 @@ defmodule RadpathTests.RadpathFacts do
         Radpath.ensure(test_file_path)
         test_file_path |> path_exists()
       after
-				test_file_path |> Radpath.parent_path |> File.rm_rf
+				test_file_path |> Radpath.parent_path |> Radpath.erusne |> truthy
       end
     end
   end

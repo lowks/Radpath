@@ -228,6 +228,29 @@ defmodule Radpath do
     end
   end
 
+
+@doc """
+  The flip of ensure. Ensures that a directory/file is deleted or not there. 
+  If is_file is set to true then file is ensured to be deleted or not there.
+
+  ## Arguments
+
+  - `path` - Path that is to be deleted
+
+  ## Usage
+
+      iex(1)> Radpath.erusne(path)
+        [path]
+  
+  """
+
+  @spec erusne(bitstring) :: none
+  def erusne(path) when is_bitstring(path) do
+    if File.exists?(path) do
+			File.rm_rf!(path)
+    end
+  end
+
   @doc """
   Returns true if path is a symbolic link and false if otherwise:
 
