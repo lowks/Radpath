@@ -355,11 +355,11 @@ defmodule RadpathTests.RadpathFacts do
 		import Radpath, only: [md5sum: 1, sha1sum: 1, parent_path: 1]
     fact "Test md5sum: md5sum function" do
       [h | _]= String.split(to_string(:os.cmd('md5sum mix.exs')))
-      assert h == md5sum("mix.exs")
+			md5sum("mix.exs") |> h
     end
     fact "Test sha1sum: sha1sum function" do
       [h | _]= String.split(to_string(:os.cmd('sha1sum mix.exs')))
-      assert h == sha1sum("mix.exs")
+      sha1sum("mix.exs") |> h 
     end
     fact "Test sha1sum: sha1sum on directory" do
       sha1sum("/tmp") |> :error
