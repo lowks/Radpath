@@ -6,6 +6,7 @@ defmodule RadpathTests.RadpathFacts do
 
   import PathHelpers
 	import Path, only: [basename: 1]
+  import Enum, only: [map: 2]
 
   alias :file, as: F
 
@@ -107,8 +108,8 @@ defmodule RadpathTests.RadpathFacts do
 																	 "testfile3.txt"]
 
     fact "Test Filtering: Files" do
-      files = Radpath.files(fixture_path, "txt") |> Enum.map(&basename(&1))
-			Enum.map(@dud_files, fn(x) -> files |> ! contains x end)
+      files = Radpath.files(fixture_path, "txt") |> map(&basename(&1))
+			map(@dud_files, fn(x) -> files |> ! contains x end)
       Enum.all?(@file_list -- ["file3.log"], fn(x) -> files |> contains x end)
     end
 
@@ -117,59 +118,59 @@ defmodule RadpathTests.RadpathFacts do
     end
   
     fact "Test Filtering: Directories" do
-      dirs = Radpath.dirs(fixture_path) |> Enum.map(&basename(&1))
-			Enum.map(@dud_files, fn(x) -> dirs |> ! contains x end)
+      dirs = Radpath.dirs(fixture_path) |> map(&basename(&1))
+			map(@dud_files, fn(x) -> dirs |> ! contains x end)
       Enum.all?(@test_files, fn(x) -> dirs |> contains x end)
     end
 
     fact "Test Filtering: List of Directories" do
 			expected = @test_files ++ ["fixtures"] |> Enum.sort
       Radpath.dirs(["test", "lib"]) |> 
-				Enum.map(&basename(&1)) |> 
+				map(&basename(&1)) |> 
 				equals expected ++ ["Radpath"]
     end
 
     fact "Test Filtering: Regex Directories" do
 			Radpath.dirs("test", "fixtures") |> 
-			Enum.map(&basename(&1)) |> ["fixtures"]
+			map(&basename(&1)) |> ["fixtures"]
     end
     
     fact "Test Filtering: files" do
 			Radpath.files(fixture_path, "log") |>
-      Enum.map(&basename(&1)) |> 
+      map(&basename(&1)) |> 
 			equals ["file3.log"]
     end
 
     fact "Test Filtering: files with lists" do
       Radpath.files(["test", "lib"], @file_ext) 
-      |> Enum.map(&basename(&1)) 
+      |> map(&basename(&1)) 
       |> Enum.sort 
 			|> equals @long_file_list
     end
 
     fact "Test Filtering: files. Expanded path works too." do
       Radpath.files("test/fixtures", "log") |> 
-			Enum.map(&basename(&1)) |> 
+			map(&basename(&1)) |> 
 			equals ["file3.log"]
     end
 
     fact "Test Filtering: Multiple filter for files function" do
       files = Radpath.files(fixture_path, @file_ext) |>
-				Enum.map(&basename(&1))
+				map(&basename(&1))
 			files |> Enum.sort |> equals @long_file_list
       @file_list |> for_all (&Enum.member?(files, &1))
     end
 
     fact "Test Filtering: Multiple filter for files function if extension is list of char list" do
       files = Radpath.files(fixture_path, @file_ext) |> 
-				Enum.map(&basename(&1))
+				map(&basename(&1))
 			files |> Enum.sort |> equals @long_file_list
       @file_list |> for_all (&Enum.member?(files, &1))
     end
 
     fact "Test Filtering: Multiple filter for files function if extension and paths is list of char list" do
       files = Radpath.files(['lib'], @file_ext) |> 
-				Enum.map(&basename(&1))
+				map(&basename(&1))
       @file_list |> for_all (&Enum.member?(files, &1))
     end
   end
