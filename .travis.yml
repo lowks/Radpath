@@ -5,7 +5,7 @@ elixir:
 otp_release:
   - 17.3
   - 17.4
-sudo: false # according to ecto and plug project will go faster by using containers
+# sudo: false # according to ecto and plug project will go faster by using containers
 cache:
    directories:
      - deps
