@@ -222,14 +222,10 @@ defmodule RadpathTests.RadpathFacts do
       end
     end
 
-    fact "Test symlink: islink? Return false if path is not symlink" do
+    fact "Test symlink: islink? Return false if path is not symlink or if does not exist" do
       islink?(fixture_path) |> falsey
-    end
-
-    fact "Test symlink: islink? Return false if path does not exist" do
       islink?("/I/wiLL/neveR/exist") |> falsey
     end
-
   end
   
   facts "Test Tempfilefs" do
