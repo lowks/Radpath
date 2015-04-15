@@ -316,7 +316,8 @@ defmodule RadpathTests.RadpathFacts do
 
   facts "Test relative paths" do
 		import Radpath, only: [relative_path: 2]
-    fact "Test relative_path: Normal Usage" do
+    
+		fact "Test relative_path: Normal Usage" do
       relative_path("/tmp/base", "/tmp/base/hoho.txt") |> "hoho.txt"
     end
 
@@ -351,25 +352,26 @@ defmodule RadpathTests.RadpathFacts do
   end
 
   facts "Test Other functions:" do
+		import Radpath, only: [md5sum: 1, sha1sum: 1, parent_path: 1]
     fact "Test md5sum: md5sum function" do
       [h | _]= String.split(to_string(:os.cmd('md5sum mix.exs')))
-      assert h == Radpath.md5sum("mix.exs")
+      assert h == md5sum("mix.exs")
     end
     fact "Test sha1sum: sha1sum function" do
       [h | _]= String.split(to_string(:os.cmd('sha1sum mix.exs')))
-      assert h == Radpath.sha1sum("mix.exs")
+      assert h == sha1sum("mix.exs")
     end
     fact "Test sha1sum: sha1sum on directory" do
-      Radpath.sha1sum("/tmp") |> :error
+      sha1sum("/tmp") |> :error
     end
     fact "Test md5sum: md5sum on directory" do
-      Radpath.md5sum("/tmp") |> :error
+      md5sum("/tmp") |> :error
     end
     fact "Test md5sum: md5sum on non existent directory" do
-      Radpath.md5sum("xxx") |> :error
+      md5sum("xxx") |> :error
     end
     fact "Test ParentPath: Return parent path of string" do
-      Radpath.parent_path("/I/am/long/dir") |> "/I/am/long/"
+      parent_path("/I/am/long/dir") |> "/I/am/long/"
     end
   end
 end
