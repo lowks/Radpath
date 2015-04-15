@@ -179,14 +179,15 @@ defmodule RadpathTests.RadpathFacts do
 
 		@src Path.join(fixture_path, "testdir3")
     @dest Path.join(Path.expand("."), "testdir3")
+		import Radpath, only: [symlink: 2, islink?: 1]
 
     fact "Test symlink: Normal Usage" do
       try do
         @dest |> ! path_exists()
-        Radpath.symlink(@src, @dest)
+        symlink(@src, @dest)
 				{result, link} = F.read_link(@dest)
 				{result, basename(link)} |> {:ok, "testdir3"}
-        Radpath.islink?(@dest) |> truthy
+        islink?(@dest) |> truthy
       after
         File.rm_rf @dest
       end
@@ -198,7 +199,7 @@ defmodule RadpathTests.RadpathFacts do
       
       try do
         @dest |> ! path_exists
-        Radpath.symlink(src, @dest)
+        symlink(src, @dest)
         F.read_link(@dest) |> {:error, :enoent}
         @dest |> ! path_exists
       after
@@ -212,8 +213,8 @@ defmodule RadpathTests.RadpathFacts do
 
       try do
         test_dest |> ! path_exists
-        Radpath.symlink(fixture_path, test_dest)
-        Radpath.islink?(test_dest) |> truthy
+        symlink(fixture_path, test_dest)
+        islink?(test_dest) |> truthy
 				{result, link} = F.read_link(test_dest)
 				{result, basename(to_string(link))} |> {:ok, "fixtures"}
       after
@@ -222,11 +223,11 @@ defmodule RadpathTests.RadpathFacts do
     end
 
     fact "Test symlink: islink? Return false if path is not symlink" do
-      Radpath.islink?(fixture_path) |> falsey
+      islink?(fixture_path) |> falsey
     end
 
     fact "Test symlink: islink? Return false if path does not exist" do
-      Radpath.islink?("/I/wiLL/neveR/exist") |> falsey
+      islink?("/I/wiLL/neveR/exist") |> falsey
     end
 
   end
