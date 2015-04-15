@@ -2,7 +2,8 @@ language: elixir
 elixir:
   - 1.0.3
   - 1.0.4
-otp_release: 
+otp_release:
+  - 17.3
   - 17.4
 sudo: false # according to ecto and plug project will go faster by using containers
 cache:
