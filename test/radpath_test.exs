@@ -226,7 +226,7 @@ defmodule RadpathTests.RadpathFacts do
       islink?(fixture_path) |> falsey
       islink?("/I/wiLL/neveR/exist") |> falsey
     end
-  end
+   end
   
   facts "Test Tempfilefs" do
 
@@ -315,12 +315,13 @@ defmodule RadpathTests.RadpathFacts do
   end
 
   facts "Test relative paths" do
+		import Radpath, only: [relative_path: 2]
     fact "Test relative_path: Normal Usage" do
-      Radpath.relative_path("/tmp/base", "/tmp/base/hoho.txt") |> "hoho.txt"
+      relative_path("/tmp/base", "/tmp/base/hoho.txt") |> "hoho.txt"
     end
 
     fact "Test relative_path: If same path is given empty string will result" do
-      Radpath.relative_path("/tmp/base/", "/tmp/base/") |> ""
+      relative_path("/tmp/base/", "/tmp/base/") |> ""
     end
   end
 
