@@ -10,10 +10,10 @@ cache:
    directories:
      - deps
      - $HOME/vendor/elixir
-install:
-  - git clone git://github.com/rebar/rebar.git
-  - cd rebar && ./bootstrap
-  - export PATH=$PATH:`pwd` && cd ..
+# install:
+#  - git clone git://github.com/rebar/rebar.git
+#  - cd rebar && ./bootstrap
+#  - export PATH=$PATH:`pwd` && cd ..
 script:
   - yes | MIX_ENV=test mix deps.get
   - MIX_ENV=test mix amrita --trace
