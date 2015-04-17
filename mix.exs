@@ -56,7 +56,8 @@ defmodule Radpath.Mixfile do
      {:finder, github: "h4cc/Finder"},
      {:amrita, "~>0.4", github: "josephwilk/amrita"},
      {:erlware_commons, github: "erlware/erlware_commons"},
-     {:inch_ex, only: :docs}] 
+     {:inch_ex, only: :docs},
+		 {:pattern_tap, github: "mgwidmann/elixir-pattern_tap"},] 
   end
 
   defp deps(:dev) do
@@ -65,6 +66,7 @@ defmodule Radpath.Mixfile do
      {:finder, github: "h4cc/Finder"},
      {:amrita, "~>0.4", github: "josephwilk/amrita"},
      {:erlware_commons, github: "erlware/erlware_commons"},
+		 {:pattern_tap, github: "mgwidmann/elixir-pattern_tap"},
      {:excoveralls, "~> 0.3"}]
    end
 

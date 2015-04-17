@@ -2,7 +2,8 @@ Code.require_file "../test_helper.exs", __ENV__.file
 
 defmodule RadpathTests.RadpathFacts do
 
-  use Amrita.Sweet       
+  use Amrita.Sweet
+  use PatternTap
 
   import PathHelpers
 	import Path, only: [basename: 1]
@@ -22,8 +23,9 @@ defmodule RadpathTests.RadpathFacts do
         Radpath.zip([fixture_path], "Testdir1.zip")
         "Testdir1.zip" |> path_exists()
         System.cmd("zip",["-T","Testdir1.zip"]) |> {"test of Testdir1.zip OK\n", 0}
-        {result_str, code} = System.cmd("zipinfo",["-1","Testdir1.zip"])
-        result_str |> contains "testdir1"
+        System.cmd("zipinfo",["-1","Testdir1.zip"])
+				|> tap({result_str, code} ~> result_str)
+        |> contains "testdir1"
       after
         File.rm_rf("Testdir1.zip")
       end
@@ -37,10 +39,12 @@ defmodule RadpathTests.RadpathFacts do
         Path.join(fixture_path, "Testdir2.zip") |> ! path_exists()
         Radpath.zip([dir], "Testdir2.zip")
         "Testdir2.zip" |> path_exists()
-        {result_str, code} = System.cmd("zip",["-T","Testdir2.zip"]) 
-        result_str |> String.strip |> "test of Testdir2.zip OK"
-        {result_str2, code2} = System.cmd("zipinfo",["-1","Testdir2.zip"]) 
-        result_str2 |> contains "testdir2"
+        System.cmd("zip",["-T","Testdir2.zip"]) 
+				|> tap({result_str, code} ~> result_str)
+        |> String.strip |> "test of Testdir2.zip OK"
+        System.cmd("zipinfo",["-1","Testdir2.zip"]) 
+				|> tap({result_str2, code2} ~> result_str2)
+        |> contains "testdir2"
       after
         File.rm_rf("Testdir2.zip")
       end
@@ -54,8 +58,9 @@ defmodule RadpathTests.RadpathFacts do
       "Testdir3.zip" |> path_exists()
       System.cmd("zip",["-T","Testdir3.zip"]) |> 
 				{"test of Testdir3.zip OK\n", 0}
-      {result_str, code} = System.cmd("zipinfo",["-1","Testdir3.zip"]) 
-      result_str |> contains "testdir1"
+      System.cmd("zipinfo",["-1","Testdir3.zip"]) 
+			|> tap({result_str, code} ~> result_str)
+      |> contains "testdir1"
     after
       File.rm_rf("Testdir3.zip")
     end
