@@ -153,6 +153,26 @@ defmodule Radpath do
     F.rename(source, destination)
   end
 
+  @doc """
+  
+  Alias method for rename
+
+  ## Arguments
+
+  * `source` - Original name of directory / file
+  * `destination` - New name of directory / file
+
+  ## Usage
+
+      Radpath.mv(source, destination)
+
+  or 
+
+      Radpath.mv(source, destination)
+
+  """
+
+  @spec mv(bitstring, bitstring) :: none
   defdelegate mv(source,destination), to: __MODULE__, as: :rename
 
   @doc """
