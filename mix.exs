@@ -63,6 +63,10 @@ defmodule Radpath.Mixfile do
 		deps(:test)
   end
 
+	defp deps(:docs) do
+		deps(:test)
+  end
+
   defp deps(_) do
    deps(:prod)
   end
