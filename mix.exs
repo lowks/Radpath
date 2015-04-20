@@ -33,7 +33,7 @@ defmodule Radpath.Mixfile do
      licenses: ["MIT"],
      links: %{
          "GitHub" => "https://github.com/lowks/Radpath",
-         "Docs" => "http://hexdocs.pm/radpath/0.0.4/"
+         "Docs" => "http://hexdocs.pm/radpath"
      }
     ]
   end
@@ -46,8 +46,7 @@ defmodule Radpath.Mixfile do
   defp deps(:prod) do
     [{:tempfile, github: "lowks/tempfile"},
      {:finder, github: "h4cc/Finder" },
-     {:erlware_commons, github: "erlware/erlware_commons" },
-     {:inch_ex, only: :docs}] 
+     {:erlware_commons, github: "erlware/erlware_commons" },]
   end
 
   defp deps(:test) do
@@ -61,14 +60,8 @@ defmodule Radpath.Mixfile do
   end
 
   defp deps(:dev) do
-    [{:tempfile, github: "lowks/tempfile"},
-     {:ex_doc, github: "elixir-lang/ex_doc"},
-     {:finder, github: "h4cc/Finder"},
-     {:amrita, "~>0.4", github: "josephwilk/amrita"},
-     {:erlware_commons, github: "erlware/erlware_commons"},
-		 {:pattern_tap, github: "mgwidmann/elixir-pattern_tap"},
-     {:excoveralls, "~> 0.3"}]
-   end
+		deps(:test)
+  end
 
   defp deps(_) do
    deps(:prod)
