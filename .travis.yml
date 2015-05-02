@@ -15,9 +15,9 @@ cache:
 #  - git clone git://github.com/rebar/rebar.git
 #  - cd rebar && ./bootstrap
 #  - export PATH=$PATH:`pwd` && cd ..
-script:
-  - yes | MIX_ENV=test mix deps.get
-  - MIX_ENV=test mix amrita --trace
+# script:
+#   - yes | MIX_ENV=test mix deps.get
+#   - MIX_ENV=test mix amrita --trace
 after_script:
   - mix deps.get --only docs
   - MIX_ENV=docs mix inch.report
