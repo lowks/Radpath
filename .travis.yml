@@ -15,5 +15,5 @@ after_script:
   - mix deps.get --only docs
   - MIX_ENV=docs mix inch.report
 after_success:
-  - mix deps.get --only test 
-  - mix coveralls.travis
+  - MIX_ENV=test mix deps.get
+  - MIX_ENV=test mix coveralls.travis
