@@ -6,6 +6,7 @@
 [![Circle CI](https://circleci.com/gh/lowks/Radpath/tree/master.png?style=badge)](https://circleci.com/gh/lowks/Radpath/tree/master)
 [![Inline docs](http://inch-ci.org/github/lowks/Radpath.svg?branch=master&style=flat)](http://inch-ci.org/github/lowks/Radpath)
 [![Build Status](https://snap-ci.com/lowks/Radpath/branch/master/build_image)](https://snap-ci.com/lowks/Radpath/branch/master)
+[![Coverage Status](https://coveralls.io/repos/lowks/Radpath/badge.png?branch=master)](https://coveralls.io/r/lowks/Radpath?branch=master)
 
 A library for dealing with paths in Elixir largely inspired by Python's pathlib.
 
