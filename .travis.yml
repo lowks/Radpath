@@ -6,7 +6,7 @@ otp_release:
   - 17.3
   - 17.4
 # Unfortunately this can't be enabled. If enabled kiex will fail periodically.
-# sudo: false # according to ecto and plug project will go faster by using containers
+sudo: false # according to ecto and plug project will go faster by using containers
 cache:
    directories:
      - deps
