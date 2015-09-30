@@ -2,11 +2,14 @@ Code.ensure_loaded?(Hex) and Hex.start
 defmodule Radpath.Mixfile do
   use Mix.Project
 
+  @version "0.0.5"
+
   def project do
     [ app: :radpath,
-      version: "0.0.5",
+      version: @version,
       elixir: "~> 1.0.2 or ~> 1.1.0",
       description: description,
+      docs: [source_ref: "v#{@version}", main: "Radpath"],
       package: package,
       deps: deps(Mix.env),
       deps_path: System.get_env("MY_DEPS_PATH") || "deps",
