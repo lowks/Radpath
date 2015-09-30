@@ -5,7 +5,7 @@ defmodule Radpath.Mixfile do
   def project do
     [ app: :radpath,
       version: "0.0.5",
-      elixir: "~> 1.0.0",
+      elixir: "~> 1.1.0",
       description: description,
       package: package,
       deps: deps(Mix.env),
