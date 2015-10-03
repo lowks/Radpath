@@ -1,4 +1,4 @@
-Code.ensure_loaded?(Hex) and Hex.start                                                                                              
+Code.ensure_loaded?(Hex) and Hex.start
 defmodule Radpath.Mixfile do
   use Mix.Project
 
@@ -46,29 +46,28 @@ defmodule Radpath.Mixfile do
   #
   # To specify particular versions, regardless of the tag, do:
   # { :barbat, "~> 0.1", github: "elixir-lang/barbat" }
+
   defp deps(:prod) do
-    [{:tempfile, github: "lowks/tempfile"},
+    [
+     {:tempfile, github: "lowks/tempfile" },
+     {:ex_doc, github: "elixir-lang/ex_doc"},
      {:finder, github: "h4cc/Finder" },
-     {:erlware_commons, github: "erlware/erlware_commons" },]
+     {:erlware_commons, github: "erlware/erlware_commons"},
+    ]
   end
 
   defp deps(:test) do
-    [{:tempfile, github: "lowks/tempfile"},
-     {:ex_doc, github: "elixir-lang/ex_doc"},
-     {:finder, github: "h4cc/Finder"},
-     {:amrita, "~>0.4", github: "josephwilk/amrita"},
-     {:erlware_commons, github: "erlware/erlware_commons"},
-     {:inch_ex, only: :docs},
-     {:pattern_tap, github: "mgwidmann/elixir-pattern_tap"},
-     {:excoveralls,  "== 0.3.6",   only: :test},]
+    deps(:prod) ++ [
+     {:pattern_tap, github: "mgwidmann/elixir-pattern_tap", only: :test},
+     {:amrita, "~>0.4", github: "josephwilk/amrita", only: :test},
+     {:excoveralls,  "== 0.3.6", only: :test},
+    ]
   end
 
-  defp deps(:dev) do
-		deps(:test)
-  end
-
-	defp deps(:docs) do
-		deps(:test)
+  defp deps(:docs) do
+    deps(:prod) ++ [
+      {:inch_ex, only: :docs},
+    ]
   end
 
   defp deps(_) do
