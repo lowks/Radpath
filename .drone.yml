@@ -1,5 +1,0 @@
-image: garage/elixir
-script:
-  make ci
-cache:
-   - ~/.mix
