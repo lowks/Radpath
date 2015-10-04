@@ -3,10 +3,11 @@ env:
   - MIX_ENV=test
 elixir:
   - 1.0.5
+  - 1.1.0
 otp_release:
   - 17.5
   - 18.0
-# sudo: false # according to ecto and plug project will go faster by using containers
+sudo: false # according to ecto and plug project will go faster by using containers
 cache:
    directories:
      - deps
@@ -19,5 +20,5 @@ after_success:
   - MIX_ENV=test mix coveralls.travis
 matrix:
   exclude:
-  - elixir: 1.1.1
-    otp_release: 17.5
+  # - elixir: 1.1.1
+  #  otp_release: 17.5
