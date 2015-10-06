@@ -53,6 +53,7 @@ defmodule Radpath.Mixfile do
      {:ex_doc, github: "elixir-lang/ex_doc"},
      {:finder, github: "h4cc/Finder" },
      {:erlware_commons, github: "erlware/erlware_commons"},
+     {:temp, "~> 0.2"},
     ]
   end
 
