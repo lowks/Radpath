@@ -39,10 +39,10 @@ defmodule RadpathTests.RadpathFacts do
         Path.join(fixture_path, "Testdir2.zip") |> ! path_exists()
         Radpath.zip([dir], "Testdir2.zip")
         "Testdir2.zip" |> path_exists()
-        System.cmd("zip",["-T","Testdir2.zip"]) 
+        System.cmd("zip",["-T","Testdir2.zip"])
 				|> tap({result_str, code} ~> result_str)
         |> String.strip |> "test of Testdir2.zip OK"
-        System.cmd("zipinfo",["-1","Testdir2.zip"]) 
+        System.cmd("zipinfo",["-1","Testdir2.zip"])
 				|> tap({result_str2, code2} ~> result_str2)
         |> contains "testdir2"
       after
@@ -56,9 +56,9 @@ defmodule RadpathTests.RadpathFacts do
       Path.join(fixture_path, "Testdir3.zip") |> ! path_exists()
       Radpath.zip(dir, "Testdir3.zip")
       "Testdir3.zip" |> path_exists()
-      System.cmd("zip",["-T","Testdir3.zip"]) |> 
+      System.cmd("zip",["-T","Testdir3.zip"]) |>
 				{"test of Testdir3.zip OK\n", 0}
-      System.cmd("zipinfo",["-1","Testdir3.zip"]) 
+      System.cmd("zipinfo",["-1","Testdir3.zip"])
 			|> tap({result_str, code} ~> result_str)
       |> contains "testdir1"
     after
@@ -85,14 +85,14 @@ defmodule RadpathTests.RadpathFacts do
       File.rm_rf("/tmp/dome.csv")
     end
   end
-  
+
   fact "Test unzip: Non existent zip file will result in nil" do
     Radpath.unzip("gogo/gaga/none.zip") |> nil
   end
-  
+
   fact "Test zip: Path that does not exist" do
       try do
-        Path.join(fixture_path, "Testdir-dont-exist.zip") |> 
+        Path.join(fixture_path, "Testdir-dont-exist.zip") |>
 					! path_exists()
         Radpath.zip(["/gogo/I/don/exist"], "Testdir-dont-exist.zip") |> nil
 			after
@@ -100,7 +100,7 @@ defmodule RadpathTests.RadpathFacts do
       rescue
         e in RuntimeError -> e
       end
-    end                         
+    end
   end
 
   facts "Test Filtering" do
@@ -109,7 +109,7 @@ defmodule RadpathTests.RadpathFacts do
 		@test_files ["testdir3", "testdir2", "testdir1"]
 		@file_list ["file1.txt", "file2.txt", "file3.log"]
 		@file_ext ["txt", "log"]
-    @long_file_list @file_list ++ ["testfile1.txt", "testfile2.txt", 
+    @long_file_list @file_list ++ ["testfile1.txt", "testfile2.txt",
 																	 "testfile3.txt"]
 
     fact "Test Filtering: Files" do
@@ -121,7 +121,7 @@ defmodule RadpathTests.RadpathFacts do
     fact "Test Filtering: Files returns empty list if path does not exist" do
       Radpath.files("/this/path/does/not/exist") |> []
     end
-  
+
     fact "Test Filtering: Directories" do
       dirs = Radpath.dirs(fixture_path) |> map(&basename(&1))
 			map(@dud_files, fn(x) -> dirs |> ! contains x end)
@@ -130,32 +130,32 @@ defmodule RadpathTests.RadpathFacts do
 
     fact "Test Filtering: List of Directories" do
 			expected = @test_files ++ ["fixtures"] |> Enum.sort
-      Radpath.dirs(["test", "lib"]) |> 
-				map(&basename(&1)) |> 
+      Radpath.dirs(["test", "lib"]) |>
+				map(&basename(&1)) |>
 				equals expected ++ ["Radpath"]
     end
 
     fact "Test Filtering: Regex Directories" do
-			Radpath.dirs("test", "fixtures") |> 
+			Radpath.dirs("test", "fixtures") |>
 			map(&basename(&1)) |> ["fixtures"]
     end
-    
+
     fact "Test Filtering: files" do
 			Radpath.files(fixture_path, "log") |>
-      map(&basename(&1)) |> 
+      map(&basename(&1)) |>
 			equals ["file3.log"]
     end
 
     fact "Test Filtering: files with lists" do
-      Radpath.files(["test", "lib"], @file_ext) 
-      |> map(&basename(&1)) 
-      |> Enum.sort 
+      Radpath.files(["test", "lib"], @file_ext)
+      |> map(&basename(&1))
+      |> Enum.sort
 			|> equals @long_file_list
     end
 
     fact "Test Filtering: files. Expanded path works too." do
-      Radpath.files("test/fixtures", "log") |> 
-			map(&basename(&1)) |> 
+      Radpath.files("test/fixtures", "log") |>
+			map(&basename(&1)) |>
 			equals ["file3.log"]
     end
 
@@ -167,14 +167,14 @@ defmodule RadpathTests.RadpathFacts do
     end
 
     fact "Test Filtering: Multiple filter for files function if extension is list of char list" do
-      files = Radpath.files(fixture_path, @file_ext) |> 
+      files = Radpath.files(fixture_path, @file_ext) |>
 				map(&basename(&1))
 			files |> Enum.sort |> equals @long_file_list
       @file_list |> for_all (&Enum.member?(files, &1))
     end
 
     fact "Test Filtering: Multiple filter for files function if extension and paths is list of char list" do
-      files = Radpath.files(['lib'], @file_ext) |> 
+      files = Radpath.files(['lib'], @file_ext) |>
 				map(&basename(&1))
       @file_list |> for_all (&Enum.member?(files, &1))
     end
@@ -197,11 +197,11 @@ defmodule RadpathTests.RadpathFacts do
         File.rm_rf @dest
       end
     end
-  
+
     fact "Test symlink: For non existent src file" do
- 
+
       src = Path.join(fixture_path, "testdir3xx")
-      
+
       try do
         @dest |> ! path_exists
         symlink(src, @dest)
@@ -232,7 +232,7 @@ defmodule RadpathTests.RadpathFacts do
       islink?("/I/wiLL/neveR/exist") |> falsey
     end
    end
-  
+
   facts "Test Tempfilefs" do
 
     fact "Test Tempfilefs: Without Argument" do
@@ -244,7 +244,7 @@ defmodule RadpathTests.RadpathFacts do
           File.rm_rf tmpdirpath1
         end
     end
- 
+
     fact "Test mktempdir: With argument" do
       src = Path.join(fixture_path, "testdir3")
 			tmpdirpath = Radpath.mktempdir(src)
@@ -259,11 +259,34 @@ defmodule RadpathTests.RadpathFacts do
     fact "Test mktempdir: Nonexistant parent path, error returned" do
       tmpdirpath = Radpath.mktempdir("/gogo/gaga/gigi")
       try do
-        tmpdirpath |> {:error, :enoent}
+        tmpdirpath |> :enoent
       rescue
         e in RuntimeError -> e
       end
     end
+
+    fact "Test mktempfile: No argument" do
+      {_, fd, filepath} = Radpath.mktempfile
+      IO.write fd, "hulahoop"
+      try do
+        assert File.exists? filepath
+        read_content = File.read! filepath
+        assert read_content, "hulahoop"
+      after
+        File.close filepath
+        File.rm_rf filepath
+      end
+    end
+
+    fact "Test mktempfile: With arguments" do
+      {_, fd, filepath} = Radpath.mktempfile(".log", "/tmp")
+      try do
+        assert Path.extname(filepath) == ".log"
+      after
+        File.rm_rf filepath
+      end
+    end
+
   end
 
   facts "Test rename and mv" do
@@ -321,7 +344,7 @@ defmodule RadpathTests.RadpathFacts do
 
   facts "Test relative paths" do
 		import Radpath, only: [relative_path: 2]
-    
+
 		fact "Test relative_path: Normal Usage" do
       relative_path("/tmp/base", "/tmp/base/hoho.txt") |> "hoho.txt"
     end
@@ -332,7 +355,7 @@ defmodule RadpathTests.RadpathFacts do
   end
 
   facts "Test ensure" do
-    
+
     fact "Test ensure: Ensure Directory is created" do
       test_dir_path = Path.join(fixture_path, "gogo/gaga")
       test_dir_path |> ! path_exists()
@@ -364,7 +387,7 @@ defmodule RadpathTests.RadpathFacts do
     end
     fact "Test sha1sum: sha1sum function" do
       [h | _]= String.split(to_string(:os.cmd('sha1sum mix.exs')))
-      sha1sum("mix.exs") |> h 
+      sha1sum("mix.exs") |> h
     end
     fact "Test sha1sum: sha1sum on directory" do
       sha1sum("/tmp") |> :error
