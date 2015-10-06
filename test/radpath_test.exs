@@ -271,7 +271,7 @@ defmodule RadpathTests.RadpathFacts do
       try do
         assert File.exists? filepath
         read_content = File.read! filepath
-        assert read_content, "hulahoop"
+        read_content |> "hulahoop"
       after
         File.close filepath
         File.rm_rf filepath
@@ -280,9 +280,13 @@ defmodule RadpathTests.RadpathFacts do
 
     fact "Test mktempfile: With arguments" do
       {_, fd, filepath} = Radpath.mktempfile(".log", "/tmp")
+      IO.write fd, "hulahoop with args"
       try do
-        assert Path.extname(filepath) == ".log"
+        read_content = File.read! filepath
+        Path.extname(filepath) |> ".log"
+        read_content = "hulahoop with args"
       after
+        File.close filepath
         File.rm_rf filepath
       end
     end
