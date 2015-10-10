@@ -5,47 +5,60 @@ defmodule Radpath.Tempfs do
      @doc """
      To create a temp file and write to it without arguments:
 
-         Radpath.mktempfile |> File.write("test123")
-
+         {status, fd, file_path}  = Radpath.mktempfile
+         IO.write fd, "hoho"
+         File.close fd
+         File.read! filepath
+         "hoho"
+         File.rm! filepath
      """
-     
+
      @spec mktempfile() :: none
      def mktempfile() do
-       Tempfile.get_name
+       Temp.open "Temp file"
      end
      @doc """
      To create a temp file with arguments (ext and path) and write to it. Default value for extension is '.tmp':
 
      ## Arguments
- 
+
      - `path` path where to create tempfile in bitstring
      - `ext` extension of newly created tempfile in bitstring
 
      ## Usage
 
-         Radpath.mktempfile(".log", "/home/lowks/Downloads") |> File.write("abcdef")
+         {_, fd, filepath} = Radpath.mktempfile(".log", "/home/lowks/Downloads")
+         IO.write fd, "hoho"
+         File.read! filepath
+         "hoho"
+         File.close! filepath
 
      """
 
      @spec mktempfile(bitstring, bitstring) :: bitstring
      def mktempfile(ext, path) when is_bitstring(path) and is_bitstring(ext) do
-        Tempfile.get_name("", [ext: ext, path: path])
+        # Tempfile.get_name("", [ext: ext, path: path])
+        Temp.open %{suffix: ext, basedir: path}
      end
     @doc """
     To create a temp file at a certain location without extension and write to it:
     ## Arguments
- 
+
      - `path` path where to create tempfile in bitstring
 
     ## Usage
 
-        Radpath.mktempfile("/home/lowks/Downloads") |> File.write("abcdef")
-
+         {_, fd, filepath} = Radpath.mktempfile("/home/lowks/Downloads")
+         IO.write fd, "hoho"
+         File.read! filepath
+         "hoho"
+         File.close! filepath
     """
 
     @spec mktempfile(bitstring) :: bitstring
     def mktempfile(path) when is_bitstring(path) do
-      Tempfile.get_name("", [ext: ".tmp", path: path])
+      # Tempfile.get_name("", [ext: ".tmp", path: path])
+      Temp.open %{suffix: ".tmp", basedir: path}
     end
 
     @doc """
@@ -57,9 +70,11 @@ defmodule Radpath.Tempfs do
 
     @spec mktempdir :: none
     def mktempdir do
-      temp_name = Tempfile.get_name
-      temp_name |> Path.rootname |> do_mkdir
-      temp_name
+      # temp_name = Tempfile.get_name
+      # temp_name |> Path.rootname |> do_mkdir
+      # temp_name
+      {status, path_name} = Temp.mkdir %{basedir: "/tmp"}
+      path_name
     end
     @doc """
     To create a temp dir at a specific location:
@@ -76,11 +91,13 @@ defmodule Radpath.Tempfs do
 
     @spec mktempdir(bitstring) :: none
     def mktempdir(path) when is_bitstring(path) do
-      Tempfile.get_name([path: make_into_path(path)]) |> 
-	  Path.rootname |> 
-	  do_mkdir
+      # Tempfile.get_name([path: make_into_path(path)]) |>
+	  # Path.rootname |>
+	  # do_mkdir
+      {status, path_name} = Temp.mkdir %{basedir: path}
+      path_name
     end
 
-  end   
+  end
   end
 end
