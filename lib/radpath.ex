@@ -42,7 +42,7 @@ defmodule Radpath do
       F.make_symlink(source, destination)
     end
   end
-  
+
   @doc """
   
   To create a zip archive:
@@ -267,7 +267,7 @@ defmodule Radpath do
   @spec erusne(bitstring) :: none
   def erusne(path) when is_bitstring(path) do
     if File.exists?(path) do
-			File.rm_rf!(path)
+            File.rm_rf!(path)
     end
   end
 
@@ -353,7 +353,7 @@ defmodule Radpath do
       false -> :error
     end
   end
-      
+
   defp do_mkdir(path) do
     if !File.exists?(path) do
       case File.mkdir(path) do
