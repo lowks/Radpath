@@ -60,8 +60,10 @@ defmodule Radpath do
 
   @spec parent_path(list) :: none
   def zip(dirs, archive_name) when is_list(dirs) do
-    dirs_list = dirs |> Enum.filter(fn(x) -> File.exists?(x) end) |> Enum.map&(String.to_char_list(&1))
-    if !Enum.empty? dirs_list do
+    dirs_list = dirs
+    |> Enum.filter(fn(x) -> File.exists?(x) end)
+    |> Enum.map&(String.to_char_list(&1))
+    unless Enum.empty? dirs_list do
       Z.create(String.to_char_list(archive_name), dirs_list)
     end
   end
@@ -214,19 +216,22 @@ defmodule Radpath do
   """
   @spec parent_path(bitstring) :: bitstring
   def parent_path(path) when is_bitstring(path) do
-    Path.absname(path)
+    path
+    |> Path.absname(path)
     |> String.split(Path.basename(path))
     |> List.first
   end
 
   @doc """
-  Ensures that a directory/file is created. If is_file is set to true then file is created.
+  Ensures that a directory/file is created. 
+  If is_file is set to true then file is created.
 
   ## Arguments
 
   - `path` - Path that is to be created
 
-  - `is_file` - Boolean, indicating if path is a file, if true then ensure will create file. Default false (directory).
+  - `is_file` - Boolean, indicating if path is a file,
+     if true then ensure will create file. Default false (directory).
   
   ## Usage
 
@@ -240,7 +245,7 @@ defmodule Radpath do
 
   @spec ensure(bitstring, bitstring) :: none
   def ensure(path, is_file \\ false) when is_bitstring(path) do
-    if !File.exists?(path) do
+    unless File.exists?(path) do
       cond do
         is_file == false -> File.mkdir_p(path)
         is_file -> File.touch(path)
@@ -296,7 +301,8 @@ defmodule Radpath do
   end
 
   @doc """
-  Returns the md5sum of a file. Only works for files. Folders passed will return :error:
+  Returns the md5sum of a file. Only works for files.
+  Folders passed will return :error:
 
   ## Arguments
 
@@ -316,7 +322,8 @@ defmodule Radpath do
       true ->
         case File.dir?(path) do
           true -> :error
-          false -> File.read!(path)
+          false -> path
+                   |> File.read!
                    |> :ec_file.md5sum
                    |> to_string
         end
@@ -325,7 +332,8 @@ defmodule Radpath do
   end
 
   @doc """
-  Returns the sha1sum of a file. Only works for files. Folders passed will return :error:
+  Returns the sha1sum of a file. Only works for files. 
+  Folders passed will return :error:
 
   ## Arguments
 
@@ -346,7 +354,8 @@ defmodule Radpath do
       true ->
         case File.dir?(path) do
           true -> :error
-          false -> File.read!(path)
+          false -> path
+                   |> File.read!
                    |> :ec_file.sha1sum
                    |> to_string
         end
@@ -355,7 +364,7 @@ defmodule Radpath do
   end
 
   defp do_mkdir(path) do
-    if !File.exists?(path) do
+    unless File.exists?(path) do
       case File.mkdir(path) do
         :ok -> path
         error -> error
