@@ -22,9 +22,10 @@ defmodule RadpathTests.RadpathFacts do
         Path.join(fixture_path, "Testdir1.zip") |> ! path_exists()
         Radpath.zip([fixture_path], "Testdir1.zip")
         "Testdir1.zip" |> path_exists()
-        System.cmd("zip",["-T","Testdir1.zip"]) |> {"test of Testdir1.zip OK\n", 0}
+        System.cmd("zip",["-T","Testdir1.zip"])
+        |> {"test of Testdir1.zip OK\n", 0}
         System.cmd("zipinfo",["-1","Testdir1.zip"])
-                |> tap({result_str, code} ~> result_str)
+        |> tap({result_str, _} ~> result_str)
         |> contains "testdir1"
       after
         File.rm_rf("Testdir1.zip")
@@ -40,10 +41,10 @@ defmodule RadpathTests.RadpathFacts do
         Radpath.zip([dir], "Testdir2.zip")
         "Testdir2.zip" |> path_exists()
         System.cmd("zip",["-T","Testdir2.zip"])
-                |> tap({result_str, code} ~> result_str)
+        |> tap({result_str, _} ~> result_str)
         |> String.strip |> "test of Testdir2.zip OK"
         System.cmd("zipinfo",["-1","Testdir2.zip"])
-                |> tap({result_str2, code2} ~> result_str2)
+        |> tap({result_str2, _} ~> result_str2)
         |> contains "testdir2"
       after
         File.rm_rf("Testdir2.zip")
@@ -59,7 +60,7 @@ defmodule RadpathTests.RadpathFacts do
       System.cmd("zip",["-T","Testdir3.zip"]) |>
                 {"test of Testdir3.zip OK\n", 0}
       System.cmd("zipinfo",["-1","Testdir3.zip"])
-            |> tap({result_str, code} ~> result_str)
+      |> tap({result_str, _} ~> result_str)
       |> contains "testdir1"
     after
       File.rm_rf("Testdir3.zip")
@@ -81,7 +82,7 @@ defmodule RadpathTests.RadpathFacts do
       Path.join(fixture_path, "dome.csv") |> ! path_exists()
       Radpath.unzip(Path.join(fixture_path, "dome.zip"), "/tmp")
     after
-            Path.join("/tmp", "dome.csv") |> path_exists()
+      Path.join("/tmp", "dome.csv") |> path_exists()
       File.rm_rf("/tmp/dome.csv")
     end
   end
@@ -109,8 +110,9 @@ defmodule RadpathTests.RadpathFacts do
         @test_files ["testdir3", "testdir2", "testdir1"]
         @file_list ["file1.txt", "file2.txt", "file3.log"]
         @file_ext ["txt", "log"]
-    @long_file_list @file_list ++ ["testfile1.txt", "testfile2.txt",
-                                                                     "testfile3.txt"]
+    @long_file_list @file_list ++ ["testfile1.txt",
+                                   "testfile2.txt",
+                                   "testfile3.txt"]
 
     fact "Test Filtering: Files" do
       files = Radpath.files(fixture_path, "txt") |> map(&basename(&1))
@@ -284,7 +286,7 @@ defmodule RadpathTests.RadpathFacts do
       try do
         read_content = File.read! filepath
         Path.extname(filepath) |> ".log"
-        read_content = "hulahoop with args"
+        read_content |> "hulahoop with args"
       after
         File.close filepath
         File.rm_rf filepath
@@ -378,7 +380,7 @@ defmodule RadpathTests.RadpathFacts do
         Radpath.ensure(test_file_path)
         test_file_path |> path_exists()
       after
-                test_file_path |> Radpath.parent_path |> Radpath.erusne |> truthy
+        test_file_path |> Radpath.parent_path |> Radpath.erusne |> truthy
       end
     end
   end

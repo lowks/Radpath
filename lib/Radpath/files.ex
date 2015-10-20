@@ -2,6 +2,10 @@ defmodule Radpath.Files do
    defmacro __using__([]) do
      quote do
 
+     @moduledoc """
+        Radpath handling files/directories manipulation. 
+      """
+
        @doc """
   Returns all of the files in the given path, and if ext is
   given will filter by that extname.

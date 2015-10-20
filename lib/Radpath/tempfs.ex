@@ -2,6 +2,10 @@ defmodule Radpath.Tempfs do
    defmacro __using__([]) do
      quote do
 
+    @moduledoc """
+     Generating temp files and directories which can be used. 
+    """
+
      @doc """
      To create a temp file and write to it without arguments:
 
