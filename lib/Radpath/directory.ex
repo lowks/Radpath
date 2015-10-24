@@ -6,6 +6,10 @@ defmodule Radpath.Dirs do
     #   []
     # end
 
+  @moduledoc """
+    Directory functions of Radpath library
+  """
+
   @doc """
   Returns all of the directories in the given path
 
