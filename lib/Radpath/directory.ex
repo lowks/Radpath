@@ -6,6 +6,10 @@ defmodule Radpath.Dirs do
     #   []
     # end
 
+  @moduledoc """
+    Directory functions of Radpath library
+  """
+
   @doc """
   Returns all of the directories in the given path
 
@@ -34,7 +38,7 @@ defmodule Radpath.Dirs do
       [h | t] = paths
       do_dirs(t, result ++ dirs_list(h, regex_dir), regex_dir)
     end
-  
+
     defp dirs_list(path, regex_dir) when is_bitstring(path) do
         Finder.new()
         |> Finder.with_directory_regex(Regex.compile!(regex_dir))

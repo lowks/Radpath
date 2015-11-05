@@ -71,7 +71,12 @@ Radpath.symlink(source, destination)
 To create tempfile:
 
 ```
-Radpath.mktempfile
+{status, fd, file_path}  = Radpath.mktempfile
+IO.write fd, "hoho"
+File.close fd
+File.read! filepath
+"hoho"
+File.rm! filepath
 ```
 
 This uses all the defaults
@@ -79,7 +84,11 @@ This uses all the defaults
 To customize the location plus the extension: 
 
 ```
-Radpath.mktempfile(".log", "/home/lowks/Documents/temp/")
+{_, fd, filepath} = Radpath.mktempfile(".log", "/home/lowks/Downloads")
+IO.write fd, "hoho"
+File.read! filepath
+"hoho"
+File.close! filepath
 ```
 
 The default is ".log". Checkout the rest of the docs in the docs folder.

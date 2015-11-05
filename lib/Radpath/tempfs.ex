@@ -2,6 +2,10 @@ defmodule Radpath.Tempfs do
    defmacro __using__([]) do
      quote do
 
+    @moduledoc """
+     Generating temp files and directories which can be used. 
+    """
+
      @doc """
      To create a temp file and write to it without arguments:
 
@@ -92,8 +96,8 @@ defmodule Radpath.Tempfs do
     @spec mktempdir(bitstring) :: none
     def mktempdir(path) when is_bitstring(path) do
       # Tempfile.get_name([path: make_into_path(path)]) |>
-	  # Path.rootname |>
-	  # do_mkdir
+      # Path.rootname |>
+      # do_mkdir
       {status, path_name} = Temp.mkdir %{basedir: path}
       path_name
     end
