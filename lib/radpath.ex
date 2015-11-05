@@ -201,7 +201,7 @@ defmodule Radpath do
 
   @doc """
 
-  To get parent_path of a given path. The path supplied should be a bit string:
+  To get parent_path of a given path. The path supplied should be a bitstring:
 
   ## Arguments
 
@@ -226,7 +226,7 @@ defmodule Radpath do
 
   - `path` - Path that is to be created
 
-  - `is_file` - Boolean, indicating if path is a file, if true then ensure will create file. Default false (directory).
+  - `is_file` - Boolean, indicating if path is a file, if true ensure creates a file, else a directory. Default: false
   
   ## Usage
 
@@ -250,8 +250,8 @@ defmodule Radpath do
 
 
 @doc """
-  The flip of ensure. Ensures that a directory/file is deleted or not there. 
-  If is_file is set to true then file is ensured to be deleted or not there.
+  The flip of ensure. When called, removes file/directory if there. 
+  If is_file is set to true then file is ensured to be removed else remove directory.
 
   ## Arguments
 
