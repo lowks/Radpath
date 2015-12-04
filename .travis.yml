@@ -10,6 +10,7 @@ otp_release:
 sudo: false # according to ecto and plug project will go faster by using containers
 cache:
    directories:
+     - _build
      - deps
      - $HOME/vendor/elixir
 after_script:
