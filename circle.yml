@@ -11,7 +11,7 @@ dependencies:
     # - erlang_version=$(awk '/erlang/ { print $2 }' .tool-versions) && asdf install erlang ${erlang_version}
     - erlang_version=18.0 && asdf install erlang ${erlang_version}
     # - elixir_version=$(awk '/elixir/ { print $2 }' .tool-versions) && asdf install elixir ${elixir_version}
-    - elixir_version=1.3.4 .tool-versions) && asdf install elixir ${elixir_version}
+    - elixir_version=1.3.4 && asdf install elixir ${elixir_version}
     - yes | mix deps.get
   cache_directories:
     - ~/.asdf
@@ -22,6 +22,6 @@ dependencies:
 test:
   override:
     # - script/circleci/test.sh
-    - mix test --no-start
+    - MIX_ENV=test mix test --no-start
   post:
     - script/circleci/post.sh
