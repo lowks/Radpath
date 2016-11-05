@@ -1,4 +1,4 @@
-box: elixir
+box: kazw/elixir-phoenix-ci
 build:
   steps:
 
