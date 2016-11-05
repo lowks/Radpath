@@ -1,4 +1,4 @@
-box: bitwalker/elixir@0.1.0
+box: nuxlli/elixir@0.0.3
 build:
   steps:
 
@@ -8,9 +8,22 @@ build:
           code: |
             sudo apt-get update
             sudo apt-get install zip
-
-      # Test the project. Thanks to the makefile this can just be very short.
+            
+      # Setting Environmental variables\
       - script:
-          name: Test
+          name: set env variable
           code: |
-            make ci
+            export MIX_ENV=test
+
+      # Get dependencies.
+      - script:
+          name: Get Depedencies
+          code: |
+            cd $WERCKER_SOURCE_DIR
+            mix deps.get --all
+            mix deps.compile --all
+            
+      # Run the test
+            name: mix test
+            code: |
+              mix test
