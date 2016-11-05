@@ -24,6 +24,7 @@ build:
             mix deps.compile --all
             
       # Run the test
+      - script:
             name: mix test
             code: |
               mix test
