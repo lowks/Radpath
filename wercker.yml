@@ -1,4 +1,4 @@
-box: ReleaseQueue/docker-image-elixir
+box: bitwalker/alpine-elixir-phoenix
 build:
   steps:
 
