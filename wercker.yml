@@ -1,4 +1,4 @@
-box: bitwalker/elixir@0.0.10
+box: appcues/elixir-dev
 build:
   steps:
 
@@ -20,8 +20,7 @@ build:
           name: Get Depedencies
           code: |
             cd $WERCKER_SOURCE_DIR
-            yes | mix deps.get --all
-            yes | mix deps.compile --all
+            yes | mix deps.get, deps.compile --all
             
       # Run the test
       - script:
