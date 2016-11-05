@@ -14,6 +14,8 @@ cache:
 install:
      - mix local.hex --force
      - mix local.rebar --force
+     - mix deps.get --all
+     - mix deps.compile --all
 script:
      - mix test
 after_script:
