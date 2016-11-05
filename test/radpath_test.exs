@@ -263,26 +263,24 @@ defmodule RadpathTests.RadpathFacts do
        end
     end
 
-    test "Test mktempfile: No argument" do
+    test "mktempfile: No argument" do
       {_, fd, filepath} = Radpath.mktempfile
       IO.write fd, "hulahoop"
       try do
         assert File.exists? filepath
-        read_content = File.read! filepath
-        assert read_content == "hulahoop"
+        filepath |> File.read! |> (&(String.contains?(&1, "hulahoop"))).()
       after
         File.close filepath
         File.rm_rf filepath
       end
     end
 
-    test "Test mktempfile: With arguments" do
+    test "mktempfile: With arguments" do
       {_, fd, filepath} = Radpath.mktempfile(".log", "/tmp")
       IO.write fd, "hulahoop with args"
       try do
-        read_content = File.read! filepath
         assert Path.extname(filepath) == ".log"
-        assert read_content == "hulahoop with args"
+        filepath |> File.read! |> (&(String.contains?(&1, "hulahoop with args"))).()
       after
         File.close filepath
         File.rm_rf filepath
@@ -301,7 +299,7 @@ defmodule RadpathTests.RadpathFacts do
       try do
         @source_file |> File.exists?
         md5sum_source = Radpath.md5sum(@source_file)
-	File.cp(@source_file, "/tmp/hihi")
+	      File.cp(@source_file, "/tmp/hihi")
         Radpath.rename(@source_file, @dest_file)
         refute @source_file |> File.exists?
         @dest_file |> File.exists?
@@ -317,7 +315,7 @@ defmodule RadpathTests.RadpathFacts do
         "/tmp/hoho.txt" |> File.exists?
         # md5sum_source = Radpath.md5sum(@source_file)
         # original_md5sum = Radpath.md5sum("/tmp/hoho.txt")
-	File.cp("/tmp/hoho.txt", "/tmp/hihi.txt")
+	      File.cp("/tmp/hoho.txt", "/tmp/hihi.txt")
         Radpath.mv("/tmp/hoho.txt", "/tmp/hehe.txt")
         refute "/tmp/hoho.txt" |> File.exists?
         "/tmp/hehe.txt" |> File.exists?
@@ -349,8 +347,8 @@ defmodule RadpathTests.RadpathFacts do
   end
 
   defmodule TestRelativePaths do
-  use ExUnit.Case
-        import Radpath, only: [relative_path: 2]
+    use ExUnit.Case
+    import Radpath, only: [relative_path: 2]
 
     test "Test relative_path: Normal Usage" do
       assert relative_path("/tmp/base", "/tmp/base/hoho.txt") == "hoho.txt"
@@ -388,8 +386,8 @@ defmodule RadpathTests.RadpathFacts do
   end
 
   defmodule TestOtherfunctions do
-  use ExUnit.Case
-        import Radpath, only: [md5sum: 1, sha1sum: 1, parent_path: 1]
+    use ExUnit.Case
+    import Radpath, only: [md5sum: 1, sha1sum: 1, parent_path: 1]
     test "Test md5sum: md5sum function" do
       [h | _]= String.split(to_string(:os.cmd('md5sum mix.exs')))
       assert md5sum("mix.exs") == h
