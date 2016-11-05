@@ -14,6 +14,11 @@ build:
           name: set env variable
           code: |
             export MIX_ENV=test
+            
+      - script:
+          name: check elixir version
+          code: |
+            iex --version
 
       # Get dependencies.
       - script:
