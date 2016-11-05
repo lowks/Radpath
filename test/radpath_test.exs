@@ -183,22 +183,22 @@ defmodule RadpathTests.RadpathFacts do
 
   defmodule Testsymlink do
 
-        use ExUnit.Case
-        import Radpath, only: [symlink: 2, islink?: 1]
-        @src Path.join(fixture_path, "testdir3")
-        @dest Path.join(Path.expand("."), "testdir3")
+   use ExUnit.Case
+   import Radpath, only: [symlink: 2, islink?: 1]
+   @src Path.join(fixture_path, "testdir3")
+   @dest Path.join(Path.expand("."), "testdir3")
 
-    # defmodule TestsymlinkNormalUsage do
-    #   try do
-     #    @dest |> File.exists? |> refute
-      #   symlink(@src, @dest)
-       #          {result, link} = F.read_link(@dest)
-                # {result, basename(link)} |> {:ok, "testdir3"}
-        # assert islink?(@dest)
-     #  after
-     #    File.rm_rf @dest
-     #  end
-    # end
+    test "Symlink Normal Usage" do
+       try do
+         refute File.exists? @dest
+         symlink(@src, @dest)
+         {result, link} = F.read_link(@dest)
+         assert {result, basename(link)} == {:ok, "testdir3"}
+         assert islink?(@dest)
+       after
+         File.rm_rf @dest
+       end
+    end
 
     test "Symlink for Non Existent" do
       src = Path.join(fixture_path, "testdir3xx")
