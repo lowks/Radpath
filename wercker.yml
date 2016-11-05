@@ -1,4 +1,5 @@
-box: bitwalker/alpine-elixir-phoenix
+box: 
+  id: bitwalker/alpine-elixir-phoenix
 build:
   steps:
 
