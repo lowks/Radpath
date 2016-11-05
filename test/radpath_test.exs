@@ -332,14 +332,16 @@ defmodule RadpathTests.RadpathFacts do
     end
 
     test "Test mv: Normal Usage" do
-            File.write(@source_file, "test mv")
+      File.write("/tmp/hoho.txt", "test mv")
       try do
-        @source_file |> File.exists?
-                md5sum_source = Radpath.md5sum(@source_file)
-        Radpath.mv(@source_file, @dest_file)
-        @source_file |> refute File.exists?
-        @dest_file |> File.exists?
-                Radpath.md5sum(@dest_file) |> Radpath.md5sum(@source_file)
+        "/tmp/hoho.txt" |> File.exists?
+        # md5sum_source = Radpath.md5sum(@source_file)
+        # original_md5sum = Radpath.md5sum("/tmp/hoho.txt")
+	File.cp("/tmp/hoho.txt", "/tmp/hihi.txt")
+        Radpath.mv("/tmp/hoho.txt", "/tmp/hehe.txt")
+        refute "/tmp/hoho.txt" |> File.exists?
+        "/tmp/hehe.txt" |> File.exists?
+        assert Radpath.md5sum("/tmp/hehe.txt") == Radpath.md5sum("/tmp/hihi.txt")
       after
         File.rm_rf @dest_file
       end
