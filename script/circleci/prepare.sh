@@ -2,7 +2,7 @@
 
 set -e
 
-export ERLANG_VERSION="17.5"
+export ERLANG_VERSION="18.0"
 export ELIXIR_VERSION="v1.3.4"
 export INSTALL_PATH="$HOME/dependencies"
 
@@ -14,7 +14,8 @@ cd $INSTALL_PATH
 
 # Install erlang
 if [ ! -e $ERLANG_PATH/bin/erl ]; then
-  curl -O http://www.erlang.org/download/otp_src_$ERLANG_VERSION.tar.gz
+  # curl -O http://www.erlang.org/download/otp_src_$ERLANG_VERSION.tar.gz
+  wget -c http://www.erlang.org/download/otp_src_${ERLANG_VERSION}.tar.gz
   tar xzf otp_src_$ERLANG_VERSION.tar.gz
   cd $ERLANG_PATH
   ./configure --enable-smp-support \
