@@ -314,8 +314,8 @@ defmodule RadpathTests.RadpathFacts do
   defmodule TestRenameandMv do
   use ExUnit.Case
 
-        @source_file "/tmp/hoho.txt"
-        @dest_file "/tmp/hehe.txt"
+    @source_file "/tmp/hoho.txt"
+    @dest_file "/tmp/hehe.txt"
 
     test "Test rename: Normal Usage" do
             File.write(@source_file, "test rename")
@@ -348,15 +348,16 @@ defmodule RadpathTests.RadpathFacts do
     end
 
     test "Test rename: Source file does not exist" do
-        refute "/tmp/hoho.txt" |> File.exists?
-        Radpath.rename("/tmp/hoho.txt", "/tmp/hehe.txt")
-        refute "/tmp/hehe.txt" |> File.exists?
+        refute @source_file |> File.exists?
+        # Radpath.rename("/tmp/hoho.txt", "/tmp/hehe.txt")
+        Radpath.rename(@source_file, @dest_file)
+        refute @source_file |> File.exists?
     end
 
     test "Test mv: Source file does not exist" do
-        @source_file |> refute File.exists?
+        refute @source_file |> File.exists?
         Radpath.mv(@source_file, @dest_file)
-        @dest_file |> refute File.exists?
+        refute @dest_file |> File.exists?
     end
 
     test "Test mv: Destination folder does not exist" do
