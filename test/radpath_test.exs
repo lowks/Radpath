@@ -348,9 +348,9 @@ defmodule RadpathTests.RadpathFacts do
     end
 
     test "Test rename: Source file does not exist" do
-        @source_file |> refute File.exists?
-        Radpath.rename(@source_file, @dest_file)
-        @dest_file |> refute File.exists?
+        refute "/tmp/hoho.txt" |> File.exists?
+        Radpath.rename("/tmp/hoho.txt", "/tmp/hehe.txt")
+        refute "/tmp/hehe.txt" |> File.exists?
     end
 
     test "Test mv: Source file does not exist" do
