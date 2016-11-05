@@ -1,4 +1,4 @@
-box: appcues/elixir-dev
+box: elixir
 build:
   steps:
 
