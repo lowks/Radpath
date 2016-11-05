@@ -318,14 +318,15 @@ defmodule RadpathTests.RadpathFacts do
     @dest_file "/tmp/hehe.txt"
 
     test "Test rename: Normal Usage" do
-            File.write(@source_file, "test rename")
+        File.write(@source_file, "test rename")
       try do
         @source_file |> File.exists?
-                md5sum_source = Radpath.md5sum(@source_file)
+        md5sum_source = Radpath.md5sum(@source_file)
+	File.cp(@source_file, "/tmp/hihi")
         Radpath.rename(@source_file, @dest_file)
         refute @source_file |> File.exists?
         @dest_file |> File.exists?
-                Radpath.md5sum(@dest_file) |> Radpath.md5sum(@source_file)
+        assert Radpath.md5sum(@dest_file) == Radpath.md5sum("/tmp/hihi")
       after
         File.rm_rf @dest_file
       end
@@ -386,7 +387,7 @@ defmodule RadpathTests.RadpathFacts do
 
     test "Test ensure: Ensure Directory is created" do
       test_dir_path = Path.join(fixture_path, "gogo/gaga")
-      test_dir_path |> refute File.exists?
+      refute test_dir_path |> File.exists?
       try do
         Radpath.ensure(test_dir_path)
         test_dir_path |> File.exists?
@@ -397,7 +398,7 @@ defmodule RadpathTests.RadpathFacts do
 
     test "Test ensure: Ensure File is created" do
       test_file_path = Path.join(fixture_path, "gogo/gaga.txt")
-      test_file_path |> refute File.exists?
+      refute test_file_path |> File.exists?
       try do
         Radpath.ensure(test_file_path)
         test_file_path |> File.exists?
