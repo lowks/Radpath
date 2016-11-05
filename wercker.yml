@@ -1,4 +1,4 @@
-box: bitwalker/elixir@0.1.0
+box: msaraiva/elixir/
 build:
   steps:
 
