@@ -116,113 +116,97 @@ defmodule RadpathTests.RadpathFacts do
   defmodule FilteringTest do
   use ExUnit.Case
 
-        @dud_files ["testfile1.dud, file3.dud"]
-        @test_files ["testdir3", "testdir2", "testdir1"]
-        @file_list ["file1.txt", "file2.txt", "file3.log"]
-        @file_ext ["txt", "log"]
+    @dud_files ["testfile1.dud, file3.dud"]
+    @test_files ["testdir3", "testdir2", "testdir1"]
+    @file_list ["file1.txt", "file2.txt", "file3.log"]
+    @file_ext ["txt", "log"]
     @long_file_list @file_list ++ ["testfile1.txt",
                                    "testfile2.txt",
                                    "testfile3.txt"]
 
-    # defmodule TestFilteringFiles do
-    #   files = Radpath.files(fixture_path, "txt") |> map(&basename(&1))
-    #         map(@dud_files, fn(x) -> files |> refute contains x end)
-    #   Enum.all?(@file_list -- ["file3.log"], fn(x) -> files |> contains x end)
-    # end
+    test "File Filtering" do
+       files = Radpath.files(fixture_path, "txt") |> Enum.map(&Path.basename(&1))
+       Enum.map(@dud_files, fn(x) -> refute Enum.member?(files, x) end)
+       Enum.all?(@dud_files -- ["file3.log"], fn(x) -> files |> Enum.member? x end)
+    end
 
-    defmodule TestFilteringFilesreturnsemptylistifpathdoesnotexist do
-      use ExUnit.Case
+    test "File Filtering returns empty if path does not exist" do
       assert Radpath.files("/this/path/does/not/exist") == []
     end
 
-    # defmodule TestFilteringDirectories do
-    #   dirs = Radpath.dirs(fixture_path) |> map(&basename(&1))
-    #         map(@dud_files, fn(x) -> dirs |> ! contains x end)
-    #   Enum.all?(@test_files, fn(x) -> dirs |> contains x end)
-    # end
+    test "Directory filtering" do
+       dirs = Radpath.dirs(fixture_path) |> Enum.map(&Path.basename(&1))
+       map(["testfile1.dud, file3.dud"], fn(x) -> refute Enum.member?(dirs, x) end)
+       Enum.all?(["testdir3", "testdir2", "testdir1"], fn(x) -> Enum.member?(dirs, x) end)
+    end
 
-    # defmodule TestFilteringListofDirectories do
-    #         expected = @test_files ++ ["fixtures"] |> Enum.sort
-    #   Radpath.dirs(["test", "lib"]) |>
-    #             map(&basename(&1)) |>
-    #             equals expected ++ ["Radpath"]
-    # end
+    test "Directory Filter: List" do
+        expected = @test_files ++ ["fixtures"] |> Enum.sort
+        actual = Radpath.dirs(["test", "lib"]) |> map(&basename(&1))
+        assert actual == expected ++ ["Radpath"]
+    end
 
-    # defmodule TestFilteringRegexDirectories do
-    #         Radpath.dirs("test", "fixtures") |>
-    #         map(&basename(&1)) |> ["fixtures"]
-    # end
+    test "Directory Filtering: Regex" do
+        actual = Radpath.dirs("test", "fixtures") |> map(&basename(&1))
+	assert actual == ["fixtures"]
+    end
 
-    # defmodule TestFilteringfiles do
-    #         Radpath.files(fixture_path, "log") |>
-    #   map(&basename(&1)) |>
-    #         equals ["file3.log"]
-    # end
+    test "Filtering Files" do
+        Radpath.files(fixture_path, "log") |> map(&basename(&1)) |> (&(assert &1 == ["file3.log"])).()
+    end
 
-    # defmodule TestFilteringfileswithlists do
-    #   Radpath.files(["test", "lib"], @file_ext)
-    #   |> map(&basename(&1))
-    #   |> Enum.sort
-      # |> equals @long_file_list
-      # |> equals @long_file_list
-    # end
+    test "Filtering Files with Lists" do
+       Radpath.files(["test", "lib"], @file_ext) |> map(&basename(&1)) |> Enum.sort |> (&(assert &1 == @long_file_list)).()
+    end
 
-    # defmodule TestFilteringfilesExpandedPathworkstoo do
-    #   Radpath.files("test/fixtures", "log") |>
-    #         map(&basename(&1)) |>
-    #         equals ["file3.log"]
-    # end
+    test "Filtering with Expanded Paths" do
+       Radpath.files("test/fixtures", "log") |> map(&basename(&1)) |> (&(assert &1 == ["file3.log"])).() 
+    end
 
-    # defmodule TestFilteringMultiplefilterforfilesfunction do
-    #   files = Radpath.files(fixture_path, @file_ext) |>
-    #             map(&basename(&1))
-    #         files |> Enum.sort |> equals @long_file_list
-    #   @file_list |> for_all (&Enum.member?(files, &1))
-    # end
+    test "Filtering Multiple filter for Files" do
+       files = Radpath.files(fixture_path, @file_ext) |> map(&basename(&1))
+       files |> Enum.sort |> (&(assert &1 == @long_file_list)).()
+       Enum.all?(@file_list, fn(x) -> Enum.member?(files, x) end)
+    end
 
-    # defmodule TestFiltering do
-    #   files = Radpath.files(fixture_path, @file_ext) |>
-    #             map(&basename(&1))
-    #         files |> Enum.sort |> equals @long_file_list
-    #   @file_list |> for_all (&Enum.member?(files, &1))
-    # end
+    test "Filtering long file list" do
+       files = Radpath.files(fixture_path, @file_ext) |> Enum.map(&Path.basename(&1))
+       files |> Enum.sort |> (&(assert &1 == @long_file_list)).()
+       Enum.all?(@file_list, fn(x) -> Enum.member?(files, x) end)
+    end
 
-    # defmodule TestFilteringMultiplefilterforfilesfunction do
-    #   files = Radpath.files(['lib'], @file_ext) |>
-    #             map(&basename(&1))
-    #   @file_list |> for_all (&Enum.member?(files, &1))
-    # end
+    test "Filtering Multiple Filter for Files" do
+      files = Radpath.files(['lib'], @file_ext) |> Enum.map(&Path.basename(&1))
+      Enum.all?(@file_list, fn(x) -> Enum.member?(files, x) end)
+    end
   end
 
   defmodule Testsymlink do
 
-        use ExUnit.Case
-        import Radpath, only: [symlink: 2, islink?: 1]
-        @src Path.join(fixture_path, "testdir3")
-        @dest Path.join(Path.expand("."), "testdir3")
+   use ExUnit.Case
+   import Radpath, only: [symlink: 2, islink?: 1]
+   @src Path.join(fixture_path, "testdir3")
+   @dest Path.join(Path.expand("."), "testdir3")
 
-    # defmodule TestsymlinkNormalUsage do
-    #   try do
-     #    @dest |> File.exists? |> refute
-      #   symlink(@src, @dest)
-       #          {result, link} = F.read_link(@dest)
-                # {result, basename(link)} |> {:ok, "testdir3"}
-        # assert islink?(@dest)
-     #  after
-     #    File.rm_rf @dest
-     #  end
-    # end
+    test "Symlink Normal Usage" do
+       try do
+         refute File.exists? @dest
+         @dest |> File.exists? |> refute
+         symlink(@src, @dest)
+         {result, link} = F.read_link(@dest)
+         assert {result, basename(link)} == {:ok, "testdir3"}
+         assert islink?(@dest)
+       after
+         File.rm_rf @dest
+       end
+    end
 
-    defmodule TestSymlinkFornonexistent do
-       use ExUnit.Case
+    test "Symlink for Non Existent" do
       src = Path.join(fixture_path, "testdir3xx")
       try do
         Path.join(Path.expand("."), "testdir3") |> File.exists? |> refute 
         symlink(src, @dest)
         assert {:error, :enoent} == F.read_link(@dest)
-	# {error, enoent} = F.read_link(@dest) == {:error, :enoent}
-	# assert error == :error
-	# assert enoent == :enoent
         Path.join(Path.expand("."), "testdir3") |> File.exists? |> refute
       after
         File.rm_rf Path.join(Path.expand("."), "testdir3")
@@ -230,15 +214,12 @@ defmodule RadpathTests.RadpathFacts do
     end
 
     test "Test symlink: islink? Return true if path is symlink" do
-
       test_dest = Path.join(fixture_path, "test_symlink")
-
       try do
         test_dest |> File.exists? |> refute
         symlink(fixture_path, test_dest)
         assert islink?(test_dest)
         {result, link} = F.read_link(test_dest)
-        # {result, basename(to_string(link))} |> {:ok, "fixtures"}
       after
         File.rm_rf test_dest
       end
@@ -251,8 +232,7 @@ defmodule RadpathTests.RadpathFacts do
    end
 
   defmodule TestTempfilefs do
-  use ExUnit.Case
-
+    use ExUnit.Case
     test "Test Tempfilefs: Without Argument" do
             tmpdirpath1 = Radpath.mktempdir
 
@@ -274,14 +254,14 @@ defmodule RadpathTests.RadpathFacts do
       end
     end
 
-    # test "Test mktempdir: Nonexistant parent path, error returned" do
-    #   tmpdirpath = Radpath.mktempdir("/gogo/gaga/gigi")
-    #   try do
-    #     tmpdirpath |> :enoent
-    #   rescue
-    #     e in RuntimeError -> e
-    #   end
-    # end
+    test "Test mktempdir: Nonexistant parent path, error returned" do
+       tmpdirpath = Radpath.mktempdir("/gogo/gaga/gigi")
+       try do
+         assert tmpdirpath == :enoent
+       rescue
+         e in RuntimeError -> e
+       end
+    end
 
     test "Test mktempfile: No argument" do
       {_, fd, filepath} = Radpath.mktempfile
@@ -312,8 +292,7 @@ defmodule RadpathTests.RadpathFacts do
   end
 
   defmodule TestRenameandMv do
-  use ExUnit.Case
-
+    use ExUnit.Case
     @source_file "/tmp/hoho.txt"
     @dest_file "/tmp/hehe.txt"
 
@@ -413,7 +392,7 @@ defmodule RadpathTests.RadpathFacts do
         import Radpath, only: [md5sum: 1, sha1sum: 1, parent_path: 1]
     test "Test md5sum: md5sum function" do
       [h | _]= String.split(to_string(:os.cmd('md5sum mix.exs')))
-            assert md5sum("mix.exs") == h
+      assert md5sum("mix.exs") == h
     end
     test "Test sha1sumsha1sum function" do
       [h | _]= String.split(to_string(:os.cmd('sha1sum mix.exs')))
