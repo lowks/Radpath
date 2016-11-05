@@ -1,4 +1,4 @@
-box: kazw/elixir-phoenix-ci
+box: bitwalker/elixir@0.1.0
 build:
   steps:
 
