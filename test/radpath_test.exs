@@ -191,6 +191,7 @@ defmodule RadpathTests.RadpathFacts do
     test "Symlink Normal Usage" do
        try do
          refute File.exists? @dest
+         @dest |> File.exists? |> refute
          symlink(@src, @dest)
          {result, link} = F.read_link(@dest)
          assert {result, basename(link)} == {:ok, "testdir3"}
@@ -206,9 +207,6 @@ defmodule RadpathTests.RadpathFacts do
         Path.join(Path.expand("."), "testdir3") |> File.exists? |> refute 
         symlink(src, @dest)
         assert {:error, :enoent} == F.read_link(@dest)
-	# {error, enoent} = F.read_link(@dest) == {:error, :enoent}
-	# assert error == :error
-	# assert enoent == :enoent
         Path.join(Path.expand("."), "testdir3") |> File.exists? |> refute
       after
         File.rm_rf Path.join(Path.expand("."), "testdir3")
@@ -222,7 +220,6 @@ defmodule RadpathTests.RadpathFacts do
         symlink(fixture_path, test_dest)
         assert islink?(test_dest)
         {result, link} = F.read_link(test_dest)
-        # {result, basename(to_string(link))} |> {:ok, "fixtures"}
       after
         File.rm_rf test_dest
       end
@@ -257,14 +254,14 @@ defmodule RadpathTests.RadpathFacts do
       end
     end
 
-    # test "Test mktempdir: Nonexistant parent path, error returned" do
-    #   tmpdirpath = Radpath.mktempdir("/gogo/gaga/gigi")
-    #   try do
-    #     tmpdirpath |> :enoent
-    #   rescue
-    #     e in RuntimeError -> e
-    #   end
-    # end
+    test "Test mktempdir: Nonexistant parent path, error returned" do
+       tmpdirpath = Radpath.mktempdir("/gogo/gaga/gigi")
+       try do
+         assert tmpdirpath == :enoent
+       rescue
+         e in RuntimeError -> e
+       end
+    end
 
     test "Test mktempfile: No argument" do
       {_, fd, filepath} = Radpath.mktempfile
@@ -295,8 +292,7 @@ defmodule RadpathTests.RadpathFacts do
   end
 
   defmodule TestRenameandMv do
-  use ExUnit.Case
-
+    use ExUnit.Case
     @source_file "/tmp/hoho.txt"
     @dest_file "/tmp/hehe.txt"
 
@@ -396,7 +392,7 @@ defmodule RadpathTests.RadpathFacts do
         import Radpath, only: [md5sum: 1, sha1sum: 1, parent_path: 1]
     test "Test md5sum: md5sum function" do
       [h | _]= String.split(to_string(:os.cmd('md5sum mix.exs')))
-            assert md5sum("mix.exs") == h
+      assert md5sum("mix.exs") == h
     end
     test "Test sha1sumsha1sum function" do
       [h | _]= String.split(to_string(:os.cmd('sha1sum mix.exs')))
