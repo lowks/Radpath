@@ -1,4 +1,4 @@
-box: ubuntu
+box: darron/wercker-ubuntu-14.04
 build:
   steps:
 
