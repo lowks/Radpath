@@ -3,8 +3,7 @@ Code.require_file "../test_helper.exs", __ENV__.file
 defmodule RadpathTests.RadpathFacts do
 
   # use Amrita.Sweet
-  # use ExUnit.Case, async: true
-  use ExUnit.Case
+  use ExUnit.Case, async: true
   use PatternTap
 
   import PathHelpers
@@ -20,87 +19,82 @@ defmodule RadpathTests.RadpathFacts do
         assert File.exists?(path)
     end
 
-    defmodule ZipTest do
-      use ExUnit.Case
+    test "zip" do
       try do
         Path.join(fixture_path, "Testdir1.zip") |> File.exists? |> refute
         Radpath.zip([fixture_path], "Testdir1.zip")
-        # "Testdir1.zip" |> File.exists?
         "Testdir1.zip" |> File.exists?
-        # System.cmd("zip",["-T","Testdir1.zip"])
-        # |> {"test of Testdir1.zip OK\n", 0}
-        # System.cmd("zipinfo",["-1","Testdir1.zip"])
-        # |> tap({result_str, _} ~> result_str)
-        # |> contains "testdir1"
+        System.cmd("zip",["-T","Testdir1.zip"]) |> (&(assert &1 = {"test of Testdir1.zip OK\n", 0})).()
+        System.cmd("zipinfo",["-1","Testdir1.zip"]) |> 
+        tap({result_str, _} ~> result_str) |> 
+        (&(String.contains?(&1, "testdir1"))).()
       after
         File.rm_rf("Testdir1.zip")
       end
     end
 
-    defmodule TestZipOnePath  do
-       use ExUnit.Case
-
+    test "zip: onepath" do
       dir = Path.join(fixture_path, "testdir2")
-
       try do
         Path.join(fixture_path, "Testdir2.zip") |> File.exists? |> refute
         Radpath.zip([dir], "Testdir2.zip")
-        # "Testdir2.zip" |> File.exists? |> assert
-        assert File.exists? "Testdir2.zip"
-        # System.cmd("zip",["-T","Testdir2.zip"])
-        # |> tap({result_str, _} ~> result_str)
-        # |> String.strip |> "test of Testdir2.zip OK"
-        # System.cmd("zipinfo",["-1","Testdir2.zip"])
-        # |> tap({result_str2, _} ~> result_str2)
-        # |> contains "testdir2"
+        "Testdir2.zip" |> File.exists?
+        
+        System.cmd("zip",["-T","Testdir2.zip"]) |> 
+        tap({result_str, _} ~> result_str) |> 
+        String.strip |> (&( assert &1 == "test of Testdir2.zip OK")).()
+        
+        System.cmd("zipinfo",["-1","Testdir2.zip"]) |> 
+        tap({result_str2, _} ~> result_str2) |> 
+        (&(String.contains?(&1, "testdir2"))).() |> assert
+      
       after
         File.rm_rf("Testdir2.zip")
       end
     end
   end
 
-  defmodule TestZipOneBitstringPath do
-    use ExUnit.Case
+  test "zip: OnebitstringPath" do
     dir = Path.join(fixture_path, "testdir1")
     try do
       Path.join(fixture_path, "Testdir3.zip") |> File.exists? |> refute
       Radpath.zip(dir, "Testdir3.zip")
-      # "Testdir3.zip" |> File.exists?
-      assert File.exists? "Testdir3.zip"
-      # System.cmd("zip",["-T","Testdir3.zip"]) |>
-      #           {"test of Testdir3.zip OK\n", 0}
-      # System.cmd("zipinfo",["-1","Testdir3.zip"])
-      # |> tap({result_str, _} ~> result_str)
-      # |> contains "testdir1"
+      "Testdir3.zip" |> File.exists?
+
+      System.cmd("zip",["-T","Testdir3.zip"]) |>
+      tap({result_str, _} ~> result_str) |> 
+      String.strip |> 
+      (&(assert &1 == "test of Testdir3.zip OK")).()
+      
+      System.cmd("zipinfo",["-1","Testdir3.zip"])
+      |> tap({result_str, _} ~> result_str)
+      |> (&(String.contains?(&1, "testdir1"))).()
+    
     after
       File.rm_rf("Testdir3.zip")
     end
   end
 
-  defmodule TestUnzipOneBitstringPathInCWD do
-    
-    use ExUnit.Case
+  test "unzip: One bitstring path in CWD" do
     try do
       Path.join(fixture_path, "dome.csv") |> File.exists? |> refute
       Radpath.unzip(Path.join(fixture_path, "dome.zip"), fixture_path)
-      # Path.join(fixture_path, "dome.csv") |> File.exists?
-      assert File.exists? Path.join(fixture_path, "dome.csv")
+      Path.join(fixture_path, "dome.csv") |> File.exists?
     after
       File.rm_rf(Path.join(fixture_path, "dome.csv"))
     end
   end
 
-  defmodule TestunzipOnebitstringPathIntmp do
-  use ExUnit.Case
+  test "unzip: One bitstring path in tmp" do
     try do
       Path.join(fixture_path, "dome.csv") |> File.exists? |> refute
       Radpath.unzip(Path.join(fixture_path, "dome.zip"), "/tmp")
     after
-      # Path.join("/tmp", "dome.csv") |> File.exists?
-      assert File.exists? Path.join("/tmp", "dome.csv")
+      Path.join("/tmp", "dome.csv") |> File.exists?
+    end
   end
-  defmodule TestZipPathThatDoesNotExist do
-  use ExUnit.Case
+
+  test "zip: path that does not exist" do
     try do
         Path.join(fixture_path, "Testdir-dont-exist.zip") |>
                    File.exists? |> refute 
@@ -110,7 +104,6 @@ defmodule RadpathTests.RadpathFacts do
       rescue
         e in RuntimeError -> e
       end
-    end
   end
 
   defmodule FilteringTest do
