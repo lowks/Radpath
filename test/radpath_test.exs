@@ -7,7 +7,7 @@ defmodule RadpathTests.RadpathFacts do
   use PatternTap
 
   import PathHelpers
-    import Path, only: [basename: 1]
+  import Path, only: [basename: 1]
   import Enum, only: [map: 2]
 
   alias :file, as: F
@@ -15,9 +15,6 @@ defmodule RadpathTests.RadpathFacts do
   defmodule ZippingTest do
 
     use ExUnit.Case
-    def path_exists(path) do
-        assert File.exists?(path)
-    end
 
     test "zip" do
       try do
@@ -25,9 +22,11 @@ defmodule RadpathTests.RadpathFacts do
         Radpath.zip([fixture_path], "Testdir1.zip")
         "Testdir1.zip" |> File.exists?
         System.cmd("zip",["-T","Testdir1.zip"]) |> (&(assert &1 = {"test of Testdir1.zip OK\n", 0})).()
-        System.cmd("zipinfo",["-1","Testdir1.zip"]) |> 
-        tap({result_str, _} ~> result_str) |> 
-        (&(String.contains?(&1, "testdir1"))).()
+
+        System.cmd("zipinfo",["-1","Testdir1.zip"]) 
+        |> tap({result_str, _} ~> result_str) 
+        |> (&(String.contains?(&1, "testdir1"))).()
+      
       after
         File.rm_rf("Testdir1.zip")
       end
@@ -40,9 +39,9 @@ defmodule RadpathTests.RadpathFacts do
         Radpath.zip([dir], "Testdir2.zip")
         "Testdir2.zip" |> File.exists?
         
-        System.cmd("zip",["-T","Testdir2.zip"]) |> 
-        tap({result_str, _} ~> result_str) |> 
-        String.strip |> (&( assert &1 == "test of Testdir2.zip OK")).()
+        System.cmd("zip",["-T","Testdir2.zip"]) 
+        |> tap({result_str, _} ~> result_str)
+        |> String.strip |> (&(assert &1 == "test of Testdir2.zip OK")).()
         
         System.cmd("zipinfo",["-1","Testdir2.zip"]) |> 
         tap({result_str2, _} ~> result_str2) |> 
@@ -96,8 +95,9 @@ defmodule RadpathTests.RadpathFacts do
 
   test "zip: path that does not exist" do
     try do
-        Path.join(fixture_path, "Testdir-dont-exist.zip") |>
-                   File.exists? |> refute 
+        Path.join(fixture_path, "Testdir-dont-exist.zip")
+        |> File.exists? 
+        |> refute 
         Radpath.zip(["/gogo/I/don/exist"], "Testdir-dont-exist.zip")
             after
         "Testdir-dont-exist.zip" |> File.exists? |> refute
@@ -107,7 +107,7 @@ defmodule RadpathTests.RadpathFacts do
   end
 
   defmodule FilteringTest do
-  use ExUnit.Case
+    use ExUnit.Case
 
     @dud_files ["testfile1.dud, file3.dud"]
     @test_files ["testdir3", "testdir2", "testdir1"]
@@ -145,26 +145,37 @@ defmodule RadpathTests.RadpathFacts do
     end
 
     test "Filtering Files" do
-        Radpath.files(fixture_path, "log") |> map(&basename(&1)) |> (&(assert &1 == ["file3.log"])).()
+        Radpath.files(fixture_path, "log") 
+        |> map(&basename(&1)) 
+        |> (&(assert &1 == ["file3.log"])).()
     end
 
     test "Filtering Files with Lists" do
-       Radpath.files(["test", "lib"], @file_ext) |> map(&basename(&1)) |> Enum.sort |> (&(assert &1 == @long_file_list)).()
+       Radpath.files(["test", "lib"], @file_ext) 
+       |> map(&basename(&1)) 
+       |> Enum.sort 
+       |> (&(assert &1 == @long_file_list)).()
     end
 
     test "Filtering with Expanded Paths" do
-       Radpath.files("test/fixtures", "log") |> map(&basename(&1)) |> (&(assert &1 == ["file3.log"])).() 
+       Radpath.files("test/fixtures", "log") 
+       |> map(&basename(&1)) 
+       |> (&(assert &1 == ["file3.log"])).() 
     end
 
     test "Filtering Multiple filter for Files" do
        files = Radpath.files(fixture_path, @file_ext) |> map(&basename(&1))
-       files |> Enum.sort |> (&(assert &1 == @long_file_list)).()
+       files 
+       |> Enum.sort 
+       |> (&(assert &1 == @long_file_list)).()
        Enum.all?(@file_list, fn(x) -> Enum.member?(files, x) end)
     end
 
     test "Filtering long file list" do
        files = Radpath.files(fixture_path, @file_ext) |> Enum.map(&Path.basename(&1))
-       files |> Enum.sort |> (&(assert &1 == @long_file_list)).()
+       files 
+       |> Enum.sort 
+       |> (&(assert &1 == @long_file_list)).()
        Enum.all?(@file_list, fn(x) -> Enum.member?(files, x) end)
     end
 
@@ -306,8 +317,6 @@ defmodule RadpathTests.RadpathFacts do
       File.write("/tmp/hoho.txt", "test mv")
       try do
         "/tmp/hoho.txt" |> File.exists?
-        # md5sum_source = Radpath.md5sum(@source_file)
-        # original_md5sum = Radpath.md5sum("/tmp/hoho.txt")
 	      File.cp("/tmp/hoho.txt", "/tmp/hihi.txt")
         Radpath.mv("/tmp/hoho.txt", "/tmp/hehe.txt")
         refute "/tmp/hoho.txt" |> File.exists?
@@ -320,7 +329,6 @@ defmodule RadpathTests.RadpathFacts do
 
     test "Test rename: Source file does not exist" do
         refute @source_file |> File.exists?
-        # Radpath.rename("/tmp/hoho.txt", "/tmp/hehe.txt")
         Radpath.rename(@source_file, @dest_file)
         refute @source_file |> File.exists?
     end
@@ -353,8 +361,7 @@ defmodule RadpathTests.RadpathFacts do
   end
 
   defmodule TestEnsure do
-  use ExUnit.Case
-
+    use ExUnit.Case
     test "Test ensure: Ensure Directory is created" do
       test_dir_path = Path.join(fixture_path, "gogo/gaga")
       refute test_dir_path |> File.exists?
