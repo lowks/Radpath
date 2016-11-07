@@ -53,13 +53,13 @@ defmodule Radpath.Mixfile do
      {:ex_doc, github: "elixir-lang/ex_doc"},
      {:finder, github: "h4cc/Finder" },
      {:erlware_commons, github: "erlware/erlware_commons"},
+     {:pattern_tap, github: "mgwidmann/elixir-pattern_tap"},
      {:temp, "~> 0.2"},
     ]
   end
 
   defp deps(:test) do
     deps(:prod) ++ [
-     {:pattern_tap, github: "mgwidmann/elixir-pattern_tap", only: :test},
      {:amrita, "~>0.4", github: "josephwilk/amrita", only: :test},
      {:excoveralls,  "== 0.3.6", only: :test},
     ]
