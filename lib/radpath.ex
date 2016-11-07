@@ -1,11 +1,12 @@
 defmodule Radpath do
   alias :file, as: F
   alias :zip, as: Z
+  use PatternTap
   use Application
   use Radpath.Dirs
   use Radpath.Files
   use Radpath.Tempfs
-
+  
   def start(_type, _args) do
     Radpath.Supervisor.start_link
   end

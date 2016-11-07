@@ -52,11 +52,11 @@ defmodule Radpath.Files do
       end
       expanded_path = Path.expand(path)
       case File.exists? expanded_path do
-        true -> Finder.new() |>
-                Finder.only_files() |>
-                Finder.with_file_endings(file_ext) |>
-                Finder.find(expanded_path) |>
-                Enum.to_list
+        true -> Finder.new()
+                |> Finder.only_files()
+                |> Finder.with_file_endings(file_ext)
+                |> Finder.find(expanded_path)
+                |> Enum.to_list
         false -> []
       end
     end
@@ -80,10 +80,10 @@ Listing down all files in the "ci" folder without filtering:
     def files(path) when is_bitstring(path) do
       expanded_path = Path.expand(path)
       case File.exists? expanded_path do
-        true -> Finder.new() |>
-                Finder.only_files() |>
-                Finder.find(expanded_path) |>
-                Enum.to_list
+        true -> Finder.new()
+                |> Finder.only_files()
+                |> Finder.find(expanded_path)
+                |> Enum.to_list
         false -> []
       end
     end
@@ -136,11 +136,11 @@ Listing down all files in the "ci" folder without filtering:
     defp ext_file_list(path, file_ext) do
       expanded_path = Path.expand(path)
       case File.exists? expanded_path do
-        true -> Finder.new() |>
-                Finder.only_files() |>
-                Finder.with_file_endings(file_ext) |>
-                Finder.find(expanded_path) |>
-                Enum.to_list
+        true -> Finder.new()
+                |> Finder.only_files()
+                |> Finder.with_file_endings(file_ext)
+                |> Finder.find(expanded_path)
+                |> Enum.to_list
         false -> []
       end
     end
@@ -148,14 +148,13 @@ Listing down all files in the "ci" folder without filtering:
     defp files_list(path) when is_bitstring(path) do
       expanded_path = Path.expand(path)
       case File.exists? expanded_path do
-        true -> Finder.new() |>
-                Finder.only_files() |>
-                Finder.find(expanded_path) |>
-                Enum.to_list
+        true -> Finder.new()
+                |> Finder.only_files()
+                |> Finder.find(expanded_path)
+                |> Enum.to_list
         false -> []
       end
     end
-
   end
  end
 end

@@ -74,11 +74,7 @@ defmodule Radpath.Tempfs do
 
     @spec mktempdir :: none
     def mktempdir do
-      # temp_name = Tempfile.get_name
-      # temp_name |> Path.rootname |> do_mkdir
-      # temp_name
-      {status, path_name} = Temp.mkdir %{basedir: "/tmp"}
-      path_name
+      Temp.mkdir(%{basedir: "/tmp"}) |> tap({_, path_name} ~> path_name)
     end
     @doc """
     To create a temp dir at a specific location:
@@ -95,11 +91,7 @@ defmodule Radpath.Tempfs do
 
     @spec mktempdir(bitstring) :: none
     def mktempdir(path) when is_bitstring(path) do
-      # Tempfile.get_name([path: make_into_path(path)]) |>
-      # Path.rootname |>
-      # do_mkdir
-      {status, path_name} = Temp.mkdir %{basedir: path}
-      path_name
+      Temp.mkdir(%{basedir: path}) |> tap({_, path_name} ~> path_name)
     end
 
   end
