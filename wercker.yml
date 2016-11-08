@@ -1,4 +1,4 @@
-box: elixir
+box: elixir:latest
 build:
   steps:
 
@@ -7,29 +7,15 @@ build:
           name: Installing Ubuntu zip
           code: |
             sudo apt-get update
-            sudo apt-get install zip
-            
-      - script:
-          name: Adding Erlang repo
-          code: |
-            wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb && sudo dpkg -i erlang-solutions_1.0_all.deb
-            
-      - script: 
-          name: Install esl Erlang
-          code: |
-            sudo apt-get update && sudo apt-get install esl-erlang
-            
-      - script:
-          name: Install Elixir
-          code: |
-            sudo apt-get install elixir
+            sudo apt-get install -y zip
             
       # Setting Environmental variables\
       - script:
           name: set env variable
           code: |
             export MIX_ENV=test
-            
+      
+      # Check elixir version      
       - script:
           name: check elixir version
           code: |
