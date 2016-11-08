@@ -1,4 +1,4 @@
-box: ubuntu-14.04
+box: elixir
 build:
   steps:
 
