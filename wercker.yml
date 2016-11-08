@@ -22,7 +22,7 @@ build:
 
       # Get dependencies.
       - script:
-          name: Get Depedencies
+          name: Get Dependencies
           code: |
             cd $WERCKER_SOURCE_DIR
             yes | mix deps.get
