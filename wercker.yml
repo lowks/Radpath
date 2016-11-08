@@ -15,15 +15,14 @@ build:
           code: |
             export MIX_ENV=test
       
-      # Check elixir version      
-      - script:
-          name: check elixir version
-          code: |
-            iex --version
+      # - script:
+      #     name: check elixir version
+      #     code: |
+      #       iex --version
 
       # Get dependencies.
       - script:
-          name: Get Depedencies
+          name: Get Dependencies
           code: |
             cd $WERCKER_SOURCE_DIR
             yes | mix deps.get
