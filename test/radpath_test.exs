@@ -18,10 +18,15 @@ defmodule RadpathTests.RadpathFacts do
 
     test "zip" do
       try do
-        Path.join(fixture_path, "Testdir1.zip") |> File.exists? |> refute
+        Path.join(fixture_path, "Testdir1.zip")
+        |> File.exists?
+        |> refute
+
         Radpath.zip([fixture_path], "Testdir1.zip")
         "Testdir1.zip" |> File.exists?
-        System.cmd("zip",["-T","Testdir1.zip"]) |> (&(assert &1 = {"test of Testdir1.zip OK\n", 0})).()
+
+        System.cmd("zip",["-T","Testdir1.zip"])
+        |> (&(assert &1 = {"test of Testdir1.zip OK\n", 0})).()
 
         System.cmd("zipinfo",["-1","Testdir1.zip"]) 
         |> tap({result_str, _} ~> result_str) 
@@ -299,15 +304,14 @@ defmodule RadpathTests.RadpathFacts do
     @dest_file "/tmp/hehe.txt"
 
     test "Test rename: Normal Usage" do
-        File.write(@source_file, "test rename")
+      File.write(@source_file, "test rename")
       try do
         @source_file |> File.exists?
         md5sum_source = Radpath.md5sum(@source_file)
-	      File.cp(@source_file, "/tmp/hihi")
         Radpath.rename(@source_file, @dest_file)
-        refute @source_file |> File.exists?
+        @source_file |> File.exists? |> refute
         @dest_file |> File.exists?
-        assert Radpath.md5sum(@dest_file) == Radpath.md5sum("/tmp/hihi")
+        assert Radpath.md5sum(@dest_file) == md5sum_source        
       after
         File.rm_rf @dest_file
       end
@@ -316,12 +320,12 @@ defmodule RadpathTests.RadpathFacts do
     test "Test mv: Normal Usage" do
       File.write("/tmp/hoho.txt", "test mv")
       try do
-        "/tmp/hoho.txt" |> File.exists?
-	      File.cp("/tmp/hoho.txt", "/tmp/hihi.txt")
-        Radpath.mv("/tmp/hoho.txt", "/tmp/hehe.txt")
-        refute "/tmp/hoho.txt" |> File.exists?
-        "/tmp/hehe.txt" |> File.exists?
-        assert Radpath.md5sum("/tmp/hehe.txt") == Radpath.md5sum("/tmp/hihi.txt")
+        @source_file |> File.exists?        
+        source_md5 = Radpath.md5sum("/tmp/hoho.txt")
+        Radpath.mv(@source_file, @dest_file)
+        refute @source_file |> File.exists?
+        @dest_file |> File.exists?
+        assert Radpath.md5sum("/tmp/hehe.txt") == source_md5
       after
         File.rm_rf @dest_file
       end
@@ -362,27 +366,18 @@ defmodule RadpathTests.RadpathFacts do
 
   defmodule TestEnsure do
     use ExUnit.Case
-    test "Test ensure: Ensure Directory is created" do
-      test_dir_path = Path.join(fixture_path, "gogo/gaga")
-      refute test_dir_path |> File.exists?
-      try do
-        Radpath.ensure(test_dir_path)
-        test_dir_path |> File.exists?
-      after
-            assert test_dir_path |> Radpath.parent_path |> Radpath.erusne
-      end
-    end
 
-    test "Test ensure: Ensure File is created" do
-      test_file_path = Path.join(fixture_path, "gogo/gaga.txt")
-      refute test_file_path |> File.exists?
+    test "Test ensure: File and Directory" do
+      test_files = [Path.join(fixture_path, "gogo/gaga"), Path.join(fixture_path, "gogo/gaga.txt")]
       try do
-        Radpath.ensure(test_file_path)
-        test_file_path |> File.exists?
+        Enum.map(test_files, fn(x) -> x |> File.exists? |> refute end)
+        Enum.map(test_files, fn(x) -> Radpath.ensure(x) end)
+        Enum.map(test_files, fn(x) -> x |> File.exists? end)
       after
-        assert test_file_path |> Radpath.parent_path |> Radpath.erusne
+        Enum.map(test_files, fn(x) -> x |> Radpath.parent_path |> Radpath.erusne end)
       end
     end
+    
   end
 
   defmodule TestOtherfunctions do
