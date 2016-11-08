@@ -1,4 +1,4 @@
-box: bitwalker/elixir@0.1.0
+box: elixir
 build:
   steps:
 
@@ -8,9 +8,43 @@ build:
           code: |
             sudo apt-get update
             sudo apt-get install zip
-
-      # Test the project. Thanks to the makefile this can just be very short.
+            
       - script:
-          name: Test
+          name: Adding Erlang repo
           code: |
-            make ci
+            wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb && sudo dpkg -i erlang-solutions_1.0_all.deb
+            
+      - script: 
+          name: Install esl Erlang
+          code: |
+            sudo apt-get update && sudo apt-get install esl-erlang
+            
+      - script:
+          name: Install Elixir
+          code: |
+            sudo apt-get install elixir
+            
+      # Setting Environmental variables\
+      - script:
+          name: set env variable
+          code: |
+            export MIX_ENV=test
+            
+      - script:
+          name: check elixir version
+          code: |
+            iex --version
+
+      # Get dependencies.
+      - script:
+          name: Get Depedencies
+          code: |
+            cd $WERCKER_SOURCE_DIR
+            yes | mix deps.get
+            yes | mix deps.compile --all
+            
+      # Run the test
+      - script:
+            name: mix test
+            code: |
+              mix test
