@@ -16,10 +16,10 @@ build:
             export MIX_ENV=test
       
       # Check elixir version      
-      - script:
-          name: check elixir version
-          code: |
-            iex --version
+      # - script:
+      #     name: check elixir version
+      #     code: |
+      #       iex --version
 
       # Get dependencies.
       - script:
