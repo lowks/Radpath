@@ -15,7 +15,6 @@ build:
           code: |
             export MIX_ENV=test
       
-      # Check elixir version      
       # - script:
       #     name: check elixir version
       #     code: |
