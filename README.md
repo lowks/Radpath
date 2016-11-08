@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/lowks/Radpath.png?branch=master)](https://travis-ci.org/lowks/Radpath)
 [![Build Status](https://drone.io/github.com/lowks/Radpath/status.png)](https://drone.io/github.com/lowks/Radpath/latest)
-[![wercker status](https://app.wercker.com/status/8a98607487fbd4ad61904acbb840e31a/m/ "wercker status")](https://app.wercker.com/project/bykey/8a98607487fbd4ad61904acbb840e31a)
+[![wercker status](https://app.wercker.com/status/10f2bf7288af1be5c4e39f25367bb3b7/s/master "wercker status")](https://app.wercker.com/project/byKey/10f2bf7288af1be5c4e39f25367bb3b7)
 [![Circle CI](https://circleci.com/gh/lowks/Radpath/tree/master.png?style=badge)](https://circleci.com/gh/lowks/Radpath/tree/master)
 [![Inline docs](http://inch-ci.org/github/lowks/Radpath.svg?branch=master&style=flat)](http://inch-ci.org/github/lowks/Radpath)
 [![Build Status](https://snap-ci.com/lowks/Radpath/branch/master/build_image)](https://snap-ci.com/lowks/Radpath/branch/master)
