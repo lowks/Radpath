@@ -4,20 +4,8 @@ env:
 elixir:
   - 1.3.3
 otp_release:
+  - 17.5
   - 18.0
-sudo: false # according to ecto and plug project will go faster by using containers
-cache:
-   directories:
-     - _build
-     - deps
-     - $HOME/vendor/elixir
-install:
-     - mix local.hex --force
-     - mix local.rebar --force
-     - mix deps.get --all
-     - mix deps.compile --all
-script:
-     - mix test
 after_script:
   - mix deps.get --only docs
   - MIX_ENV=docs mix inch.report
