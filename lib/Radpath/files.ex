@@ -88,12 +88,12 @@ Listing down all files in the "ci" folder without filtering:
       end
     end
 
-    def files(path, file_ext) when is_bitstring(path) and is_list(file_ext) do
-      file_ext = normalize_path(file_ext)
-      path
-      |> normalize_path
-      |> do_ext_files([], file_ext)
-    end
+    # def files(path, file_ext) when is_bitstring(path) and is_list(file_ext) do
+    #   file_ext = normalize_path(file_ext)
+    #   path
+    #   |> normalize_path
+    #   |> do_ext_files([], file_ext)
+    # end
 
     def files(path) when is_list(path) do
       path
@@ -101,19 +101,19 @@ Listing down all files in the "ci" folder without filtering:
       |> do_files([])
     end
 
-    def files([path], file_ext) when is_list(path) and is_list(file_ext) do
+    def files(path, file_ext) when is_bitstring(path) or is_list(path) and is_list(file_ext) do
       file_ext = normalize_path(file_ext)
       path
       |> normalize_path
       |> do_ext_files([], file_ext)
     end
 
-    def files(path, file_ext) when is_list(path) and is_list(file_ext) do
-      file_ext = normalize_path(file_ext)
-      path
-      |> normalize_path
-      |> do_ext_files([], file_ext)
-    end
+    # def files(path, file_ext) when is_list(path) and is_list(file_ext) do
+    #   file_ext = normalize_path(file_ext)
+    #   path
+    #   |> normalize_path
+    #   |> do_ext_files([], file_ext)
+    # end
 
     defp do_files([], result) do
       result
