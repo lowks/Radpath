@@ -88,12 +88,12 @@ Listing down all files in the "ci" folder without filtering:
       end
     end
 
-    def files(path, file_ext) when is_bitstring(path) and is_list(file_ext) do
-      file_ext = normalize_path(file_ext)
-      path
-      |> normalize_path
-      |> do_ext_files([], file_ext)
-    end
+    # def files(path, file_ext) when is_bitstring(path) and is_list(file_ext) do
+    #   file_ext = normalize_path(file_ext)
+    #   path
+    #   |> normalize_path
+    #   |> do_ext_files([], file_ext)
+    # end
 
     def files(path) when is_list(path) do
       path
@@ -101,19 +101,19 @@ Listing down all files in the "ci" folder without filtering:
       |> do_files([])
     end
 
-    def files([path], file_ext) when is_list(path) and is_list(file_ext) do
+    def files(path, file_ext) when is_bitstring(path) or is_list(path) and is_list(file_ext) do
       file_ext = normalize_path(file_ext)
       path
       |> normalize_path
       |> do_ext_files([], file_ext)
     end
 
-    def files(path, file_ext) when is_list(path) and is_list(file_ext) do
-      file_ext = normalize_path(file_ext)
-      path
-      |> normalize_path
-      |> do_ext_files([], file_ext)
-    end
+    # def files(path, file_ext) when is_list(path) and is_list(file_ext) do
+    #   file_ext = normalize_path(file_ext)
+    #   path
+    #   |> normalize_path
+    #   |> do_ext_files([], file_ext)
+    # end
 
     defp do_files([], result) do
       result
@@ -121,7 +121,7 @@ Listing down all files in the "ci" folder without filtering:
 
     defp do_files(paths, result) do
       [h | t] = paths
-      do_files(t, result ++ files_list(h))
+      do_files(t, result ++ ext_file_list(h))
     end
 
     defp do_ext_files([], result, file_ext) do
@@ -133,7 +133,7 @@ Listing down all files in the "ci" folder without filtering:
       do_ext_files(t, result ++ ext_file_list(h, file_ext), file_ext)
     end
 
-    defp ext_file_list(path, file_ext) do
+    defp ext_file_list(path, file_ext \\ []) do
       expanded_path = Path.expand(path)
       case File.exists? expanded_path do
         true -> Finder.new()
@@ -145,16 +145,16 @@ Listing down all files in the "ci" folder without filtering:
       end
     end
 
-    defp files_list(path) when is_bitstring(path) do
-      expanded_path = Path.expand(path)
-      case File.exists? expanded_path do
-        true -> Finder.new()
-                |> Finder.only_files()
-                |> Finder.find(expanded_path)
-                |> Enum.to_list
-        false -> []
-      end
-    end
+    # defp files_list(path) when is_bitstring(path) do
+    #   expanded_path = Path.expand(path)
+    #   case File.exists? expanded_path do
+    #     true -> Finder.new()
+    #             |> Finder.only_files()
+    #             |> Finder.find(expanded_path)
+    #             |> Enum.to_list
+    #     false -> []
+    #   end
+    # end
   end
  end
 end
