@@ -48,10 +48,11 @@ defmodule RadpathTests.RadpathFacts do
         |> tap({result_str, _} ~> result_str)
         |> String.strip |> (&(assert &1 == "test of Testdir2.zip OK")).()
         
-        System.cmd("zipinfo",["-1","Testdir2.zip"]) |> 
-        tap({result_str2, _} ~> result_str2) |> 
-        (&(String.contains?(&1, "testdir2"))).() |> assert
-      
+        System.cmd("zipinfo",["-1","Testdir2.zip"]) 
+	|> tap({result_str2, _} ~> result_str2) 
+	|> (&(String.contains?(&1, "testdir2"))).()
+	|> assert
+	
       after
         File.rm_rf("Testdir2.zip")
       end
@@ -65,10 +66,10 @@ defmodule RadpathTests.RadpathFacts do
       Radpath.zip(dir, "Testdir3.zip")
       "Testdir3.zip" |> File.exists?
 
-      System.cmd("zip",["-T","Testdir3.zip"]) |>
-      tap({result_str, _} ~> result_str) |> 
-      String.strip |> 
-      (&(assert &1 == "test of Testdir3.zip OK")).()
+      System.cmd("zip",["-T","Testdir3.zip"]) 
+      |> tap({result_str, _} ~> result_str) 
+      |> String.strip 
+      |> (&(assert &1 == "test of Testdir3.zip OK")).()
       
       System.cmd("zipinfo",["-1","Testdir3.zip"])
       |> tap({result_str, _} ~> result_str)
