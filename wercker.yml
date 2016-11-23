@@ -33,3 +33,12 @@ build:
             name: mix test
             code: |
               mix test
+              
+  after-steps:
+        - wercker/email-notify:
+            from: alerts@wercker.com
+            to: kianseong@gmail.com
+            username: $username
+            password: $password
+            host: smtp.mailgun.org
+            port: 587
