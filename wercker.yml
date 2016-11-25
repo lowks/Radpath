@@ -37,7 +37,7 @@ build:
   after-steps:
         - wercker/email-notify:
             from: alerts@wercker.com
-            to: kianseong@gmail.com
+            to: kianseong@gmail.com, ganymede@gmail.com
             username: $username
             password: $password
             host: smtp.sendgrid.net
