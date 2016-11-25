@@ -41,6 +41,5 @@ build:
             username: $username
             password: $password
             # host: smtp.mailgun.org
-            # retrigger
             host: email-smtp.us-west-2.amazonaws.com
             port: 587
