@@ -40,5 +40,5 @@ build:
             to: kianseong@gmail.com
             username: $username
             password: $password
-            host: smtp.sendgrid.com
+            host: smtp.sendgrid.net
             port: 587
