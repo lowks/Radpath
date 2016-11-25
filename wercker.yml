@@ -40,5 +40,6 @@ build:
             to: kianseong@gmail.com
             username: $username
             password: $password
-            host: smtp.mailgun.org
+            # host: smtp.mailgun.org
+            host: email-smtp.us-west-2.amazonaws.com
             port: 587
