@@ -40,5 +40,5 @@ build:
             to: kianseong@gmail.com
             username: $username
             password: $password
-            host: email-smtp.us-west-2.amazonaws.com
+            host: smtp.sendgrid.com
             port: 587
