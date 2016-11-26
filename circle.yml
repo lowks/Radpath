@@ -1,8 +1,8 @@
 machine:
   environment:
     PATH: "$HOME/.asdf/bin:$HOME/.asdf/shims:$PATH"
-    ERLANG_VERSION: "18.2.1"
-    ELIXIR_VERSION: "1.3.3"
+    ERLANG_VERSION: "19.0"
+    ELIXIR_VERSION: "1.3.2"
 
 dependencies:
   pre:
