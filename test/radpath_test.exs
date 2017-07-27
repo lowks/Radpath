@@ -385,10 +385,10 @@ defmodule RadpathTests.RadpathFacts do
     use ExUnit.Case
     import Radpath, only: [md5sum: 1, sha1sum: 1, parent_path: 1]
     test "Test md5sum: md5sum function" do
-      [h | _]= :os.cmd('md5sum mix.exs')
-               |> to_string
+      [h | _]= :os.cmd('md5sum LICENSE')
+	       |> to_string
 	       |> String.split
-      assert md5sum("mix.exs") == h
+      assert md5sum("LICENSE") == h
     end
     test "Test sha1sumsha1sum function" do
       [h | _]= :os.cmd('sha1sum mix.exs')
