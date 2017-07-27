@@ -386,6 +386,7 @@ defmodule RadpathTests.RadpathFacts do
     import Radpath, only: [md5sum: 1, sha1sum: 1, parent_path: 1]
     test "Test md5sum: md5sum function" do
       [h | _]= :os.cmd('md5sum LICENSE')
+	       |> to_string
 	       |> String.split
       assert md5sum("LICENSE") == h
     end
