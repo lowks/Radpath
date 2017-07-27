@@ -55,6 +55,7 @@ defmodule Radpath.Mixfile do
      {:erlware_commons, github: "erlware/erlware_commons"},
      {:pattern_tap, github: "mgwidmann/elixir-pattern_tap"},
      {:temp, "~> 0.2"},
+     {:credo, "~> 0.8", only: [:dev, :test], runtime: false}
     ]
   end
 

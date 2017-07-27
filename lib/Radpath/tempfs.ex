@@ -17,8 +17,8 @@ defmodule Radpath.Tempfs do
          File.rm! filepath
      """
 
-     @spec mktempfile() :: none
-     def mktempfile() do
+     @spec mktempfile :: none
+     def mktempfile do
        Temp.open "Temp file"
      end
      @doc """
@@ -80,7 +80,6 @@ defmodule Radpath.Tempfs do
     ## Usage
 
         Radpath.mktempdir("/home/lowks/Downloads")
-
 
     """
 

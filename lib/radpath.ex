@@ -6,7 +6,7 @@ defmodule Radpath do
   use Radpath.Dirs
   use Radpath.Files
   use Radpath.Tempfs
-  
+
   def start(_type, _args) do
     Radpath.Supervisor.start_link
   end
@@ -105,13 +105,13 @@ defmodule Radpath do
 
       Radpath.unzip(zip_file, unzip_dir)
 
-
   """
 
   @spec unzip(bitstring, bitstring) :: none
   def unzip(zip_file, unzip_dir \\ File.cwd!) when is_bitstring(zip_file) do
     if File.exists?(zip_file) do
-      {:ok,ziphandler} = Z.openzip_open String.to_char_list(zip_file), [cwd: unzip_dir]
+      {:ok, ziphandler} = Z.openzip_open String.to_char_list(zip_file),
+                          [cwd: unzip_dir]
       Z.openzip_get(ziphandler)
       Z.openzip_close(ziphandler)
     end
@@ -176,7 +176,7 @@ defmodule Radpath do
   """
 
   @spec mv(bitstring, bitstring) :: none
-  defdelegate mv(source,destination), to: __MODULE__, as: :rename
+  defdelegate mv(source, destination), to: __MODULE__, as: :rename
 
   @doc """
   Gives you back the relative path:
@@ -196,7 +196,8 @@ defmodule Radpath do
   @spec relative_path(bitstring, bitstring) :: none
   def relative_path(base, file) do
     split = Path.split(base)
-    case split == Path.split(file) || length(split) > length(Path.split(file)) do
+    case split == Path.split(file) || length(split) >
+                  length(Path.split(file)) do
       true -> ""
       false -> Path.join(:lists.nthtail(length(split), Path.split(file)))
     end
@@ -253,7 +254,6 @@ defmodule Radpath do
     end
   end
 
-
 @doc """
   The flip of ensure. When called, removes file/directory if there. 
   If is_file is set to true then file is ensured to be removed else remove directory.
@@ -284,7 +284,6 @@ defmodule Radpath do
   - `path` Path to be checked in bitstring
 
   ## Usage
-
 
        iex(1)> Radpath.islink?("test3")
        true
@@ -338,7 +337,6 @@ defmodule Radpath do
   ## Arguments
 
   - `path` Path to file to generate sha1sum in bitstring
-
 
   ## Usage
 

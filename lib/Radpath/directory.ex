@@ -34,7 +34,7 @@ defmodule Radpath.Dirs do
     defp do_dirs([], result, regex_dir) do
       result
     end
-    defp do_dirs(paths ,result, regex_dir) do
+    defp do_dirs(paths, result, regex_dir) do
       [h | t] = paths
       do_dirs(t, result ++ dirs_list(h, regex_dir), regex_dir)
     end
