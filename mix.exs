@@ -7,7 +7,7 @@ defmodule Radpath.Mixfile do
   def project do
     [ app: :radpath,
       version: @version,
-      elixir: "~> 1.4.0 or ~> 1.3.0 or ~> 1.0.2 or ~> 1.1.0",
+      elixir: "~> 1.5.0 or ~> 1.4.0 or ~> 1.3.0 or ~> 1.0.2 or ~> 1.1.0",
       description: description,
       docs: [source_ref: "v#{@version}", main: "Radpath"],
       package: package,
@@ -60,7 +60,7 @@ defmodule Radpath.Mixfile do
 
   defp deps(:test) do
     deps(:prod) ++ [
-     {:amrita, "~>0.4", github: "josephwilk/amrita", only: :test},
+     # {:amrita, "~>0.4", github: "josephwilk/amrita", only: :test},
      {:excoveralls,  "== 0.3.6", only: :test},
     ]
   end
