@@ -6,9 +6,11 @@ defmodule Radpath do
   use Radpath.Dirs
   use Radpath.Files
   use Radpath.Tempfs
+  use Supervisor
   
   def start(_type, _args) do
-    Radpath.Supervisor.start_link
+    # Radpath.Supervisor.start_link(__MODULE__, _args)
+    Supervisor.start_link(__MODULE__, _args)
   end
 
   defmacro __using__([]) do
