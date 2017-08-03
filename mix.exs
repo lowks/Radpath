@@ -49,7 +49,6 @@ defmodule Radpath.Mixfile do
 
   defp deps(:prod) do
     [
-     {:tempfile, github: "lowks/tempfile" },
      {:ex_doc, github: "elixir-lang/ex_doc"},
      {:finder, github: "h4cc/Finder" },
      {:erlware_commons, github: "erlware/erlware_commons"},
