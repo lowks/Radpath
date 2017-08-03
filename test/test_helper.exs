@@ -7,5 +7,5 @@ defmodule PathHelpers do
     Path.expand("fixtures", __DIR__)
   end
 end
-# ExUnit.start
+ExUnit.start
 # Amrita.start(formatters: [Amrita.Formatter.Documentation])

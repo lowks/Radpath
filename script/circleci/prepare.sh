@@ -3,7 +3,7 @@
 set -e
 
 export ERLANG_VERSION="18.0"
-export ELIXIR_VERSION="v1.3.4"
+export ELIXIR_VERSION="v1.5.0"
 export INSTALL_PATH="$HOME/dependencies"
 
 export ERLANG_PATH="$INSTALL_PATH/otp_src_$ERLANG_VERSION"
