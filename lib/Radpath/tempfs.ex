@@ -47,7 +47,6 @@ defmodule Radpath.Tempfs do
 
      @spec mktempfile(bitstring, bitstring) :: bitstring
      def mktempfile(ext \\ ".tmp", path) when is_bitstring(path) and is_bitstring(ext) do
-        # Tempfile.get_name("", [ext: ext, path: path])
         Temp.open %{suffix: ext, basedir: path}
      end
 
