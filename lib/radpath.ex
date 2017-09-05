@@ -270,6 +270,8 @@ defmodule Radpath do
   iex(2)> Radpath.erusne("/tmp/hoho")
   ["/tmp/hoho"]
 
+      iex(1)> Radpath.erusne("/tmp/exists")
+      ["/tmp/exists"]
   """
 
   @spec erusne(bitstring) :: none
