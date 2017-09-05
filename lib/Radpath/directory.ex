@@ -20,9 +20,11 @@ defmodule Radpath.Dirs do
   
   ## Usage
 
-      iex(4)> Radpath.dirs("/home/lowks/src/elixir/radpath/lib", regex_dir)
-
-      iex(3)> Radpath.dirs(["/home/lowks/src/elixir/radpath/lib", "/home/lowks/src/elixir/radpath/_build"], regex_dir)
+      iex> Radpath.dirs(["lib"], "fixtures")
+      ["/Users/lowks/work/Radpath/test/fixtures"]
+      
+      iex> Radpath.dirs(["lib", "test"], "fixtures")
+      ["/Users/lowks/work/Radpath/test/fixtures"]
       
   """
     @spec dirs(bitstring, bitstring) :: list

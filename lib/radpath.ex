@@ -7,7 +7,7 @@ defmodule Radpath do
   use Radpath.Files
   use Radpath.Tempfs
   use Supervisor
-  
+
   def start(_type, _args) do
     # Radpath.Supervisor.start_link(__MODULE__, _args)
     Supervisor.start_link(__MODULE__, _args)
@@ -29,7 +29,7 @@ defmodule Radpath do
   To create symlink:
 
   ## Arguments
-  
+
   - `source` of file or directory in bitstring
   - `destination` of file or directory in bitstring
 
@@ -47,7 +47,7 @@ defmodule Radpath do
   end
 
   @doc """
-  
+
   To create a zip archive:
 
   ## Arguments
@@ -72,7 +72,7 @@ defmodule Radpath do
   end
 
   @doc """
-  
+
   To create a zip archive:
 
   ## Arguments
@@ -93,16 +93,16 @@ defmodule Radpath do
   end
 
   @doc """
- 
+
   zip_file is the zip archive. Will only unzip if zip_file exists
 
   ## Arguments
 
-  - `zip_file` string value of file that is to be uncompressed.  
-  - `unzip_dir` string value of output directory of where to unzip. 
+  - `zip_file` string value of file that is to be uncompressed.
+  - `unzip_dir` string value of output directory of where to unzip.
 
   ## Usage
-  
+
   To create a zip archive:
 
       Radpath.unzip(zip_file, unzip_dir)
@@ -120,7 +120,7 @@ defmodule Radpath do
   end
 
   @doc """
-  
+
   To mv a file / directory:
 
   ## Arguments
@@ -135,7 +135,7 @@ defmodule Radpath do
   """
 
   @doc """
-  
+
   To rename a file / directory:
 
   ## Arguments
@@ -147,7 +147,7 @@ defmodule Radpath do
 
       Radpath.rename(source, destination)
 
-  or 
+  or
 
       Radpath.mv(source, destination)
 
@@ -159,7 +159,7 @@ defmodule Radpath do
   end
 
   @doc """
-  
+
   Alias method for rename
 
   ## Arguments
@@ -171,7 +171,7 @@ defmodule Radpath do
 
       Radpath.mv(source, destination)
 
-  or 
+  or
 
       Radpath.mv(source, destination)
 
@@ -185,10 +185,10 @@ defmodule Radpath do
 
   ## Arguments
 
-  - `file` Bitstring 
-  - `base` Bitstring 
+  - `file` Bitstring
+  - `base` Bitstring
 
-  ## Usage   
+  ## Usage
 
       iex(1)> Radpath.relative_path("/tmp/lowks/", "/tmp/lowks/iam.txt")
       "iam.txt"
@@ -226,7 +226,7 @@ defmodule Radpath do
   end
 
   @doc """
-  Ensures that a directory/file is created. 
+  Ensures that a directory/file is created.
   If is_file is set to true then file is created.
 
   ## Arguments
@@ -234,14 +234,14 @@ defmodule Radpath do
   - `path` - Path that is to be created
 
   - `is_file` - Boolean, indicating if path is a file, if true ensure creates a file, else a directory. Default: false
-  
+
   ## Usage
 
-      iex(1)> Radpath.ensure(path)
-        :ok
-  
-      iex(2)> Radpath.ensure(path, true)
-        :ok
+    iex(1)> Radpath.ensure("/tmp/path/exists")
+    :ok
+
+    iex(2)> Radpath.ensure("/tmp/path/exists", true)
+    :ok
 
   """
 
@@ -257,7 +257,7 @@ defmodule Radpath do
 
 
 @doc """
-  The flip of ensure. When called, removes file/directory if there. 
+  The flip of ensure. When called, removes file/directory if there.
   If is_file is set to true then file is ensured to be removed else remove directory.
 
   ## Arguments
@@ -266,9 +266,9 @@ defmodule Radpath do
 
   ## Usage
 
-      iex(1)> Radpath.erusne(path)
-        [path]
-  
+      iex(1)> Radpath.erusne("/tmp/exists")
+      ["/tmp/exists"]
+
   """
 
   @spec erusne(bitstring) :: none
@@ -314,7 +314,7 @@ defmodule Radpath do
 
       iex(2)> Radpath.md5sum("mix.exs")
       "e7794b67112458774fe9f23d1b9c4913"
-      iex(3)> Radpath.md5sum("test")   
+      iex(3)> Radpath.md5sum("test")
       :error
   """
 
@@ -334,7 +334,7 @@ defmodule Radpath do
   end
 
   @doc """
-  Returns the sha1sum of a file. Only works for files. 
+  Returns the sha1sum of a file. Only works for files.
   Folders passed will return :error:
 
   ## Arguments
@@ -346,7 +346,7 @@ defmodule Radpath do
 
       iex(1)> Radpath.sha1sum("mix.exs")
       "48edfd81ee32efc0f9aea7dbebd0798fb2adf226"
-      iex(2)> Radpath.sha1sum("test")   
+      iex(2)> Radpath.sha1sum("test")
       :error
   """
 
