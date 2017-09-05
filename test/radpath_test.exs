@@ -6,6 +6,9 @@ defmodule RadpathTests.RadpathFacts do
   use ExUnit.Case, async: true
   use PatternTap
 
+  import Radpath
+  doctest Radpath
+
   import PathHelpers
   import Path, only: [basename: 1]
   import Enum, only: [map: 2]
