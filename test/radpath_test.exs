@@ -18,11 +18,11 @@ defmodule RadpathTests.RadpathFacts do
 
     test "zip" do
       try do
-        Path.join(fixture_path, "Testdir1.zip")
+        Path.join(fixture_path(), "Testdir1.zip")
         |> File.exists?
         |> refute
 
-        Radpath.zip([fixture_path], "Testdir1.zip")
+        Radpath.zip([fixture_path()], "Testdir1.zip")
         "Testdir1.zip" |> File.exists?
 
         System.cmd("zip",["-T","Testdir1.zip"])
@@ -38,15 +38,15 @@ defmodule RadpathTests.RadpathFacts do
     end
 
     test "zip: onepath" do
-      dir = Path.join(fixture_path, "testdir2")
+      dir = Path.join(fixture_path(), "testdir2")
       try do
-        Path.join(fixture_path, "Testdir2.zip") |> File.exists? |> refute
+        Path.join(fixture_path(), "Testdir2.zip") |> File.exists? |> refute
         Radpath.zip([dir], "Testdir2.zip")
         "Testdir2.zip" |> File.exists?
 
         System.cmd("zip",["-T","Testdir2.zip"])
         |> tap({result_str, _} ~> result_str)
-        |> String.strip |> (&(assert &1 == "test of Testdir2.zip OK")).()
+        |> String.trim |> (&(assert &1 == "test of Testdir2.zip OK")).()
 
         System.cmd("zipinfo",["-1","Testdir2.zip"])
       	|> tap({result_str2, _} ~> result_str2)
@@ -60,15 +60,15 @@ defmodule RadpathTests.RadpathFacts do
   end
 
   test "zip: OnebitstringPath" do
-    dir = Path.join(fixture_path, "testdir1")
+    dir = Path.join(fixture_path(), "testdir1")
     try do
-      Path.join(fixture_path, "Testdir3.zip") |> File.exists? |> refute
+      Path.join(fixture_path(), "Testdir3.zip") |> File.exists? |> refute
       Radpath.zip(dir, "Testdir3.zip")
       "Testdir3.zip" |> File.exists?
 
       System.cmd("zip",["-T","Testdir3.zip"])
       |> tap({result_str, _} ~> result_str)
-      |> String.strip
+      |> String.trim
       |> (&(assert &1 == "test of Testdir3.zip OK")).()
 
       System.cmd("zipinfo",["-1","Testdir3.zip"])
@@ -82,18 +82,18 @@ defmodule RadpathTests.RadpathFacts do
 
   test "unzip: One bitstring path in CWD" do
     try do
-      Path.join(fixture_path, "dome.csv") |> File.exists? |> refute
-      Radpath.unzip(Path.join(fixture_path, "dome.zip"), fixture_path)
-      Path.join(fixture_path, "dome.csv") |> File.exists?
+      Path.join(fixture_path(), "dome.csv") |> File.exists? |> refute
+      Radpath.unzip(Path.join(fixture_path(), "dome.zip"), fixture_path())
+      Path.join(fixture_path(), "dome.csv") |> File.exists?
     after
-      File.rm_rf(Path.join(fixture_path, "dome.csv"))
+      File.rm_rf(Path.join(fixture_path(), "dome.csv"))
     end
   end
 
   test "unzip: One bitstring path in tmp" do
     try do
-      Path.join(fixture_path, "dome.csv") |> File.exists? |> refute
-      Radpath.unzip(Path.join(fixture_path, "dome.zip"), "/tmp")
+      Path.join(fixture_path(), "dome.csv") |> File.exists? |> refute
+      Radpath.unzip(Path.join(fixture_path(), "dome.zip"), "/tmp")
     after
       Path.join("/tmp", "dome.csv") |> File.exists?
     end
@@ -101,7 +101,7 @@ defmodule RadpathTests.RadpathFacts do
 
   test "zip: path that does not exist" do
     try do
-        Path.join(fixture_path, "Testdir-dont-exist.zip")
+        Path.join(fixture_path(), "Testdir-dont-exist.zip")
         |> File.exists?
         |> refute
         Radpath.zip(["/gogo/I/don/exist"], "Testdir-dont-exist.zip")
@@ -124,7 +124,7 @@ defmodule RadpathTests.RadpathFacts do
                                    "testfile3.txt"]
 
     test "File Filtering" do
-       files = Radpath.files(fixture_path, "txt") |> Enum.map(&Path.basename(&1))
+       files = Radpath.files(fixture_path(), "txt") |> Enum.map(&Path.basename(&1))
        Enum.map(@dud_files, fn(x) -> refute Enum.member?(files, x) end)
        Enum.all?(@dud_files -- ["file3.log"], fn(x) -> files |> Enum.member? x end)
     end
@@ -134,7 +134,7 @@ defmodule RadpathTests.RadpathFacts do
     end
 
     test "Directory filtering" do
-       dirs = Radpath.dirs(fixture_path) |> Enum.map(&Path.basename(&1))
+       dirs = Radpath.dirs(fixture_path()) |> Enum.map(&Path.basename(&1))
        map(["testfile1.dud, file3.dud"], fn(x) -> refute Enum.member?(dirs, x) end)
        Enum.all?(["testdir3", "testdir2", "testdir1"], fn(x) -> Enum.member?(dirs, x) end)
     end
@@ -151,7 +151,7 @@ defmodule RadpathTests.RadpathFacts do
     end
 
     test "Filtering Files" do
-        Radpath.files(fixture_path, "log")
+        Radpath.files(fixture_path(), "log")
         |> map(&basename(&1))
         |> (&(assert &1 == ["file3.log"])).()
     end
@@ -170,13 +170,13 @@ defmodule RadpathTests.RadpathFacts do
     end
 
     test "Filtering Multiple filter for Files" do
-       Radpath.files(fixture_path, @file_ext) |> map(&basename(&1))
+       Radpath.files(fixture_path(), @file_ext) |> map(&basename(&1))
        |> Enum.sort
        |> (&(Enum.all?(@file_list, fn(x) -> Enum.member?(&1, x) end))).()
     end
 
     test "Filtering long file list" do
-       Radpath.files(fixture_path, @file_ext)
+       Radpath.files(fixture_path(), @file_ext)
        |> Enum.map(&Path.basename(&1))
        |> Enum.sort
        |> (&(Enum.all?(@file_list, fn(x) -> Enum.member?(&1, x) end))).()
@@ -192,7 +192,7 @@ defmodule RadpathTests.RadpathFacts do
 
    use ExUnit.Case
    import Radpath, only: [symlink: 2, islink?: 1]
-   @src Path.join(fixture_path, "testdir3")
+   @src Path.join(fixture_path(), "testdir3")
    @dest Path.join(Path.expand("."), "testdir3")
 
     test "Symlink Normal Usage" do
@@ -209,7 +209,7 @@ defmodule RadpathTests.RadpathFacts do
     end
 
     test "Symlink for Non Existent" do
-      src = Path.join(fixture_path, "testdir3xx")
+      src = Path.join(fixture_path(), "testdir3xx")
       try do
         Path.join(Path.expand("."), "testdir3") |> File.exists? |> refute
         symlink(src, @dest)
@@ -221,19 +221,19 @@ defmodule RadpathTests.RadpathFacts do
     end
 
     test "Test symlink: islink? Return true if path is symlink" do
-      test_dest = Path.join(fixture_path, "test_symlink")
+      test_dest = Path.join(fixture_path(), "test_symlink")
       try do
         test_dest |> File.exists? |> refute
-        symlink(fixture_path, test_dest)
+        symlink(fixture_path(), test_dest)
         assert islink?(test_dest)
-        {result, link} = F.read_link(test_dest)
+        {_, _} = F.read_link(test_dest)
       after
         File.rm_rf test_dest
       end
     end
 
     test "Test symlink: islink? Return false if path is not symlink or if does not exist" do
-      islink?(fixture_path) |> refute
+      islink?(fixture_path()) |> refute
       islink?("/I/wiLL/neveR/exist") |> refute
     end
    end
@@ -251,7 +251,7 @@ defmodule RadpathTests.RadpathFacts do
     end
 
     test "Test mktempdir: With argument" do
-      src = Path.join(fixture_path, "testdir3")
+      src = Path.join(fixture_path(), "testdir3")
             tmpdirpath = Radpath.mktempdir(src)
 
       try do
@@ -367,7 +367,7 @@ defmodule RadpathTests.RadpathFacts do
     use ExUnit.Case
 
     test "Test ensure: File and Directory" do
-      test_files = [Path.join(fixture_path, "gogo/gaga"), Path.join(fixture_path, "gogo/gaga.txt")]
+      test_files = [Path.join(fixture_path(), "gogo/gaga"), Path.join(fixture_path(), "gogo/gaga.txt")]
       try do
         Enum.map(test_files, fn(x) -> x |> File.exists? |> refute end)
         Enum.map(test_files, fn(x) -> Radpath.ensure(x) end)

@@ -8,9 +8,9 @@ defmodule Radpath.Mixfile do
     [ app: :radpath,
       version: @version,
       elixir: "~> 1.5.0 or ~> 1.4.0 or ~> 1.3.0 or ~> 1.0.2 or ~> 1.1.0",
-      description: description,
+      description: description(),
       docs: [source_ref: "v#{@version}", main: "Radpath"],
-      package: package,
+      package: package(),
       deps: deps(Mix.env),
       deps_path: System.get_env("MY_DEPS_PATH") || "deps",
       test_coverage: [tool: ExCoveralls]
