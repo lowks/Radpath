@@ -15,7 +15,7 @@ A library for dealing with paths in Elixir largely inspired by Python's pathlib.
 
 To use Radpath, add a dependency in your mix:
 
-```console
+```elixir
 def deps do
   [ { :Radpath, github: "lowks/Radpath"}]
 end
@@ -31,13 +31,13 @@ Developed whenever I can find the time.
 
 Running tests against a stable release of Elixir defined by 'STABLE_ELIXIR_VERSION' in the Makefile:
 
-```console
+```bash
 make ci
 ```
 
 Running tests against your system's Elixir:
 
-```console
+```bash
 make
 ```
 
@@ -45,31 +45,31 @@ make
 
 To list down files in a path:
 
-```console
+```elixir
 Radpath.files("/home/lowks/Documents")
 ```
 
 or if you wanted to filter out certain files with pdf extensions:
 
-```console
+```elixir
 Radpath.files("/home/lowks/Documents", "pdf")
 ```
 
 Listing down only directories:
 
-```console
+```elixir
 Radpath.dirs("/home/lowks")                  
 ```
 
 To create symlink:
 
-```console
+```elixir
 Radpath.symlink(source, destination)
 ```
 
 To create tempfile:
 
-```console
+```elixir
 {status, fd, file_path}  = Radpath.mktempfile
 IO.write fd, "hoho"
 File.close fd
@@ -82,7 +82,7 @@ This uses all the defaults
 
 To customize the location plus the extension: 
 
-```console
+```elixir
 {_, fd, filepath} = Radpath.mktempfile(".log", "/home/lowks/Downloads")
 IO.write fd, "hoho"
 File.read! filepath
