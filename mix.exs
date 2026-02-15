@@ -58,7 +58,7 @@ defmodule Radpath.Mixfile do
   defp deps(:test) do
     deps(:prod) ++ [
      # {:amrita, "~>0.4", github: "josephwilk/amrita", only: :test},
-     {:excoveralls,  "== 0.3.6", only: :test},
+     {:excoveralls,  "~> 0.18", only: :test},
     ]
   end
 

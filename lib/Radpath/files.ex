@@ -45,20 +45,12 @@ defmodule Radpath.Files do
   """
 
     @spec files(bitstring | list, bitstring | list) :: list
-    def files(path, ext) when is_bitstring(path) and is_bitstring(ext) do
-      file_ext = case String.valid? ext do
-        true -> [ext]
-        false -> ext
-      end
-      expanded_path = Path.expand(path)
-      case File.exists? expanded_path do
-        true -> Finder.new()
-                |> Finder.only_files()
-                |> Finder.with_file_endings(file_ext)
-                |> Finder.find(expanded_path)
-                |> Enum.to_list
-        false -> []
-      end
+    def files(path, ext) when (is_bitstring(path) or is_list(path)) and (is_bitstring(ext) or is_list(ext)) do
+      file_ext = if is_bitstring(ext), do: [ext], else: ext
+
+      path
+      |> normalize_path()
+      |> do_ext_files([], file_ext)
     end
 
     @doc """
@@ -77,35 +69,10 @@ Listing down all files in the "ci" folder without filtering:
 
 """
 
-    def files(path) when is_bitstring(path) do
-      expanded_path = Path.expand(path)
-      case File.exists? expanded_path do
-        true -> Finder.new()
-                |> Finder.only_files()
-                |> Finder.find(expanded_path)
-                |> Enum.to_list
-        false -> []
-      end
-    end
-
-    # def files(path, file_ext) when is_bitstring(path) and is_list(file_ext) do
-    #   file_ext = normalize_path(file_ext)
-    #   path
-    #   |> normalize_path
-    #   |> do_ext_files([], file_ext)
-    # end
-
-    def files(path) when is_list(path) do
+    def files(path) when is_bitstring(path) or is_list(path) do
       path
-      |> normalize_path
+      |> normalize_path()
       |> do_files([])
-    end
-
-    def files(path, file_ext) when is_bitstring(path) or is_list(path) and is_list(file_ext) do
-      file_ext = normalize_path(file_ext)
-      path
-      |> normalize_path
-      |> do_ext_files([], file_ext)
     end
 
     # def files(path, file_ext) when is_list(path) and is_list(file_ext) do
