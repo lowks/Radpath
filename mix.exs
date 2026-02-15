@@ -1,4 +1,3 @@
-Code.ensure_loaded?(Hex) and Hex.start
 defmodule Radpath.Mixfile do
   use Mix.Project
 
@@ -7,7 +6,7 @@ defmodule Radpath.Mixfile do
   def project do
     [ app: :radpath,
       version: @version,
-      elixir: "~> 1.5.0 or ~> 1.4.0 or ~> 1.3.0 or ~> 1.0.2 or ~> 1.1.0",
+      elixir: "~> 1.11",
       description: description(),
       docs: [source_ref: "v#{@version}", main: "Radpath"],
       package: package(),
@@ -50,7 +49,6 @@ defmodule Radpath.Mixfile do
   defp deps(:prod) do
     [
      {:ex_doc, github: "elixir-lang/ex_doc"},
-     {:finder, github: "h4cc/Finder" },
      {:erlware_commons, github: "erlware/erlware_commons"},
      {:pattern_tap, github: "mgwidmann/elixir-pattern_tap"},
      {:temp, "~> 0.2"},
@@ -60,7 +58,7 @@ defmodule Radpath.Mixfile do
   defp deps(:test) do
     deps(:prod) ++ [
      # {:amrita, "~>0.4", github: "josephwilk/amrita", only: :test},
-     {:excoveralls,  "== 0.3.6", only: :test},
+     {:excoveralls,  "~> 0.18", only: :test},
     ]
   end
 

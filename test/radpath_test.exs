@@ -94,8 +94,9 @@ defmodule RadpathTests.RadpathFacts do
     try do
       Path.join(fixture_path(), "dome.csv") |> File.exists? |> refute
       Radpath.unzip(Path.join(fixture_path(), "dome.zip"), "/tmp")
+      assert Path.join("/tmp", "dome.csv") |> File.exists?
     after
-      Path.join("/tmp", "dome.csv") |> File.exists?
+      File.rm_rf(Path.join("/tmp", "dome.csv"))
     end
   end
 
@@ -115,7 +116,7 @@ defmodule RadpathTests.RadpathFacts do
   defmodule FilteringTest do
     use ExUnit.Case
 
-    @dud_files ["testfile1.dud, file3.dud"]
+    @dud_files ["testfile1.dud", "file3.dud"]
     @test_files ["testdir3", "testdir2", "testdir1"]
     @file_list ["file1.txt", "file2.txt", "file3.log"]
     @file_ext ["txt", "log"]
@@ -126,7 +127,6 @@ defmodule RadpathTests.RadpathFacts do
     test "File Filtering" do
        files = Radpath.files(fixture_path(), "txt") |> Enum.map(&Path.basename(&1))
        Enum.map(@dud_files, fn(x) -> refute Enum.member?(files, x) end)
-       Enum.all?(@dud_files -- ["file3.log"], fn(x) -> files |> Enum.member? x end)
     end
 
     test "File Filtering returns empty if path does not exist" do
@@ -135,14 +135,14 @@ defmodule RadpathTests.RadpathFacts do
 
     test "Directory filtering" do
        dirs = Radpath.dirs(fixture_path()) |> Enum.map(&Path.basename(&1))
-       map(["testfile1.dud, file3.dud"], fn(x) -> refute Enum.member?(dirs, x) end)
-       Enum.all?(["testdir3", "testdir2", "testdir1"], fn(x) -> Enum.member?(dirs, x) end)
+       map(["testfile1.dud", "file3.dud"], fn(x) -> refute Enum.member?(dirs, x) end)
+       assert Enum.all?(["testdir3", "testdir2", "testdir1"], fn(x) -> Enum.member?(dirs, x) end)
     end
 
     test "Directory Filter: List" do
-        expected = @test_files ++ ["fixtures"] |> Enum.sort
-        actual = Radpath.dirs(["test", "lib"]) |> map(&basename(&1))
-        assert actual == expected ++ ["Radpath"]
+        expected = (@test_files ++ ["fixtures", "Radpath"]) |> Enum.sort
+        actual = Radpath.dirs(["test", "lib"]) |> map(&basename(&1)) |> Enum.sort
+        assert actual == expected
     end
 
     test "Directory Filtering: Regex" do
@@ -172,19 +172,19 @@ defmodule RadpathTests.RadpathFacts do
     test "Filtering Multiple filter for Files" do
        Radpath.files(fixture_path(), @file_ext) |> map(&basename(&1))
        |> Enum.sort
-       |> (&(Enum.all?(@file_list, fn(x) -> Enum.member?(&1, x) end))).()
+       |> (&(assert Enum.all?(@file_list, fn(x) -> Enum.member?(&1, x) end))).()
     end
 
     test "Filtering long file list" do
        Radpath.files(fixture_path(), @file_ext)
        |> Enum.map(&Path.basename(&1))
        |> Enum.sort
-       |> (&(Enum.all?(@file_list, fn(x) -> Enum.member?(&1, x) end))).()
+       |> (&(assert Enum.all?(@file_list, fn(x) -> Enum.member?(&1, x) end))).()
     end
 
-    test "Filtering Multiple Filter for Files" do
-      files = Radpath.files(['lib'], @file_ext) |> Enum.map(&Path.basename(&1))
-      Enum.all?(@file_list, fn(x) -> Enum.member?(files, x) end)
+    test "Filtering Multiple Filter for Files with List" do
+      files = Radpath.files([fixture_path()], @file_ext) |> Enum.map(&Path.basename(&1))
+      assert Enum.all?(@file_list, fn(x) -> Enum.member?(files, x) end)
     end
   end
 

@@ -1,12 +1,7 @@
 # Radpath
 
-[![Build Status](https://travis-ci.org/lowks/Radpath.png?branch=master)](https://travis-ci.org/lowks/Radpath)
-[![Build Status](https://drone.io/github.com/lowks/Radpath/status.png)](https://drone.io/github.com/lowks/Radpath/latest)
-[![wercker status](https://app.wercker.com/status/10f2bf7288af1be5c4e39f25367bb3b7/s/master "wercker status")](https://app.wercker.com/project/byKey/10f2bf7288af1be5c4e39f25367bb3b7)
-[![Circle CI](https://circleci.com/gh/lowks/Radpath/tree/master.png?style=badge)](https://circleci.com/gh/lowks/Radpath/tree/master)
+[![CI](https://github.com/lowks/Radpath/actions/workflows/autobuild.yml/badge.svg)](https://github.com/lowks/Radpath/actions/workflows/autobuild.yml)
 [![Inline docs](http://inch-ci.org/github/lowks/Radpath.svg?branch=master&style=flat)](http://inch-ci.org/github/lowks/Radpath)
-[![Build Status](https://snap-ci.com/lowks/Radpath/branch/master/build_image)](https://snap-ci.com/lowks/Radpath/branch/master/build_image)
-[![Coverage Status](https://coveralls.io/repos/lowks/Radpath/badge.png?branch=master)](https://coveralls.io/r/lowks/Radpath?branch=master)
 
 A library for dealing with paths in Elixir largely inspired by Python's pathlib.
 
