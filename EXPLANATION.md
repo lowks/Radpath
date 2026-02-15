@@ -65,3 +65,4 @@ Radpath.ensure("/tmp/my_new_dir")
 *   **Build Tool**: Mix
 *   **Dependencies**: Includes `ex_doc`, `finder`, `erlware_commons`, `pattern_tap`, and `temp`.
 *   **Testing**: The project uses `ExUnit`. Tests can be run via `make test` or `mix test` (requires Elixir and Erlang to be installed).
+*   **CI/CD**: The project uses GitHub Actions for automated building and testing (see `.github/workflows/autobuild.yml`).
