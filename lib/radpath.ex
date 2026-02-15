@@ -1,8 +1,8 @@
 defmodule Radpath do
   alias :file, as: F
   alias :zip, as: Z
-  # use PatternTap
-  import PatternTap
+  use PatternTap
+  # import PatternTap
   use Application
   use Radpath.Dirs
   use Radpath.Files
