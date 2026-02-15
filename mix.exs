@@ -1,4 +1,3 @@
-Code.ensure_loaded?(Hex) and Hex.start
 defmodule Radpath.Mixfile do
   use Mix.Project
 
@@ -7,7 +6,7 @@ defmodule Radpath.Mixfile do
   def project do
     [ app: :radpath,
       version: @version,
-      elixir: "~> 1.5.0 or ~> 1.4.0 or ~> 1.3.0 or ~> 1.0.2 or ~> 1.1.0",
+      elixir: "~> 1.11",
       description: description(),
       docs: [source_ref: "v#{@version}", main: "Radpath"],
       package: package(),
