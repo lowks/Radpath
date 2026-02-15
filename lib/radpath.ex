@@ -114,9 +114,9 @@ defmodule Radpath do
   @spec unzip(bitstring, bitstring) :: any
   def unzip(zip_file, unzip_dir \\ File.cwd!) when is_bitstring(zip_file) do
     if File.exists?(zip_file) do
-      {:ok,ziphandler} = Z.openzip_open String.to_charlist(zip_file), [cwd: unzip_dir]
-      Z.openzip_get(ziphandler)
-      Z.openzip_close(ziphandler)
+      {:ok,ziphandler} = Z.zip_open String.to_charlist(zip_file), [cwd: unzip_dir]
+      Z.zip_get(ziphandler)
+      Z.zip_close(ziphandler)
     end
   end
 
