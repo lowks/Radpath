@@ -87,7 +87,7 @@ defmodule Radpath.Tempfs do
     def mktempdir(path \\ "/tmp") when is_bitstring(path) do
        ## Temp.mkdir(%{basedir: path}) |> tap({_, path_name} ~> path_name)
       Temp.mkdir(%{basedir: path})
-         |> tap(fn {:ok, path_name} -> path_name end) # Explicit tuple match
+         |> PatternTap.tap(fn {:ok, path_name} -> path_name end) # Explicit tuple match
 
     end
 
