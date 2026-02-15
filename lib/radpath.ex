@@ -61,13 +61,13 @@ defmodule Radpath do
 
   """
 
-  @spec parent_path(list) :: none
+  @spec zip(list, bitstring) :: any
   def zip(dirs, archive_name) when is_list(dirs) do
     dirs_list = dirs
     |> Enum.filter(fn(x) -> File.exists?(x) end)
-    |> Enum.map&(String.to_char_list(&1))
+    |> Enum.map(&(String.to_charlist(&1)))
     unless Enum.empty? dirs_list do
-      Z.create(String.to_char_list(archive_name), dirs_list)
+      Z.create(String.to_charlist(archive_name), dirs_list)
     end
   end
 
@@ -85,10 +85,10 @@ defmodule Radpath do
       Radpath.zip(dir1, archive_name)
 
   """
-  @spec zip(bitstring, bitstring) :: none
+  @spec zip(bitstring, bitstring) :: any
   def zip(dir, archive_name) when is_bitstring(dir) do
     if File.exists?(dir) do
-      Z.create(String.to_char_list(archive_name), [String.to_char_list(dir)])
+      Z.create(String.to_charlist(archive_name), [String.to_charlist(dir)])
     end
   end
 
@@ -110,10 +110,10 @@ defmodule Radpath do
 
   """
 
-  @spec unzip(bitstring, bitstring) :: none
+  @spec unzip(bitstring, bitstring) :: any
   def unzip(zip_file, unzip_dir \\ File.cwd!) when is_bitstring(zip_file) do
     if File.exists?(zip_file) do
-      {:ok,ziphandler} = Z.openzip_open String.to_char_list(zip_file), [cwd: unzip_dir]
+      {:ok,ziphandler} = Z.openzip_open String.to_charlist(zip_file), [cwd: unzip_dir]
       Z.openzip_get(ziphandler)
       Z.openzip_close(ziphandler)
     end
@@ -195,7 +195,7 @@ defmodule Radpath do
       iex(2)> Radpath.relative_path("/tmp/lowks/", "/tmp/lowks/hoho/iam.txt")
       "hoho/iam.txt"
   """
-  @spec relative_path(bitstring, bitstring) :: none
+  @spec relative_path(bitstring, bitstring) :: bitstring
   def relative_path(base, file) do
     split = Path.split(base)
     case split == Path.split(file) || length(split) > length(Path.split(file)) do
@@ -220,9 +220,9 @@ defmodule Radpath do
   @spec parent_path(bitstring) :: bitstring
   def parent_path(path) when is_bitstring(path) do
     path
-    |> Path.absname(path)
-    |> String.split(Path.basename(path))
-    |> List.first
+    |> Path.absname()
+    |> Path.dirname()
+    |> make_into_path()
   end
 
   @doc """
@@ -245,7 +245,7 @@ defmodule Radpath do
 
   """
 
-  @spec ensure(bitstring, bitstring) :: none
+  @spec ensure(bitstring, boolean) :: any
   def ensure(path, is_file \\ false) when is_bitstring(path) do
     unless File.exists?(path) do
       cond do

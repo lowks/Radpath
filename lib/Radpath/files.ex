@@ -44,7 +44,7 @@ defmodule Radpath.Files do
 
   """
 
-    @spec files(bitstring, bitstring) :: list
+    @spec files(bitstring | list, bitstring | list) :: list
     def files(path, ext) when is_bitstring(path) and is_bitstring(ext) do
       file_ext = case String.valid? ext do
         true -> [ext]

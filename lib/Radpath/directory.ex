@@ -25,7 +25,7 @@ defmodule Radpath.Dirs do
       iex(3)> Radpath.dirs(["/home/lowks/src/elixir/radpath/lib", "/home/lowks/src/elixir/radpath/_build"], regex_dir)
       
   """
-    @spec dirs(bitstring, bitstring) :: list
+    @spec dirs(bitstring | list, bitstring) :: list
     def dirs(path, regex_dir \\ ".+") when (is_bitstring(path) or is_list(path)) do
       path
        |> normalize_path
