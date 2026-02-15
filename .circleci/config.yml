@@ -1,0 +1,14 @@
+version: 2.1
+
+jobs:
+  build:
+    docker:
+      - image: cimg/elixir:1.15-erlang-26
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: mix deps.get
+      - run:
+          name: Run tests
+          command: mix test

@@ -49,7 +49,6 @@ defmodule Radpath.Mixfile do
   defp deps(:prod) do
     [
      {:ex_doc, github: "elixir-lang/ex_doc"},
-     {:finder, github: "h4cc/Finder" },
      {:erlware_commons, github: "erlware/erlware_commons"},
      {:pattern_tap, github: "mgwidmann/elixir-pattern_tap"},
      {:temp, "~> 0.2"},
