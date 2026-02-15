@@ -222,7 +222,7 @@ defmodule Radpath do
     path
     |> Path.absname()
     |> Path.dirname()
-    |> make_into_path()
+    |> Radpath.Util.make_into_path()
   end
 
   @doc """
@@ -372,34 +372,6 @@ defmodule Radpath do
         error -> error
       end
     end
-  end
-
-  defp make_into_path(path_str) do
-    Path.absname(path_str) <> "/"
-  end
-
-  # list of bitstrings
-  defp normalize_path([path | rest]) when is_bitstring(path) do
-    [path | normalize_path(rest)]
-  end
-
-  # list of character lists
-  defp normalize_path([path | rest]) when is_list(path) do
-    [to_string(path) | normalize_path(rest)]
-  end
-
-  defp normalize_path([]) do
-    []
-  end
-
-  # bitstring
-  defp normalize_path(path) when is_bitstring(path) do
-    [path]
-  end
-
-  # character list
-  defp normalize_path(path) when is_list(path) do
-    [to_string(path)]
   end
 
 end

@@ -28,10 +28,10 @@ defmodule Radpath.Dirs do
     @spec dirs(bitstring | list, bitstring) :: list
     def dirs(path, regex_dir \\ ".+") when (is_bitstring(path) or is_list(path)) do
       path
-       |> normalize_path
+       |> Radpath.Util.normalize_path()
        |> do_dirs([], regex_dir)
     end
-    defp do_dirs([], result, regex_dir) do
+    defp do_dirs([], result, _regex_dir) do
       result
     end
     defp do_dirs(paths ,result, regex_dir) do
@@ -40,10 +40,10 @@ defmodule Radpath.Dirs do
     end
 
     defp dirs_list(path, regex_dir) when is_bitstring(path) do
-        Finder.new()
-        |> Finder.with_directory_regex(Regex.compile!(regex_dir))
-        |> Finder.only_directories()
-        |> Finder.find(Path.expand(path))
+        Radpath.Finder.new()
+        |> Radpath.Finder.with_directory_regex(Regex.compile!(regex_dir))
+        |> Radpath.Finder.only_directories()
+        |> Radpath.Finder.find(Path.expand(path))
         |> Enum.to_list
         |> Enum.sort
     end

@@ -1,7 +1,7 @@
-defmodule Finder do
+defmodule Radpath.Finder do
   defstruct only_files: false, only_directories: false, file_endings: [], directory_regex: nil
 
-  def new(), do: %Finder{}
+  def new(), do: %Radpath.Finder{}
 
   def only_files(finder), do: %{finder | only_files: true}
   def only_directories(finder), do: %{finder | only_directories: true}
@@ -11,15 +11,16 @@ defmodule Finder do
   def find(finder, path) do
     # Finder.find usually returns an Enumerable.
     # We will use Stream to be safe if there are many files.
-    # It also seems to include the base path in search?
 
-    # We'll use File.ls! and recursion to mimic a deep find.
+    normalized_endings = Enum.map(finder.file_endings, &String.trim_leading(&1, "."))
+
+    # We'll use File.ls and recursion to mimic a deep find.
     find_recursive(path)
     |> Stream.filter(fn p ->
       cond do
         finder.only_files and not File.regular?(p) -> false
         finder.only_directories and not File.dir?(p) -> false
-        finder.file_endings != [] and not (Path.extname(p) |> String.trim_leading(".") in (finder.file_endings |> Enum.map(&String.trim_leading(&1, ".")))) -> false
+        finder.file_endings != [] and not (String.trim_leading(Path.extname(p), ".") in normalized_endings) -> false
         finder.directory_regex and not (Path.basename(p) =~ finder.directory_regex) -> false
         true -> true
       end

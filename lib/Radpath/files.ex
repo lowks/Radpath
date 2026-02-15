@@ -49,7 +49,7 @@ defmodule Radpath.Files do
       file_ext = if is_bitstring(ext), do: [ext], else: ext
 
       path
-      |> normalize_path()
+      |> Radpath.Util.normalize_path()
       |> do_ext_files([], file_ext)
     end
 
@@ -71,7 +71,7 @@ Listing down all files in the "ci" folder without filtering:
 
     def files(path) when is_bitstring(path) or is_list(path) do
       path
-      |> normalize_path()
+      |> Radpath.Util.normalize_path()
       |> do_files([])
     end
 
@@ -103,10 +103,10 @@ Listing down all files in the "ci" folder without filtering:
     defp ext_file_list(path, file_ext \\ []) do
       expanded_path = Path.expand(path)
       case File.exists? expanded_path do
-        true -> Finder.new()
-                |> Finder.only_files()
-                |> Finder.with_file_endings(file_ext)
-                |> Finder.find(expanded_path)
+        true -> Radpath.Finder.new()
+                |> Radpath.Finder.only_files()
+                |> Radpath.Finder.with_file_endings(file_ext)
+                |> Radpath.Finder.find(expanded_path)
                 |> Enum.to_list
         false -> []
       end
